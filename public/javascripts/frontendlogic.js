@@ -1,9 +1,30 @@
 /**
+ * input and textarea to populate with date
+ */
+const paciente = [
+  'id',
+  'nombre',
+  'apellido',
+  'fdn',
+  'tel',
+  'email',
+  'antecedentes',
+  'ginecouro',
+  'alergias'
+];
+const nota = [
+  'enfactual',
+  'exfisico',
+  'excomple',
+  'diagnosticos',
+  'tratamiento'
+];
+/**
  * Single Page App behaviour as tabs
  * 
  * 
  * @param {object} event, onclick
- * @param {string} div id to be displayed or hided
+ * @param {string} div id to be displayed or hidded
  */
 function openSection(event, section) {
   let x, i, tablink;
@@ -19,7 +40,6 @@ function openSection(event, section) {
   }
   event.currentTarget.classList.add('w3-blue');
 }
-
 /**
  * Monitor key pressed over ID input, if 'Enter', sends
  * event.key to '/leerDB
@@ -32,7 +52,6 @@ function openSection(event, section) {
  * @param {array of objects} docs from neDB find query, length should be 1
  */
 function checkId(event) {
-  var nodelist = listarCampos();
   if (event.key == "Enter") {
     fetch(`/leerDB?id=${event.target.value}`)
       .then((response) => {
@@ -40,12 +59,13 @@ function checkId(event) {
         console.log('response ok:' + response.ok);
         return response.json();
       })
-      .then((docs) => {
-        if (docs.length >= 1) {
-          populateForm(docs);
-          desactivarCampos(nodelist);
+      .then((doc) => {
+        if (doc != null) {
+          desactivarPaciente();
+          populateForm(doc);
         } else {
-          activarCampos(nodelist);
+          console.log('toca activar campos');
+          activarPaciente();
         }
       })
   }
@@ -67,32 +87,53 @@ function listarCampos() {
  * change input and textarea to readOnly = false
  * id input is set readOnly = true
  * 
- * @param { nodeList } nodelist
+ * @paciente is a const with input /textarea #id
  * 
  * 
  */
-function activarCampos(nodelist) {
-  let x;
-  for (x = 0; x < nodelist.length; x++) {
-    if (nodelist[x].id == 'id') {
-      nodelist[x].readOnly = true;
+function activarPaciente() {
+  for (let x of paciente) {
+    if (x == 'id') {
+      console.log('desactivando campo id');
+      document.querySelector(`#${x}`).readOnly = true;
       continue;
     }
-    nodelist[x].readOnly = false;
+    document.querySelector(`#${x}`).readOnly = false;
     document.querySelector('#nombre').focus();
   }
+}
+/**
+ * 
+ * 
+ * 
+ * 
+ */
+function activarNota() {
+  let id = document.querySelector('#id').value;
+  if ( isNaN( parseInt(id) ) ) {
+    console.log('no hay ID !, lo que hay es ' + document.querySelector('#id').value);
+    return;
+  }
+  for (let x of nota) {
+    document.querySelector(`#${x}`).value = '';
+    document.querySelector(`#${x}`).readOnly = false;
+  }
+  document.querySelector('#grabarnota').disabled = false;
+  document.querySelector('#enfactual').focus(); 
 }
 
 /**
  * 
  * 
- * @param { nodeList } nodelist
+ * 
  * 
  */
-function desactivarCampos( nodelist ) {
-  let x;
-  for (x = 0; x < nodelist.length; x++) {
-    nodelist[x].readOnly = true;
+function desactivarPaciente() {
+  for (let x of paciente) {
+    document.querySelector(`#${x}`).readOnly = true;
+  }
+  for (let x of nota) {
+    document.querySelector(`#${x}`).readOnly = true;
   }
 }
 
@@ -101,30 +142,36 @@ function desactivarCampos( nodelist ) {
  * if /leerDB sends [{doc}]
  * 
  * 
- * @param {docs} array of docs from neDB find query, should be lenght 1 
- */
-function populateForm( docs ) {
-  let nodelist = document.querySelectorAll('.campos');
-  let x;
-  for (x = 0; x < nodelist.length; ++x) {
-    nodelist[x].value = docs[0][nodelist[x].id];
+ * @param {doc} object doc from neDB findOne query
+ * 
+ *  */
+function populateForm(doc) {
+  let cantidadNotas = doc.notas.length;
+  console.log('cantidad de notas es ' + cantidadNotas);
+  for (let x of paciente) {
+    document.querySelector(`#${x}`).value = doc[x];
+  }
+  for (let x of nota) {
+    document.querySelector(`#${x}`).value =
+      (doc.notas[cantidadNotas - 1]) ? (doc.notas[cantidadNotas - 1])[x] : '';
   }
 }
 
 /**
- * collect data from .campos
  * 
+ * collect data from fist tab (break when reach 'enfactual')
  * send {object} data, as JSON string to /grabarPaciente
  * 
  * 
  */
 function grabarPaciente() {
   let data = {};
-  let nodelist = document.querySelectorAll('.campos');
-  let x;
-  for (x = 0; x < nodelist.length; x++) {
-    data[nodelist[x].id] = nodelist[x].value;
+  for (let x of paciente) {
+    
+    data[x] = document.querySelector(`#${x}`).value;
   }
+  data.notas = [];
+
   fetch('/grabarPaciente', {
     method: 'POST',
     body: JSON.stringify(data),
@@ -132,6 +179,35 @@ function grabarPaciente() {
   })
     .then((response) => {
       console.log('grabarPaciente response ok es ' + response.ok);
-      desactivarCampos(nodelist);
+      desactivarPaciente();
     });
-};
+}
+
+/**
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+function grabarNota() {
+  let id = document.querySelector('#id').value;
+  if ( isNaN(parseInt(id))) {
+    console.log('ID no es un numero');
+    return;
+  }
+  let nuevaNota = {};
+  nuevaNota.stamp = Date.now();
+  for (let x of nota) {
+    nuevaNota[x] = document.querySelector(`#${x}`).value;
+  }
+  fetch(`/grabarNota?id=${id}`, {
+    method: 'POST',
+    body: JSON.stringify(nuevaNota),
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then(response => {
+      console.log('grabarNota response ok es ' + response.ok);
+    });
+}
+
