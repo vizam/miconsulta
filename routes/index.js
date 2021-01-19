@@ -48,12 +48,33 @@ router.get('/leerDB', function (req, res, next) {
  * @param {doc} object with the newly inserted document
  * req.body is javascript object
  */
-router.post('/grabarPaciente', function (req, res, next) {
-  db.insert(req.body, (err, doc) => {
-    if (err) {
-      console.log('error al meter registro');
-    } else {
+router.post('/grabarPaciente', function (req, res, next)
+{
+  db.findOne({id: req.body.id}, (err, doc) =>
+  {
+    if (err)
+    {
+      console.log('Se produjo un error !');
+      res.send('error');
       res.end();
+    }
+    if (doc != null)
+    {
+      console.log('Ese archivo ya existe !');
+      res.send('repetido');
+    } else
+    {
+      db.insert(req.body, (err, doc) => 
+      {
+        if (err)
+        {
+          console.log('error al meter registro');
+          res.send('error');
+        } else
+        {
+          res.send('exito');
+        }
+      });
     }
   });
 });
