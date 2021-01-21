@@ -63,10 +63,10 @@ function openSection(event, section) {
  * {object} var documento , global objecto to store retrieved document
  * @param {object} event onkeydown
  * @return {promise}
- * @param {array of objects} docs from neDB find query, length should be 1
- */
+ * @param {object} doc from neDB findOne query
+ * */
 function checkId(event) {
-  let id = parseInt( document.querySelector('#id').value);
+  let id = parseInt(document.querySelector('#id').value);
   if (event.key == "Enter" && id >= 1) {
     fetch(`/leerDB?id=${event.target.value}`)
       .then((response) => {
@@ -80,31 +80,36 @@ function checkId(event) {
           desactivarPaciente();
           poblarCampos();
           poblarEtiquetas();
-         // calcularEdad();
           crearPaginacion();
+          tagInformativa('#tagExito');
         } else {
           console.log('toca activar campos');
           activarPaciente();
         }
-      })
-  } else {
-    document.querySelector('#id').value = '';
-
+      });
   }
 }
-
+/**
+ * 
+ */
+function tagInformativa(tag) {
+  let tags = document.querySelectorAll('.tag');
+  for (let x of tags) {
+    x.style.display = 'none';
+  }
+  document.querySelector(tag).style.display = 'inline-block'
+  
+}
 /**
  * change input and textarea to readOnly = false
  * id input is set readOnly = true
  * 
- * @paciente is a const with input /textarea #id
- * 
+ * @paciente is a const with input /textarea html id attributes
  * 
  */
 function activarPaciente() {
   for (let x of paciente) {
     if (x == 'id') {
-      console.log('desactivando campo id');
       document.querySelector(`#${x}`).readOnly = true;
       continue;
     }
@@ -114,9 +119,6 @@ function activarPaciente() {
   }
 }
 /**
- * 
- * 
- * 
  * 
  */
 function desactivarPaciente() {
@@ -128,11 +130,7 @@ function desactivarPaciente() {
   }
   document.querySelector('#grabarPaciente').disabled = true;
 }
-
 /**
- * 
- * 
- * 
  * 
  */
 function activarNota() {
@@ -149,7 +147,7 @@ function activarNota() {
   document.querySelector('#activarNota').disabled = true;
   document.querySelector('#grabarNota').disabled = false;
   document.querySelector('#enfactual').focus();
-  document.querySelector('#paginador').style.visibility = 'hidden';  
+  document.querySelector('#paginador').style.visibility = 'hidden';
 }
 /**
  * 
@@ -163,19 +161,15 @@ function desactivarNota() {
   document.querySelector('#grabarNota').disabled = true;
   document = querySelector('#etiquetaFecha').innerHTML = fecha;
 }
-
-
-
 /**
  * if /leerDB sends [{doc}]
  * 
  * 
- * @param {doc} object doc from neDB findOne query
+ * {object} documento is a global variable, populated if checkId returns a document 
  * 
  *  */
 function poblarCampos() {
   let cantidadNotas = documento.notas.length;
-  console.log('cantidad de notas es ' + cantidadNotas);
   for (let x of paciente) {
     document.querySelector(`#${x}`).value = documento[x];
   }
@@ -186,8 +180,8 @@ function poblarCampos() {
   document.querySelector('#edad').value = calcularEdad();
   document.querySelector('#activarNota').disabled = false;
 }
-
 /**
+ * {object} documento is a global variable, populated if checkId returns a document 
  * 
  */
 function poblarEtiquetas() {
@@ -195,19 +189,17 @@ function poblarEtiquetas() {
   document.querySelector('#etiquetaEdad').innerHTML = `${calcularEdad()} años`;
   let cantidadNotas = documento.notas.length;
   let stamp = documento.notas[cantidadNotas - 1] ? documento.notas[cantidadNotas - 1]['stamp'] : '';
-  if ( !isNaN (parseInt (stamp))) {
+  if (!isNaN(parseInt(stamp))) {
     let fecha = crearFecha(stamp);
     document.querySelector('#etiquetaFecha').innerHTML = fecha;
   }
-  
-
 }
 /**
- * @param {timestamp} stamp
+ * @param {number} stamp
  */
 function crearFecha(stamp) {
   let objetoFecha = new Date(stamp);
-  let fecha = objetoFecha.getDate() + '-' + ( meses[objetoFecha.getMonth()] ) + '-'
+  let fecha = objetoFecha.getDate() + '-' + (meses[objetoFecha.getMonth()]) + '-'
     + objetoFecha.getFullYear();
   return fecha;
 }
@@ -218,11 +210,10 @@ function calcularEdad() {
   let hoy = new Date();
   let fdn = new Date(documento.fdn);
   let años = hoy.getFullYear() - fdn.getFullYear();
-  let ajuste = (fdn.getMonth() - hoy.getMonth() > 0) ? 1 : 0; 
+  let ajuste = (fdn.getMonth() - hoy.getMonth() > 0) ? 1 : 0;
   let edad = años - ajuste;
   return edad;
 }
-
 /**
  * 
  */
@@ -253,10 +244,6 @@ function cambiarPagina(evt) {
   }
   paginadorHijos[parseInt(evt.target.innerHTML - 1)].classList.add('w3-theme');
 }
-
-
-
-
 /**
  * 
  * collect data from fist tab (break when reach 'enfactual')
@@ -288,20 +275,16 @@ function grabarPaciente() {
       desactivarPaciente();
       activarNota();
     })
-    .then( (doc) => {
+    .then((doc) => {
       documento = doc;
       desactivarPaciente();
       poblarCampos();
       poblarEtiquetas();
+      tagInformativa('#tagExito');
       console.log('el documento recibido luego de grabado es ' + doc);
     });
 }
-
 /**
- * 
- * 
- * 
- * 
  * 
  */
 function grabarNota() {
@@ -324,7 +307,7 @@ function grabarNota() {
       console.log('grabarNota response ok es ' + response.ok);
       document.querySelector('#activarNota').disabled = true;
       document.querySelector('#grabarNota').disabled = true;
-
+      tagInformativa('#tagExito');
     });
 }
 
