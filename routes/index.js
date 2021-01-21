@@ -72,7 +72,7 @@ router.post('/grabarPaciente', function (req, res, next)
           res.send('error');
         } else
         {
-          res.send('exito');
+          res.send(doc);
         }
       });
     }

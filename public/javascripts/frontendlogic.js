@@ -17,6 +17,20 @@ const nota = [
   'diagnosticos',
   'tratamiento'
 ];
+const meses = {
+  0: 'Enero',
+  1: 'Febrero',
+  2: 'Marzo',
+  3: 'Abril',
+  4: 'Mayo',
+  5: 'Junio',
+  6: 'Julio',
+  7: 'Agosto',
+  8: 'Septiembre',
+  9: 'Octubre',
+  10: 'Noviembre',
+  11: 'Diciembre'
+};
 var documento = {};
 
 /**
@@ -36,9 +50,9 @@ function openSection(event, section) {
 
   tablink = document.getElementsByClassName('tablink');
   for (i = 0; i < tablink.length; i++) {
-    tablink[i].classList.remove('w3-blue');
+    tablink[i].classList.remove('w3-theme');
   }
-  event.currentTarget.classList.add('w3-blue');
+  event.currentTarget.classList.add('w3-theme');
 }
 /**
  * Monitor key pressed over ID input, if 'Enter', sends
@@ -52,7 +66,8 @@ function openSection(event, section) {
  * @param {array of objects} docs from neDB find query, length should be 1
  */
 function checkId(event) {
-  if (event.key == "Enter") {
+  let id = parseInt( document.querySelector('#id').value);
+  if (event.key == "Enter" && id >= 1) {
     fetch(`/leerDB?id=${event.target.value}`)
       .then((response) => {
         console.log('response status:' + response.status);
@@ -65,12 +80,16 @@ function checkId(event) {
           desactivarPaciente();
           poblarCampos();
           poblarEtiquetas();
+         // calcularEdad();
           crearPaginacion();
         } else {
           console.log('toca activar campos');
           activarPaciente();
         }
       })
+  } else {
+    document.querySelector('#id').value = '';
+
   }
 }
 
@@ -126,11 +145,24 @@ function activarNota() {
     document.querySelector(`#${x}`).value = '';
     document.querySelector(`#${x}`).readOnly = false;
   }
+  document.querySelector('#etiquetaFecha').innerHTML = '';
   document.querySelector('#activarNota').disabled = true;
   document.querySelector('#grabarNota').disabled = false;
   document.querySelector('#enfactual').focus();
+  document.querySelector('#paginador').style.visibility = 'hidden';  
 }
-
+/**
+ * 
+ */
+function desactivarNota() {
+  let fecha = crearFecha(Date.now());
+  for (let x of nota) {
+    document.querySelector(`#${x}`).readOnly = true;
+  }
+  document.querySelector('#activarNota').disabled = true;
+  document.querySelector('#grabarNota').disabled = true;
+  document = querySelector('#etiquetaFecha').innerHTML = fecha;
+}
 
 
 
@@ -151,6 +183,7 @@ function poblarCampos() {
     document.querySelector(`#${x}`).value =
       documento.notas[cantidadNotas - 1] ? documento.notas[cantidadNotas - 1][x] : '';
   }
+  document.querySelector('#edad').value = calcularEdad();
   document.querySelector('#activarNota').disabled = false;
 }
 
@@ -158,12 +191,38 @@ function poblarCampos() {
  * 
  */
 function poblarEtiquetas() {
-  let cantidadNotas = documento.notas.length;
-  let fecha = documento.notas[cantidadNotas - 1] ? documento.notas[cantidadNotas - 1]['stamp'] : '';
   document.querySelector('#etiquetaNombre').innerHTML = documento.apellido + ', ' + documento.nombre;
-  //document.querySelector('#etiquetaEdad');
-  document.querySelector('#etiquetaFecha').innerHTML = fecha;
+  document.querySelector('#etiquetaEdad').innerHTML = `${calcularEdad()} años`;
+  let cantidadNotas = documento.notas.length;
+  let stamp = documento.notas[cantidadNotas - 1] ? documento.notas[cantidadNotas - 1]['stamp'] : '';
+  if ( !isNaN (parseInt (stamp))) {
+    let fecha = crearFecha(stamp);
+    document.querySelector('#etiquetaFecha').innerHTML = fecha;
+  }
+  
+
 }
+/**
+ * @param {timestamp} stamp
+ */
+function crearFecha(stamp) {
+  let objetoFecha = new Date(stamp);
+  let fecha = objetoFecha.getDate() + '-' + ( meses[objetoFecha.getMonth()] ) + '-'
+    + objetoFecha.getFullYear();
+  return fecha;
+}
+/**
+ * 
+ */
+function calcularEdad() {
+  let hoy = new Date();
+  let fdn = new Date(documento.fdn);
+  let años = hoy.getFullYear() - fdn.getFullYear();
+  let ajuste = (fdn.getMonth() - hoy.getMonth() > 0) ? 1 : 0; 
+  let edad = años - ajuste;
+  return edad;
+}
+
 /**
  * 
  */
@@ -175,9 +234,8 @@ function crearPaginacion() {
     elemento.innerHTML = x + 1;
     elemento.classList.add('w3-button');
     contenedor.appendChild(elemento);
-
   }
-  contenedor.lastElementChild ? contenedor.lastElementChild.classList.add('w3-green') : undefined;
+  contenedor.lastElementChild ? contenedor.lastElementChild.classList.add('w3-theme') : undefined;
 }
 /**
  * 
@@ -185,14 +243,15 @@ function crearPaginacion() {
 function cambiarPagina(evt) {
   let paginadorHijos = document.querySelector('#paginador').children;
   let notaSolicitada = parseInt(evt.target.innerHTML) - 1;
+  let fecha = crearFecha(documento.notas[notaSolicitada]['stamp']);
   for (let x of nota) {
     document.querySelector(`#${x}`).value = documento.notas[notaSolicitada][x];
   }
-  document.querySelector('#etiquetaFecha').innerHTML = documento.notas[notaSolicitada]['stamp'];
-for (let x of paginadorHijos) {
-  x.classList.remove('w3-green');
-}
-paginadorHijos[ parseInt(evt.target.innerHTML - 1)].classList.add('w3-green');
+  document.querySelector('#etiquetaFecha').innerHTML = fecha;
+  for (let x of paginadorHijos) {
+    x.classList.remove('w3-theme');
+  }
+  paginadorHijos[parseInt(evt.target.innerHTML - 1)].classList.add('w3-theme');
 }
 
 
@@ -223,9 +282,18 @@ function grabarPaciente() {
     headers: { "Content-type": "application/json" }
   })
     .then((response) => {
+      console.log('la respuesta fue ' + response);
+      return response.json();
       console.log('grabarPaciente response ok es ' + response.ok);
       desactivarPaciente();
       activarNota();
+    })
+    .then( (doc) => {
+      documento = doc;
+      desactivarPaciente();
+      poblarCampos();
+      poblarEtiquetas();
+      console.log('el documento recibido luego de grabado es ' + doc);
     });
 }
 

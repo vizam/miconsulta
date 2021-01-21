@@ -5,6 +5,7 @@
   <title>My web app</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="stylesheets/style.css">
+  <link rel="stylesheet" href="stylesheets/themeblue.css">
   <script src="javascripts/frontendlogic.js"></script>
   <style>
     input::-webkit-outer-spin-button,
@@ -15,7 +16,7 @@
   </style>
 </head>
 
-<body>
+<body class='w3-theme-light'>
 
   <!--
     ID label / input
@@ -33,42 +34,42 @@
     <!--
       Container for tablinks
     -->
-    <div class="w3-bar w3-light-gray">
-      <button class="w3-bar-item w3-button tablink w3-blue" onclick="openSection(event,'patient')">Patient</button>
+    <div class="w3-bar w3-theme-l4">
+      <button class="w3-bar-item w3-button tablink w3-theme" onclick="openSection(event,'patient')">Patient</button>
       <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'notes')">Notes</button>
       <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'report')">Report</button>
     </div>
     <!--
       First tab
     -->
-    <div id="patient" class="w3-container w3-border section" style="display: block">
+    <div id="patient" class="w3-container  section" style="display: block">
       <div class="w3-row-padding"></div>
       <!--
         First tab / first half
       -->
       <div class="w3-half w3-padding-large">
         <p>
-          <label class="">Nombre</label>
-          <input id='nombre' class="w3-input" type="text" autocomplete='off' readonly>
+          <label class="w3-text-theme">Nombre</label>
+          <input id='nombre' class="w3-input w3-animate-input" type="text" autocomplete='off' readonly>
         </p>
         <p>
-          <label>Apellido</label>
+          <label class="w3-text-theme">Apellido</label>
           <input id='apellido' class="w3-input" type="text" autocomplete='off' readonly>
         </p>
         <p>
-          <label>Fecha de Nacimiento</label>
+          <label class="w3-text-theme">Fecha de Nacimiento</label>
           <input id='fdn' class="w3-input" type="date" readonly>
         </p>
         <p>
-          <label>Edad</label>
+          <label class="w3-text-theme">Edad</label>
           <input id='edad' class="w3-input" type="number" tabindex='-1' readonly>
         </p>
         <p>
-          <label>Teléfono</label>
+          <label class="w3-text-theme">Teléfono</label>
           <input id='tel' class="w3-input" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" autocomplete='off' readonly>
         </p>
         <p>
-          <label>Email</label>
+          <label class="w3-text-theme">Email</label>
           <input id='email' class="w3-input" type="email" autocomplete='off' readonly>
       </div>
       <!--
@@ -76,7 +77,7 @@
         -->
       <div class="w3-half w3-padding-large">
 
-        <label>Antecedentes</label>
+        <label class="w3-text-theme">Antecedentes</label>
         <ul class='w3-small'>
           <li>Patológicos: HTA, Diabetes, Ca próstata familiar, otras</li>
           <li>Quirúrgicos</li>
@@ -85,8 +86,6 @@
           <li>Medicaciones y Alergias</li>
           <li>Hábitos y Ocupación</li>
         </ul>
-
-
         <textarea id='antecedentes' class="w3-input w3-border" rows='8' style="resize: none; overflow: auto" readonly
           placeholder=''></textarea>
 
@@ -95,12 +94,12 @@
         -->
         <div class='w3-container w3-padding'>
           <p>
-            <button id='grabarPaciente' class='w3-button w3-block w3-green w3-round' onclick="grabarPaciente()"
+            <button id='grabarPaciente' class='w3-button w3-block w3-theme w3-round' onclick="grabarPaciente()"
               disabled>Grabar
               Paciente</button>
           </p>
           <p>
-            <button id='actualizarPaciente' class='w3-button w3-block w3-blue w3-round' onclick="actualizarPaciente()"
+            <button id='actualizarPaciente' class='w3-button w3-block w3-theme w3-round' onclick="actualizarPaciente()"
               disabled>Actualizar Paciente</button>
           </p>
         </div>
@@ -110,11 +109,11 @@
     <!--
       Second tab
     -->
-    <div id="notes" class="w3-container w3-border section" style="display: none">
+    <div id="notes" class="w3-container  section" style="display: none">
       <table class='w3-table w3-large' style='width: 100%; font-weight: bold;'>
         <tr>
           <td id='etiquetaNombre'>Nombre</td>
-          <td id='etiquetaFecha' rowspan="2">Fecha</td>
+          <td id='etiquetaFecha' rowspan="2"></td>
         </tr>
         <tr>
           <td id='etiquetaEdad'>Edad</td>
@@ -126,17 +125,17 @@
         -->
         <div class="w3-half w3-padding-large">
           <p>
-            <label>Enfermedad Actual</label>
+            <label class='w3-text-theme'>Enfermedad Actual</label>
             <textarea id='enfactual' class='w3-input w3-border' rows="6" style='resize: none; overflow: hidden;'
               readonly></textarea>
           </p>
           <p>
-            <label>Examen Físico</label>
+            <label class='w3-text-theme'>Examen Físico</label>
             <textarea id='exfisico' class='w3-input w3-border' rows='4' style='resize: none; overflow: hidden;'
               readonly></textarea>
           </p>
           <p>
-            <label>Exámenes Complementarios</label>
+            <label class='w3-text-theme'>Exámenes Complementarios</label>
             <textarea id='excomple' class='w3-input w3-border' rows='4' style='resize: none; overflow: hidden;'
               readonly></textarea>
           </p>
@@ -146,12 +145,12 @@
         -->
         <div class="w3-half w3-padding-large">
           <p>
-            <label>Diagnósticos</label>
+            <label class='w3-text-theme'>Diagnósticos</label>
             <textarea id='diagnosticos' class='w3-input w3-border' rows='5' style='resize: none; overflow: hidden;'
               readonly></textarea>
           </p>
           <p>
-            <label>Tratamiento y Recomendaciones</label>
+            <label class='w3-text-theme'>Tratamiento y Recomendaciones</label>
             <textarea id='tratamiento' class='w3-input w3-border' rows='5' style='resize: none; overflow: hidden;'
               readonly></textarea>
           </p>
@@ -160,11 +159,11 @@
         -->
           <div id='w3-container w3-padding' class='w3-container w3-center w3-margin'>
             <p>
-              <button id='activarNota' class='w3-button w3-block w3-blue w3-round' onclick='activarNota()'
+              <button id='activarNota' class='w3-button w3-block w3-theme w3-round' onclick='activarNota()'
                 disabled>Nueva Nota</button>
             </p>
             <p>
-              <button id='grabarNota' class='w3-button w3-block w3-blue w3-round' onclick="grabarNota()"
+              <button id='grabarNota' class='w3-button w3-block w3-theme w3-round' onclick="grabarNota()"
                 disabled>Guardar Nota</button>
             </p>
           </div>
@@ -174,7 +173,7 @@
       <!--
       Div for Pagination
     -->
-      <div id='paginador' name='guardo-«' class="w3-bar w3-center w3-margin"
+      <div id='paginador' name='guardo-«' class="w3-bar w3-center w3-margin" style='overflow: auto'
         onclick='cambiarPagina(event)'>
 
       </div>
