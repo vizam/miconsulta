@@ -4,8 +4,11 @@
 <head>
   <title>My web app</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="stylesheets/style.css">
-  <link rel="stylesheet" href="stylesheets/themeblue.css">
+  <link rel="stylesheet" href='stylesheets/print.css'>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css">
   <script src="javascripts/frontendlogic.js"></script>
   <style>
     input::-webkit-outer-spin-button,
@@ -16,12 +19,13 @@
   </style>
 </head>
 
-<body class='w3-theme-light'>
+<body class=''>
 
   <!--
-    ID label / input
+    ID input
+    TAGS
   -->
-  <div class='w3-container w3-margin'>
+  <div class='w3-container w3-margin noprint'>
     <label class="w3-xlarge"></label>
     <input class="w3-large w3-theme-l4" id='id' type="number" onkeydown="checkId(event)" min="1" max="100000000000"
       placeholder='' maxlength="12" autofocus>
@@ -31,12 +35,13 @@
       Operación Exitosa !</span>
     <span id='tagError' class='tag w3-tag w3-red w3-margin-left w3-animate-top' style='display: none'>&#10006 ERROR
       !</span>
+    <span id='tagVacia' class='tag w3-tag w3-red w3-margin-left w3-animate-top' style='display: none'></span>
   </div>
 
   <!--
     First / General container
   -->
-  <div class="w3-container w3-margin">
+  <div class="w3-container w3-margin noprint">
     <!--
       Container for tablinks
     -->
@@ -44,6 +49,7 @@
       <button class="w3-bar-item w3-button tablink w3-theme" onclick="openSection(event,'patient')">Patient</button>
       <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'notes')">Notes</button>
       <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'report')">Report</button>
+      <button class='w3-bar-item material-icons w3-button w3-right' onclick='imprimirReporte()'>print</button>
     </div>
     <!--
       First tab
@@ -191,23 +197,69 @@
 -->
 
 
-    </div>
 
-    <!--
+
+      <!--
     --  Third section, not displayed
     -->
-    <div id="report" class="w3-container w3-border section" style="display: none">
-      <div class="w3-row-padding">
-        <div class="w3-half w3-padding-large">
-          <h2>first section</h2>
-        </div>
-        <div class="w3-half w3-padding-large">
-          <h2>second section</h2>
+      <div id="report" class="w3-container w3-border section" style="display: none">
+        <div class="w3-row-padding">
+          <div class="w3-half w3-padding-large">
+            <h2>first section</h2>
+          </div>
+          <div class="w3-half w3-padding-large">
+            <h2>second section</h2>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!--
+    Div oculto, para testing the impresion
+  -->
+
+  <div id='informe' class='prueba'>
+
+    <h1 class='w3-center'>Informe Médico</h1>
+
+    <table>
+      <tr>
+        <td><b>Nombre: </b></td>
+        <td id='apellidoInforme'></td>
+        <td id='nombreInforme'></td>
+      </tr>
+      <tr>
+        <td><b>Cédula: </b></td>
+        <td id='idInforme'></td>
+        <td id=''></td>
+      </tr>
+      <tr>
+        <td><b>Edad: </b></td>
+        <td id='edadInforme'></td>
+        <td id=''></td>
+      </tr>
+    </table>
+
+    <p><b>Enfermedad Actual:</b></p>
+    <p id='enfactualInforme'></p>
+    <p><b>Antecedentes:</b></p>
+    <p id='antecedentesInforme' ></p>
+    <p><b>Examen Físico:</b></p>
+    <p id='exfisicoInforme' ></p>
+    <p><b>Exámenes Complementarios:</b></p>
+    <p id='excompleInforme' ></p>
+    <p><b>Diagnósticos:</b></p>
+    <p id='diagnosticosInforme' ></p>
+    <p><b>Tratamiento y Recomendaciones:</b></p>
+    <p id='tratamientoInforme' ></p>
+
+
   </div>
+
+
+
+
 
 </body>
 

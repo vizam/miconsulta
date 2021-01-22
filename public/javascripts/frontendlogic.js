@@ -85,7 +85,12 @@ function checkId(event) {
         } else {
           console.log('toca activar campos');
           activarPaciente();
+          tagInformativa('#tagVacia');
         }
+      })
+      .catch((err) => {
+        console.log('err');
+        tagInformativa('tagError');
       });
   }
 }
@@ -98,7 +103,7 @@ function tagInformativa(tag) {
     x.style.display = 'none';
   }
   document.querySelector(tag).style.display = 'inline-block'
-  
+
 }
 /**
  * change input and textarea to readOnly = false
@@ -148,6 +153,7 @@ function activarNota() {
   document.querySelector('#grabarNota').disabled = false;
   document.querySelector('#enfactual').focus();
   document.querySelector('#paginador').style.visibility = 'hidden';
+  tagInformativa('#tagVacia');
 }
 /**
  * 
@@ -282,6 +288,10 @@ function grabarPaciente() {
       poblarEtiquetas();
       tagInformativa('#tagExito');
       console.log('el documento recibido luego de grabado es ' + doc);
+    })
+    .catch((err) => {
+      console.log(err);
+      tagInformativa('#tagError');
     });
 }
 /**
@@ -308,6 +318,24 @@ function grabarNota() {
       document.querySelector('#activarNota').disabled = true;
       document.querySelector('#grabarNota').disabled = true;
       tagInformativa('#tagExito');
+    })
+    .catch((err) => {
+      console.log(err);
+      tagInformativa('#tagError');
     });
+}
+/**
+ * 
+ */
+function imprimirReporte() {
+  for (let x of paciente) {
+    document.querySelector(`#${x}Informe`) ? 
+      document.querySelector(`#${x}Informe`).innerHTML = document.querySelector(`#${x}`).value : undefined;
+  }
+  document.querySelector('#edadInforme').innerHTML = document.querySelector('#edad').value;
+  for (let x of nota) {
+    document.querySelector(`#${x}Informe`) ? 
+      document.querySelector(`#${x}Informe`).innerHTML = document.querySelector(`#${x}`).value : undefined;
+  }
 }
 
