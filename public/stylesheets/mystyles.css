@@ -1,0 +1,25 @@
+@media print {
+    .noprint {
+        display: none;
+    }
+}
+@media only screen {
+    .print {
+        display: none;
+    }
+}
+
+div#informe p[id] {
+    white-space: pre-wrap;
+     
+}
+
+input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+#encabezadoInforme {
+    
+    text-align: left;
+}

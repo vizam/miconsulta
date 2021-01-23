@@ -329,13 +329,38 @@ function grabarNota() {
  */
 function imprimirReporte() {
   for (let x of paciente) {
-    document.querySelector(`#${x}Informe`) ? 
+    document.querySelector(`#${x}Informe`) ?
       document.querySelector(`#${x}Informe`).innerHTML = document.querySelector(`#${x}`).value : undefined;
   }
   document.querySelector('#edadInforme').innerHTML = document.querySelector('#edad').value;
   for (let x of nota) {
-    document.querySelector(`#${x}Informe`) ? 
+    document.querySelector(`#${x}Informe`) ?
       document.querySelector(`#${x}Informe`).innerHTML = document.querySelector(`#${x}`).value : undefined;
   }
+  recuperarDatosProfesionales();
 }
-
+/**
+ * @param {object} e: event from onsubmit
+ */
+function grabarDatosProfesionales(e) {
+  e.preventDefault();
+  let formaElementos = document.querySelectorAll("#datosProfesionales *[name]");
+  for (let x of formaElementos) {
+    localStorage.setItem(x.name, x.value);
+  }
+}
+/**
+ * 
+ */
+function recuperarDatosProfesionales() {
+  let grado = localStorage.getItem("grado") ?? "";
+  let nombres = localStorage.getItem("nombres") ?? "";
+  let apellidos = localStorage.getItem("apellidos") ?? "";
+  let credencial1 = localStorage.getItem("credencial1") ?? '';
+  let credencial2 = localStorage.getItem("credencial2") ?? '';
+  let credencial3 = localStorage.getItem("credencial3") ?? '';
+  let credenciales = `${credencial1} ${credencial2} ${credencial3}`;
+  document.querySelector("#medicoNombre").innerHTML = `${grado} ${nombres} ${apellidos}`;
+  document.querySelector("#medicoEspecialidad").innerHTML = localStorage.getItem("especialidad") ?? "";
+  document.querySelector("#medicoCredenciales").innerHTML = credenciales;
+}

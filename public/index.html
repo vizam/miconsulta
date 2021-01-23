@@ -4,19 +4,12 @@
 <head>
   <title>My web app</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href='stylesheets/print.css'>
-
+  <link rel="stylesheet" href='stylesheets/mystyles.css'>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css">
   <script src="javascripts/frontendlogic.js"></script>
-  <style>
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  </style>
+
 </head>
 
 <body class=''>
@@ -46,83 +39,87 @@
       Container for tablinks
     -->
     <div class="w3-bar w3-theme-l4">
-      <button class="w3-bar-item w3-button tablink w3-theme" onclick="openSection(event,'patient')">Patient</button>
-      <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'notes')">Notes</button>
-      <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'report')">Report</button>
+      <button class="w3-bar-item w3-button tablink w3-theme" onclick="openSection(event,'paciente')">Paciente</button>
+      <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'notas')">Notas</button>
+      <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'configuracion')">Configuración</button>
       <button class='w3-bar-item material-icons w3-button w3-right' onclick='imprimirReporte()'>print</button>
     </div>
     <!--
       First tab
     -->
-    <div id="patient" class="w3-container  section" style="display: block">
-      <div class="w3-row-padding"></div>
-      <!--
+    <div id="paciente" class="w3-container section" style="display: block">
+      <div class="w3-row-padding">
+        <!--
         First tab / first half
-      -->
-      <div class="w3-half w3-padding-large">
-        <p>
-          <label class="w3-text-theme">Nombre</label>
-          <input id='nombre' class="w3-input w3-animate-input" type="text" autocomplete='off' readonly>
-        </p>
-        <p>
-          <label class="w3-text-theme">Apellido</label>
-          <input id='apellido' class="w3-input" type="text" autocomplete='off' readonly>
-        </p>
-        <p>
-          <label class="w3-text-theme">Fecha de Nacimiento</label>
-          <input id='fdn' class="w3-input" type="date" readonly>
-        </p>
-        <p>
-          <label class="w3-text-theme">Edad</label>
-          <input id='edad' class="w3-input" type="number" tabindex='-1' readonly>
-        </p>
-        <p>
-          <label class="w3-text-theme">Teléfono</label>
-          <input id='tel' class="w3-input" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" autocomplete='off' readonly>
-        </p>
-        <p>
-          <label class="w3-text-theme">Email</label>
-          <input id='email' class="w3-input" type="email" autocomplete='off' readonly>
-      </div>
-      <!--
+        -->
+        <div class="w3-half w3-padding-large">
+          <p>
+            <label class="w3-text-theme">Nombre</label>
+            <input id='nombre' class="w3-input w3-animate-input" type="text" autocomplete='off' readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Apellido</label>
+            <input id='apellido' class="w3-input" type="text" autocomplete='off' readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Fecha de Nacimiento</label>
+            <input id='fdn' class="w3-input" type="date" readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Edad</label>
+            <input id='edad' class="w3-input" type="number" tabindex='-1' readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Teléfono</label>
+            <input id='tel' class="w3-input" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" autocomplete='off'
+              readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Email</label>
+            <input id='email' class="w3-input" type="email" autocomplete='off' readonly>
+        </div>
+        <!--
           First tab, 2nd half 
         -->
-      <div class="w3-half w3-padding-large">
+        <div class="w3-half w3-padding-large">
 
-        <label class="w3-text-theme">Antecedentes</label>
-        <ul class='w3-small'>
-          <li>Patológicos: HTA, Diabetes, Ca próstata familiar, otras</li>
-          <li>Quirúrgicos</li>
-          <li>Ginecológocos</li>
-          <li>Urológicos: litiasis, cateterismo, hematuria, otros</li>
-          <li>Medicaciones y Alergias</li>
-          <li>Hábitos y Ocupación</li>
-        </ul>
-        <textarea id='antecedentes' class="w3-input w3-border" rows='8' style="resize: none; overflow: auto" readonly
-          placeholder=''></textarea>
+          <label class="w3-text-theme">Antecedentes</label>
+          <ul class='w3-small'>
+            <li>Patológicos: HTA, Diabetes, Ca próstata familiar, otras</li>
+            <li>Quirúrgicos</li>
+            <li>Ginecológocos</li>
+            <li>Urológicos: litiasis, cateterismo, hematuria, otros</li>
+            <li>Medicaciones y Alergias</li>
+            <li>Hábitos y Ocupación</li>
+          </ul>
+          <textarea id='antecedentes' class="w3-input w3-border" rows='8' style="resize: none; overflow: auto" readonly
+            placeholder=''></textarea>
 
-        <!--
-          Div for buttons
-        -->
-        <div class='w3-container w3-padding'>
-          <p>
-            <button id='grabarPaciente' class='w3-button w3-block w3-theme w3-round' onclick="grabarPaciente()"
-              disabled>Grabar
-              Paciente</button>
-          </p>
-          <p>
-            <button id='actualizarPaciente' class='w3-button w3-block w3-theme w3-round' onclick="actualizarPaciente()"
-              disabled>Actualizar Paciente</button>
-          </p>
+          <!--
+           Div for buttons
+           -->
+          <div class='w3-container w3-padding'>
+            <p>
+              <button id='grabarPaciente' class='w3-button w3-block w3-theme w3-round' onclick="grabarPaciente()"
+                disabled>Grabar
+                Paciente</button>
+            </p>
+            <p>
+              <button id='actualizarPaciente' class='w3-button w3-block w3-theme w3-round'
+                onclick="actualizarPaciente()" disabled>Actualizar Paciente</button>
+            </p>
+          </div>
         </div>
       </div>
     </div>
 
+
     <!--
       Second tab
     -->
-    <div id="notes" class="w3-container  section" style="display: none">
-      <table class='w3-table w3-large' style='width: 100%; font-weight: bold;'>
+    <div id="notas" class="w3-container  section" style="display: none">
+
+      <table class='w3-table w3-large' style='width: 100%; font-weight: bold; border: 0'>
         <tr>
           <td id='etiquetaNombre'>Nombre</td>
           <td id='etiquetaFecha' rowspan="2"></td>
@@ -131,6 +128,7 @@
           <td id='etiquetaEdad'>Edad</td>
         </tr>
       </table>
+
       <div class="w3-row-padding">
         <!--
           Second tab /  1st half
@@ -179,42 +177,66 @@
                 disabled>Guardar Nota</button>
             </p>
           </div>
-
         </div>
       </div>
+
       <!--
       Div for Pagination
-    -->
+      -->
       <div id='paginador' name='guardo-«' class="w3-bar w3-center w3-margin" style='overflow: auto'
         onclick='cambiarPagina(event)'>
 
       </div>
-      <!--
-  <a href="#" class="w3-button w3-green">1</a>
-        <a href="#" class="w3-button">2</a>
-        <a href="#" class="w3-button">3</a>
-        <a href="#" class="w3-button">4</a>
--->
+
+    </div>
+
+
+    <!--
+      --  Third section, not displayed
+      -->
+    <div id="configuracion" class="w3-container w3-border section" style="display: none">
+      <div class="w3-row-padding">
+        <div class="w3-half w3-padding-large">
+          <form id="datosProfesionales" class="w3-container w3-card-4" onsubmit="grabarDatosProfesionales(event)">
+            <h2 class="w3-text-theme">Datos del Médico</h2>
+            <p>
+              <input class="w3-input w3-border" name="grado" type="text" placeholder="GRADO ACADEMICO (Dr./Mg. S./etc">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="nombres" type="text" placeholder="Nombres">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="apellidos" type="text" placeholder="Apellidos">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="especialidad" type="text" placeholder="Especialidad">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="credencial1" type="text"
+                placeholder="CREDENCIAL 1 (Ejemplo: C.I:11.886.089)">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="credencial2" type="text" placeholder="CREDENCIAL 2">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="credencial3" type="text" placeholder="CREDENCIAL 3">
+            </p>
+            <p>
+              <button class="w3-button w3-text-theme">Almacenar</button>
+            </p>
+          </form>
 
 
 
 
-      <!--
-    --  Third section, not displayed
-    -->
-      <div id="report" class="w3-container w3-border section" style="display: none">
-        <div class="w3-row-padding">
-          <div class="w3-half w3-padding-large">
-            <h2>first section</h2>
-          </div>
-          <div class="w3-half w3-padding-large">
-            <h2>second section</h2>
-          </div>
+        </div>
+        <div class="w3-half w3-padding-large">
+          <h2>second section</h2>
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
   <!--
     Div oculto, para testing the impresion
   -->
@@ -223,36 +245,47 @@
 
     <h1 class='w3-center'>Informe Médico</h1>
 
-    <table>
+    <table id="encabezadoInforme">
       <tr>
-        <td><b>Nombre: </b></td>
-        <td id='apellidoInforme'></td>
+        <th>Nombre: </th>
         <td id='nombreInforme'></td>
-      </tr>
-      <tr>
-        <td><b>Cédula: </b></td>
+        <td id='apellidoInforme'></td>
+        <th>Cédula: </th>
         <td id='idInforme'></td>
-        <td id=''></td>
       </tr>
       <tr>
-        <td><b>Edad: </b></td>
+        <th>Edad: </th>
         <td id='edadInforme'></td>
-        <td id=''></td>
       </tr>
     </table>
 
     <p><b>Enfermedad Actual:</b></p>
-    <p id='enfactualInforme'></p>
+    <p id='enfactualInforme' class='w3-justify' style='text-indent: 20pt;'></p>
     <p><b>Antecedentes:</b></p>
-    <p id='antecedentesInforme' ></p>
+    <p id='antecedentesInforme' class='w3-justify'></p>
     <p><b>Examen Físico:</b></p>
-    <p id='exfisicoInforme' ></p>
+    <p id='exfisicoInforme' class='w3-justify'></p>
     <p><b>Exámenes Complementarios:</b></p>
-    <p id='excompleInforme' ></p>
+    <p id='excompleInforme' class='w3-justify'></p>
     <p><b>Diagnósticos:</b></p>
-    <p id='diagnosticosInforme' ></p>
+    <p id='diagnosticosInforme' class='w3-margin-left w3-justify'></p>
     <p><b>Tratamiento y Recomendaciones:</b></p>
-    <p id='tratamientoInforme' ></p>
+    <p id='tratamientoInforme' class='w3-margin-left w3-justify'></p>
+
+    <table class='w3-center' style="width: 100%; border: 1px solid; border-collapse: collapse; line-height: normal;">
+      <tr class=''>
+        <td id='medicoNombre' class='' style="width: 33%; font-weight: bold;">(Configure sus Datos)</td>
+        <td id='medicoFirma' class='' style="width: 33%; border-left: 1px solid;" rowspan="3">(Firma)</td>
+        <td id='medicoSello' class='' style="width:33%; border-left: 1px solid;" rowspan="3">(Sello)</td>
+      </tr>
+      <tr>
+        <td id='medicoEspecialidad'></td>
+      </tr>
+      <tr>
+        <td id="medicoCredenciales"></td>
+      </tr>
+
+    </table>
 
 
   </div>
