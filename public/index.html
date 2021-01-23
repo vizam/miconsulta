@@ -16,10 +16,10 @@
 
   <!--
     ID input
+    
     TAGS
   -->
   <div class='w3-container w3-margin noprint'>
-    <label class="w3-xlarge"></label>
     <input class="w3-large w3-theme-l4" id='id' type="number" onkeydown="checkId(event)" min="1" max="100000000000"
       placeholder='' maxlength="12" autofocus>
     <span id='tagInicio' class='tag w3-tag w3-theme-d2 w3-margin-left w3-animate-fading'
@@ -42,7 +42,7 @@
       <button class="w3-bar-item w3-button tablink w3-theme" onclick="openSection(event,'paciente')">Paciente</button>
       <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'notas')">Notas</button>
       <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'configuracion')">Configuración</button>
-      <button class='w3-bar-item material-icons w3-button w3-right' onclick='imprimirReporte()'>print</button>
+      <button class='w3-bar-item material-icons w3-button w3-right' onclick='print()'>print</button>
     </div>
     <!--
       First tab
@@ -197,7 +197,7 @@
     <div id="configuracion" class="w3-container w3-border section" style="display: none">
       <div class="w3-row-padding">
         <div class="w3-half w3-padding-large">
-          <form id="datosProfesionales" class="w3-container w3-card-4" onsubmit="grabarDatosProfesionales(event)">
+          <form id="datosProfesionales" class="w3-container w3-card-4" onsubmit="almacenarDatosProfesionales(event)">
             <h2 class="w3-text-theme">Datos del Médico</h2>
             <p>
               <input class="w3-input w3-border" name="grado" type="text" placeholder="GRADO ACADEMICO (Dr./Mg. S./etc">
@@ -226,12 +226,18 @@
             </p>
           </form>
 
-
-
-
         </div>
         <div class="w3-half w3-padding-large">
-          <h2>second section</h2>
+          <form id="" class="w3-container w3-card-4" onsubmit="almacenarFirma(event)">
+            <h2 class="w3-text-theme">Firma</h2>
+            <p>
+              <input class='w3-input' name="firma" type="file" disabled/>
+            </p>
+            <p>
+              <button class="w3-button w3-text-theme" disabled>Almacenar</button>
+            </p>
+          </form>
+
         </div>
       </div>
     </div>
@@ -241,37 +247,36 @@
     Div oculto, para testing the impresion
   -->
 
-  <div id='informe' class='prueba'>
+  <div id='informe' class="print">
 
-    <h1 class='w3-center'>Informe Médico</h1>
+    <hr class="w3-text-theme" style='border: 4px solid; '>
+    <h2 id="fechaInforme" class="w3-right-align w3-text-theme"></h2>
+    <h1 class='w3-right-align'>Informe Médico</h1>
 
-    <table id="encabezadoInforme">
-      <tr>
-        <th>Nombre: </th>
-        <td id='nombreInforme'></td>
-        <td id='apellidoInforme'></td>
-        <th>Cédula: </th>
-        <td id='idInforme'></td>
-      </tr>
-      <tr>
-        <th>Edad: </th>
-        <td id='edadInforme'></td>
-      </tr>
-    </table>
+    <hr class="w3-text-theme" style="border: 4px solid; width: 10%">
+    <h2 class="w3-text-theme">Datos del Paciente</h2>
+    <ul>
+      <li>Nombre: <span id="nombreInforme"></span>&nbsp;<span id="apellidoInforme"></span></li>
+      <li>Cédula: <span id="idInforme"></span></li>
+      <li>Edad: <span id="edadInforme"></span></li>
+    </ul>
 
-    <p><b>Enfermedad Actual:</b></p>
+    <h2 class="w3-text-theme">Historia Clínica</h2>
+    <h3 class="">Enfermedad Actual</h3>
     <p id='enfactualInforme' class='w3-justify' style='text-indent: 20pt;'></p>
-    <p><b>Antecedentes:</b></p>
+    <h3 class="">Antecedentes</h3>
     <p id='antecedentesInforme' class='w3-justify'></p>
-    <p><b>Examen Físico:</b></p>
+    <h3 class="">Examen Físico</h3>
     <p id='exfisicoInforme' class='w3-justify'></p>
-    <p><b>Exámenes Complementarios:</b></p>
+    <h3 class="">Exámenes y Estudios Complementarios</h3>
     <p id='excompleInforme' class='w3-justify'></p>
-    <p><b>Diagnósticos:</b></p>
+    <h3 class="">Diagnósticos</h3>
     <p id='diagnosticosInforme' class='w3-margin-left w3-justify'></p>
-    <p><b>Tratamiento y Recomendaciones:</b></p>
+    <h3 class="">Tratamiento y Recomendaciones</h3>
     <p id='tratamientoInforme' class='w3-margin-left w3-justify'></p>
 
+    <hr class="w3-text-theme" style="border: 4px solid; width: 10%">
+    <h2 class="w3-text-theme">Médico Tratante</h2>
     <table class='w3-center' style="width: 100%; border: 1px solid; border-collapse: collapse; line-height: normal;">
       <tr class=''>
         <td id='medicoNombre' class='' style="width: 33%; font-weight: bold;">(Configure sus Datos)</td>
@@ -284,9 +289,8 @@
       <tr>
         <td id="medicoCredenciales"></td>
       </tr>
-
     </table>
-
+    <hr class="w3-text-theme" style="border: 4px dashed; width: 10%">
 
   </div>
 
@@ -295,5 +299,10 @@
 
 
 </body>
+
+<script>
+  document.onload = poblarDatosProfesionales();
+  window.onbeforeprint = poblarReporte;
+</script>
 
 </html>

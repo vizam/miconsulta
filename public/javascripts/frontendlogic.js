@@ -103,7 +103,15 @@ function tagInformativa(tag) {
     x.style.display = 'none';
   }
   document.querySelector(tag).style.display = 'inline-block'
-
+  retirarTAg(tag);
+}
+/**
+ * 
+ */
+function retirarTAg(tag) {
+  setTimeout( function () {
+    document.querySelector(tag).style.display = "none";
+  }, 5000);
 }
 /**
  * change input and textarea to readOnly = false
@@ -148,7 +156,7 @@ function activarNota() {
     document.querySelector(`#${x}`).value = '';
     document.querySelector(`#${x}`).readOnly = false;
   }
-  document.querySelector('#etiquetaFecha').innerHTML = '';
+  document.querySelector('#etiquetaFecha').innerHTML = crearFecha(Date.now());
   document.querySelector('#activarNota').disabled = true;
   document.querySelector('#grabarNota').disabled = false;
   document.querySelector('#enfactual').focus();
@@ -327,7 +335,7 @@ function grabarNota() {
 /**
  * 
  */
-function imprimirReporte() {
+function poblarReporte(e) {
   for (let x of paciente) {
     document.querySelector(`#${x}Informe`) ?
       document.querySelector(`#${x}Informe`).innerHTML = document.querySelector(`#${x}`).value : undefined;
@@ -337,22 +345,28 @@ function imprimirReporte() {
     document.querySelector(`#${x}Informe`) ?
       document.querySelector(`#${x}Informe`).innerHTML = document.querySelector(`#${x}`).value : undefined;
   }
-  recuperarDatosProfesionales();
+  document.querySelector("#fechaInforme").innerHTML = document.querySelector("#etiquetaFecha").innerHTML;
 }
 /**
  * @param {object} e: event from onsubmit
  */
-function grabarDatosProfesionales(e) {
+function almacenarDatosProfesionales(e) {
   e.preventDefault();
   let formaElementos = document.querySelectorAll("#datosProfesionales *[name]");
   for (let x of formaElementos) {
     localStorage.setItem(x.name, x.value);
   }
+  poblarDatosProfesionales();
+  tagInformativa('#tagExito');
 }
 /**
- * 
+ * from localStorate, populate patient report foot section
  */
-function recuperarDatosProfesionales() {
+function poblarDatosProfesionales() {
+  let elementosFormaProfesional = document.querySelectorAll('#datosProfesionales input[name]');
+  for (let x of elementosFormaProfesional) {
+    x.value = localStorage.getItem(x.name) ?? "";
+  }
   let grado = localStorage.getItem("grado") ?? "";
   let nombres = localStorage.getItem("nombres") ?? "";
   let apellidos = localStorage.getItem("apellidos") ?? "";
@@ -364,3 +378,21 @@ function recuperarDatosProfesionales() {
   document.querySelector("#medicoEspecialidad").innerHTML = localStorage.getItem("especialidad") ?? "";
   document.querySelector("#medicoCredenciales").innerHTML = credenciales;
 }
+/**
+ * 
+ */
+function almacenarFirma(e) {
+  e.preventDefault();
+  console.log("por aqui vamos");
+  let db;
+  let request = window.indexedDB.open('firma', 1);
+  request.onerror = () => {
+    console.log('Error al abrir db');
+  }
+  request.onsuccess = () => {
+    console.log("Exito al abrir db");
+    db = request.result;
+
+  }
+} 
+

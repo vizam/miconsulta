@@ -1,8 +1,28 @@
 @media print {
+    
     .noprint {
         display: none;
     }
+    .print {
+        display: block;
+    }
+    
 }
+h1, h2, h3 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+}
+p {
+    page-break-before: avoid;
+}
+table, img, ul, ol {
+    page-break-inside: avoid;
+}
+
+@page {
+    margin: 2cm;
+}
+
 @media only screen {
     .print {
         display: none;
@@ -19,7 +39,4 @@ input::-webkit-outer-spin-button,
       -webkit-appearance: none;
       margin: 0;
     }
-#encabezadoInforme {
-    
-    text-align: left;
-}
+
