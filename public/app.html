@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Pillow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href='stylesheets/mystyles.css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css">
+  <script src="javascripts/frontendlogic.js"></script>
+
+</head>
+
+<body class='w3-theme-l5'>
+
+  <!--
+    Div de ventana modal
+  -->
+  <div id="idModal" class="w3-modal" style='display: block'>
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom w3-padding" style="width: 30vw">
+      <div class="w3-center"><br>
+        <span class="material-icons w3-margin-top w3-text-theme" style='font-size: 10vw;'>person_search</span>
+      </div>
+      <p>
+        <label class="w3-xlarge w3-text-theme">Paciente</label>
+      </p>
+      <p>
+        <input id='id' class="w3-input w3-border" type="number" autocomplete='off' onkeydown="checkId(event)"
+          placeholder="ID" autofocus>
+      </p>
+    </div>
+  </div>
+  <!--
+
+  -->
+
+
+  <!--
+    ID input
+    
+    TAGS
+  -->
+  <!-- <div class='w3-container w3-margin noprint'>
+    <input class="w3-large" id='id' type="number" onkeydown="checkId(event)" min="1" max="100000000000"
+      placeholder='C.I.' maxlength="12" autofocus>
+    <span id='tagInicio' class='tag w3-tag w3-theme w3-margin-left w3-animate-fading'
+      style='display: inline-block'>&#10096&#10096&#10096 Introduzca ID</span>
+    <span id='tagExito' class='tag w3-tag w3-green w3-margin-left w3-animate-top' style='display: none'>&#10004
+      Operación Exitosa !</span>
+    <span id='tagError' class='tag w3-tag w3-red w3-margin-left w3-animate-top' style='display: none'>&#10006 ERROR
+      !</span>
+    <span id='tagVacia' class='tag w3-tag w3-red w3-margin-left w3-animate-top' style='display: none'></span>
+  </div> -->
+
+  <!--
+      Container for tablinks
+  -->
+  <div class="w3-bar w3-black noprint">
+    <a href="javascript: void(0)" class="w3-bar-item w3-mobile w3-button tablink w3-theme"
+      onclick="openSection(event,'paciente')">Paciente</a>
+    <a href="javascript: void(0)" class="w3-bar-item w3-mobile w3-button tablink"
+      onclick="openSection(event,'notas')">Notas</a>
+    <a href="javascript: void(0)" class="w3-bar-item w3-mobile w3-button tablink"
+      onclick="openSection(event,'configuracion')">Configuración</a>
+    <a href="index.html" class='w3-bar-item w3-mobile material-icons w3-button w3-right' onclick=''
+      style="font-size: 22px;">exit_to_app</a>
+    <a href="javascript: void(0)" class='w3-bar-item w3-mobile material-icons w3-button w3-right' onclick='print()'
+      style="font-size: 22px;">print</a>
+    <a href="" class='w3-bar-item w3-mobile material-icons w3-button w3-right' onclick=''
+      style="font-size: 22px">search</a>
+
+
+  </div>
+
+  <!--
+    First / General container
+  -->
+  <div class="w3-container noprint">
+    <!--
+      Container for tablinks
+    -->
+    <!-- <div class="w3-bar w3-black w3-hide">
+      <button class="w3-bar-item w3-button tablink w3-theme" onclick="openSection(event,'paciente')">Paciente</button>
+      <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'notas')">Notas</button>
+      <button class="w3-bar-item w3-button tablink" onclick="openSection(event,'configuracion')">Configuración</button>
+      <button class='w3-bar-item material-icons w3-button w3-right' onclick='print()'>print</button>
+    </div> -->
+    <!--
+      First tab
+    -->
+    <div id="paciente" class="w3-container w3-padding section" style="display: block">
+      <div class="w3-row-padding  w3-card-4">
+        <!--
+        First tab / first half
+        -->
+        <div class="w3-half w3-padding-large">
+          <p>
+            <label class="w3-text-theme">Nombre</label>
+            <input id='nombre' class="w3-input w3-animate-input" type="text" autocomplete='off' readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Apellido</label>
+            <input id='apellido' class="w3-input" type="text" autocomplete='off' readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Fecha de Nacimiento</label>
+            <input id='fdn' class="w3-input" type="date" readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Edad</label>
+            <input id='edad' class="w3-input" type="number" tabindex='-1' readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Teléfono</label>
+            <input id='tel' class="w3-input" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" autocomplete='off'
+              readonly>
+          </p>
+          <p>
+            <label class="w3-text-theme">Email</label>
+            <input id='email' class="w3-input" type="email" autocomplete='off' readonly>
+        </div>
+        <!--
+          First tab, 2nd half 
+        -->
+        <div class="w3-half w3-padding-large">
+
+          <label class="w3-text-theme">Antecedentes</label>
+          <ul class='w3-small'>
+            <li>Patológicos: HTA, Diabetes, Ca próstata familiar, otras</li>
+            <li>Quirúrgicos</li>
+            <li>Ginecológocos</li>
+            <li>Urológicos: litiasis, cateterismo, hematuria, otros</li>
+            <li>Medicaciones y Alergias</li>
+            <li>Hábitos y Ocupación</li>
+          </ul>
+          <textarea id='antecedentes' class="w3-input w3-border" rows='8' style="resize: none; overflow: auto" readonly
+            placeholder=''></textarea>
+
+          <!--
+           Div for buttons
+           -->
+          <div class='w3-container w3-padding'>
+            <p>
+              <button id='grabarPaciente' class='w3-button w3-block w3-theme w3-round' onclick="grabarPaciente()"
+                disabled>Grabar
+                Paciente</button>
+            </p>
+            <p>
+              <button id='actualizarPaciente' class='w3-button w3-block w3-theme w3-round'
+                onclick="actualizarPaciente()" disabled>Actualizar Paciente</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--
+      Second tab
+    -->
+    <div id="notas" class="w3-container w3-padding section" style="display: none">
+      <div class="w3-row-padding  w3-card-4">
+        <!--
+          Second tab /  1st half
+        -->
+        <table class='w3-table w3-large' style='width: 100%; font-weight: bold; border: 0'>
+          <tr>
+            <td id='etiquetaNombre'>Nombre</td>
+            <td id='etiquetaFecha' rowspan="2"></td>
+          </tr>
+          <tr>
+            <td id='etiquetaEdad'>Edad</td>
+          </tr>
+        </table>
+
+        <div class="w3-half w3-padding-large">
+          <p>
+            <label class='w3-text-theme'>Enfermedad Actual</label>
+            <textarea id='enfactual' class='w3-input w3-border' rows="6" style='resize: none; overflow: hidden;'
+              readonly></textarea>
+          </p>
+          <p>
+            <label class='w3-text-theme'>Examen Físico</label>
+            <textarea id='exfisico' class='w3-input w3-border' rows='4' style='resize: none; overflow: hidden;'
+              readonly></textarea>
+          </p>
+          <p>
+            <label class='w3-text-theme'>Exámenes Complementarios</label>
+            <textarea id='excomple' class='w3-input w3-border' rows='4' style='resize: none; overflow: hidden;'
+              readonly></textarea>
+          </p>
+        </div>
+        <!--
+          Second tab /  2nd half
+        -->
+        <div class="w3-half w3-padding-large">
+          <p>
+            <label class='w3-text-theme'>Diagnósticos</label>
+            <textarea id='diagnosticos' class='w3-input w3-border' rows='5' style='resize: none; overflow: hidden;'
+              readonly></textarea>
+          </p>
+          <p>
+            <label class='w3-text-theme'>Tratamiento y Recomendaciones</label>
+            <textarea id='tratamiento' class='w3-input w3-border' rows='5' style='resize: none; overflow: hidden;'
+              readonly></textarea>
+          </p>
+          <!--
+          Div for buttons
+        -->
+          <div id='w3-container w3-padding' class='w3-container w3-center w3-margin'>
+            <p>
+              <button id='activarNota' class='w3-button w3-block w3-theme w3-round' onclick='activarNota()'
+                disabled>Nueva Nota</button>
+            </p>
+            <p>
+              <button id='grabarNota' class='w3-button w3-block w3-theme w3-round' onclick="grabarNota()"
+                disabled>Guardar Nota</button>
+            </p>
+          </div>
+
+        </div>
+
+        <!--
+      Div for Pagination
+      -->
+        <div id='paginador' name='guardo-«' class="w3-bar w3-center w3-margin" style='overflow: auto'
+          onclick='cambiarPagina(event)'>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+
+    <!--
+      --  Third section
+      -->
+    <div id="configuracion" class="w3-container w3-padding section" style="display: none">
+      <div class="w3-row-padding w3-card-4">
+        <div class="w3-half w3-padding-large">
+          <form id="datosProfesionales" class="w3-container" onsubmit="almacenarDatosProfesionales(event)">
+            <h2 class="w3-text-theme">Datos del Médico</h2>
+            <p>
+              <input class="w3-input w3-border" name="grado" type="text" placeholder="GRADO ACADEMICO (Dr./Mg. S./etc">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="nombres" type="text" placeholder="Nombres">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="apellidos" type="text" placeholder="Apellidos">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="especialidad" type="text" placeholder="Especialidad">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="credencial1" type="text"
+                placeholder="CREDENCIAL 1 (Ejemplo: C.I:11.886.089)">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="credencial2" type="text" placeholder="CREDENCIAL 2">
+            </p>
+            <p>
+              <input class="w3-input w3-border" name="credencial3" type="text" placeholder="CREDENCIAL 3">
+            </p>
+            <p>
+              <button class="w3-button w3-text-theme">Almacenar</button>
+            </p>
+          </form>
+
+        </div>
+        <div class="w3-half w3-padding-large">
+          <form id="" class="w3-container " onsubmit="almacenarFirma(event)">
+            <h2 class="w3-text-theme">Firma</h2>
+            <p>
+              <input class='w3-input' name="firma" type="file" disabled />
+            </p>
+            <p>
+              <button class="w3-button w3-text-theme" disabled>Almacenar</button>
+            </p>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+  <!--
+    Div oculto, para testing the impresion
+  -->
+
+  <div id='informe' class="print">
+
+    <hr class="w3-text-theme" style='border: 4px solid; '>
+    <h2 id="fechaInforme" class="w3-right-align w3-text-theme"></h2>
+    <h1 class='w3-right-align'>Informe Médico</h1>
+
+    <hr class="w3-text-theme" style="border: 4px solid; width: 10%">
+    <h2 class="w3-text-theme">Datos del Paciente</h2>
+    <ul>
+      <li>Nombre: <span id="nombreInforme"></span>&nbsp;<span id="apellidoInforme"></span></li>
+      <li>Cédula: <span id="idInforme"></span></li>
+      <li>Edad: <span id="edadInforme"></span></li>
+    </ul>
+
+    <h2 class="w3-text-theme">Historia Clínica</h2>
+    <h3 class="">Enfermedad Actual</h3>
+    <p id='enfactualInforme' class='w3-justify' style='text-indent: 20pt;'></p>
+    <h3 class="">Antecedentes</h3>
+    <p id='antecedentesInforme' class='w3-justify'></p>
+    <h3 class="">Examen Físico</h3>
+    <p id='exfisicoInforme' class='w3-justify'></p>
+    <h3 class="">Exámenes y Estudios Complementarios</h3>
+    <p id='excompleInforme' class='w3-justify'></p>
+    <h3 class="">Diagnósticos</h3>
+    <p id='diagnosticosInforme' class='w3-margin-left w3-justify'></p>
+    <h3 class="">Tratamiento y Recomendaciones</h3>
+    <p id='tratamientoInforme' class='w3-margin-left w3-justify'></p>
+
+    <hr class="w3-text-theme" style="border: 4px solid; width: 10%">
+    <h2 class="w3-text-theme">Médico Tratante</h2>
+    <table class='w3-center' style="width: 100%; border: 1px solid; border-collapse: collapse; line-height: normal;">
+      <tr class=''>
+        <td id='medicoNombre' class='' style="width: 33%; font-weight: bold;">(Configure sus Datos)</td>
+        <td id='medicoFirma' class='' style="width: 33%; border-left: 1px solid;" rowspan="3">(Firma)</td>
+        <td id='medicoSello' class='' style="width:33%; border-left: 1px solid;" rowspan="3">(Sello)</td>
+      </tr>
+      <tr>
+        <td id='medicoEspecialidad'></td>
+      </tr>
+      <tr>
+        <td id="medicoCredenciales"></td>
+      </tr>
+    </table>
+    <hr class="w3-text-theme" style="border: 4px dashed; width: 10%">
+
+  </div>
+
+
+
+
+
+</body>
+
+<script>
+  document.onload = poblarDatosProfesionales();
+  window.onbeforeprint = poblarReporte;
+</script>
+
+</html>
