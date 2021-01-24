@@ -15,13 +15,13 @@ db.loadDatabase((err) => {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  /*res.set({
+    /* res.set({
     'Content-Type': 'text/html',
     'Cache-Control': 'no-cache',
     'Cache-Control': 'must-revalidate',
-   });*/
+   }); */ 
   //res.render('index', { title: 'Express' });
-  res.sendFile('index.html');
+  res.sendFile("home.html");
 });
 
 router.get('/leerDB', function (req, res, next) {
