@@ -15,14 +15,19 @@ db.loadDatabase((err) => {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    /* res.set({
-    'Content-Type': 'text/html',
-    'Cache-Control': 'no-cache',
-    'Cache-Control': 'must-revalidate',
-   }); */ 
-  //res.render('index', { title: 'Express' });
-  res.sendFile("home.html");
+    
+  res.sendFile("index.html");
 });
+/* GET app page. */
+router.get('/app', function (req, res, next) {
+
+  res.sendFile("app.html");
+});
+router.get('/prueba', function (req, res, next) {
+
+  res.sendFile("prueba.html");
+});
+
 
 router.get('/leerDB', function (req, res, next) {
   db.findOne({ id: req.query.id }, (err, doc) => {

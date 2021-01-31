@@ -1,0 +1,24 @@
+extends layout
+block content
+  //Navigation bar
+  div(class="w3-bar w3-theme w3-large")
+    a(href="/" class="w3-bar-item w3-button material-icons") home
+    a(href="" class="w3-bar-item w3-button") item2
+    a(href="" class="w3-bar-item w3-button") item3
+  form(class='w3-container w3-card-4 w3-section' method='POST' action='/users'
+  style="width: 30vw; margin: auto")
+    span(class="material-icons w3-text-green w3-block w3-center" style="font-size: 10vw;") account_box
+    label: b Email:
+    input(name="email" class="w3-input we-border w3-margin-bottom"  type="email"
+    placeholder="Enter username"  required autofocus)
+    label: b Password:
+    input(name="password" class="w3-input we-border w3-margin-bottom" type="password"
+    placeholder="Enter password" required)
+    button(class="w3-button w3-block w3-green w3-section w3-padding" type="submit") Login
+    input(class="w3-check w3-section" type="checkbox" checked="checked")
+    label  Remember me
+    br
+    a(href="#" class="w3-right w3-section") Forgot Password ?
+    span(class="w3-block w3-section") New User? 
+      a(href="/users/register" class='') Register
+  h1 #{msg = msg}

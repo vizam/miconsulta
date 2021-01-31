@@ -25,22 +25,7 @@
         placeholder="ID" autofocus>
     </div>
   </div>
-  <!--
-    ID input
-    
-    TAGS
-  -->
-  <!-- <div class='w3-container w3-margin noprint'>
-    <input class="w3-large" id='id' type="number" onkeydown="checkId(event)" min="1" max="100000000000"
-      placeholder='C.I.' maxlength="12" autofocus>
-    <span id='tagInicio' class='tag w3-tag w3-theme w3-margin-left w3-animate-fading'
-      style='display: inline-block'>&#10096&#10096&#10096 Introduzca ID</span>
-    <span id='tagExito' class='tag w3-tag w3-green w3-margin-left w3-animate-top' style='display: none'>&#10004
-      Operación Exitosa !</span>
-    <span id='tagError' class='tag w3-tag w3-red w3-margin-left w3-animate-top' style='display: none'>&#10006 ERROR
-      !</span>
-    <span id='tagVacia' class='tag w3-tag w3-red w3-margin-left w3-animate-top' style='display: none'></span>
-  </div> -->
+
 
   <!--Container for tablinks-->
   <div class="w3-bar w3-large w3-theme noprint">
@@ -163,11 +148,22 @@
       </form>
     </div>
   </div>
-
-
-
-
-
+  <!--Informative Panels-->
+  <div id="panelExito" class="w3-panel w3-green w3-border w3-round w3-animate-bottom noprint"
+    style="display: none; opacity: 1; position: fixed; width: 80%; bottom: 0; left: 10%; transition: opacity 2s">
+    <h3>Success !</h3>
+    <p id="exitoMensaje"></p>
+  </div>
+  <div id="panelInformacion" class="w3-panel w3-blue w3-border w3-round w3-animate-bottom noprint"
+    style="display: none; opacity: 1; position: fixed; width: 80%; bottom: 0; left: 10%; transition: opacity 2s">
+    <h3>Info:</h3>
+    <p id="informacionMensaje"></p>
+  </div>
+  <div id="panelAdvertencia" class="w3-panel w3-red w3-border w3-round w3-animate-bottom noprint"
+    style="display: none; opacity: 1; position: fixed; width: 80%; bottom: 0; left: 10%; transition: opacity 2s">
+    <h3>Warning:</h3>
+    <p id="advertenciaMensaje"></p>
+  </div>
 
 
 
@@ -177,19 +173,19 @@
 
   <div id='informe' class="print">
 
-    <hr class="w3-text-theme" style='border: 4px solid; '>
-    <h2 id="fechaInforme" class="w3-right-align w3-text-theme"></h2>
+    <hr class="w3-text-blue" style='border: 4px solid; '>
+    <h2 id="fechaInforme" class="w3-right-align w3-text-blue"></h2>
     <h1 class='w3-right-align'>Informe Médico</h1>
 
-    <hr class="w3-text-theme" style="border: 4px solid; width: 10%">
-    <h2 class="w3-text-theme">Datos del Paciente</h2>
+    <hr class="w3-text-blue" style="border: 4px solid; width: 10%">
+    <h2 class="w3-text-blue">Datos del Paciente</h2>
     <ul>
       <li>Nombre: <span id="nombreInforme"></span>&nbsp;<span id="apellidoInforme"></span></li>
       <li>Cédula: <span id="idInforme"></span></li>
       <li>Edad: <span id="edadInforme"></span></li>
     </ul>
 
-    <h2 class="w3-text-theme">Historia Clínica</h2>
+    <h2 class="w3-text-blue">Historia Clínica</h2>
     <h3 class="">Enfermedad Actual</h3>
     <p id='enfactualInforme' class='w3-justify' style='text-indent: 20pt;'></p>
     <h3 class="">Antecedentes</h3>
@@ -203,8 +199,8 @@
     <h3 class="">Tratamiento y Recomendaciones</h3>
     <p id='tratamientoInforme' class='w3-margin-left w3-justify'></p>
 
-    <hr class="w3-text-theme" style="border: 4px solid; width: 10%">
-    <h2 class="w3-text-theme">Médico Tratante</h2>
+    <hr class="w3-text-blue" style="border: 4px solid; width: 10%">
+    <h2 class="w3-text-blue">Médico Tratante</h2>
     <table class='w3-center' style="width: 100%; border: 1px solid; border-collapse: collapse; line-height: normal;">
       <tr class=''>
         <td id='medicoNombre' class='' style="width: 33%; font-weight: bold;">(Configure sus Datos)</td>
@@ -218,7 +214,7 @@
         <td id="medicoCredenciales"></td>
       </tr>
     </table>
-    <hr class="w3-text-theme" style="border: 4px dashed; width: 10%">
+    <hr class="w3-text-blue" style="border: 4px dashed; width: 10%">
 
   </div>
 

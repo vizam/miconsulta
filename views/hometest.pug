@@ -1,0 +1,35 @@
+extends layout
+block content
+  <!-- Navigation bar -->
+  <div class="w3-bar w3-theme w3-large">
+    <a href="" class="w3-bar-item w3-button"><span class="material-icons">home</span></a>
+    <a href="#" class="w3-bar-item w3-button">About</a>
+    <a href="#" class="w3-bar-item w3-button">Contact</a>
+  </div>
+  <!-- Container for Layout-->
+    <div class="w3-row">
+      <!--Left section-->
+      <div class="w3-twothird">
+        <header class="w3-container w3-center w3-padding-48">
+          <h1 class="w3-jumbo w3-text-blue">Pillow</h1>
+          <h6>A simple medical record <span class="w3-tag w3-theme">as hand-written</span></h6>
+        </header>
+      </div>
+      <!--Right section-->
+      <div class="w3-third">
+        <form class='w3-container w3-card-4 w3-margin'>
+          <span class="material-icons w3-text-green w3-block w3-center" style="font-size: 10vw;">account_box</span>
+          <label><b>User:</b></label>
+          <input class="w3-input we-border w3-margin-bottom" type="text" placeholder="Enter username"
+          | name="username" required autofocus />
+          <label><b>Password:</b></label>
+          <input class="w3-input we-border w3-margin-bottom" type="password" placeholder="Enter password"
+          | name="password" required />
+          <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Login</button>
+          <input class="w3-check w3-section" type="checkbox" checked="checked"><label> Remember me</label><br>
+
+          <a href="#" class="w3-right w3-section">Forgot Password ?</a>
+          <span class="w3-block w3-section">New User ? <a href="#" class=''>Register</a></span>
+        </form>
+      </div>
+    </div>
