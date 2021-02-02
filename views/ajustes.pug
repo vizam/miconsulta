@@ -1,0 +1,33 @@
+extends layout
+block content
+  // Navigation bar
+  div.w3-bar.w3-theme.w3-large
+    a(href="/" class="w3-bar-item w3-button material-icons") home
+    a(href="" class="w3-bar-item w3-button") item2
+    a(href="" class="w3-bar-item w3-button") item3
+    a(href="" class="w3-bar-item w3-button w3-right") ajustes
+  <div id="configuracion" class="w3-row-padding w3-card-4 w3-margin section noprint" style="display: none;">
+    <!--Third bad 1st half-->
+    <div class="w3-half w3-padding-large">
+      <form id="datosProfesionales" class="w3-container" onsubmit="almacenarDatosProfesionales(event)">
+        <h2 class="w3-text-blue">Datos del Médico</h2>
+        <input class="w3-input w3-section" name="grado" type="text" placeholder="GRADO ACADEMICO (Dr./Mg. S./etc">
+        <input class="w3-input w3-section" name="nombres" type="text" placeholder="Nombres">
+        <input class="w3-input w3-section" name="apellidos" type="text" placeholder="Apellidos">
+        <input class="w3-input w3-section" name="especialidad" type="text" placeholder="Especialidad">
+        <input class="w3-input w3-section" name="credencial1" type="text"
+          placeholder="CREDENCIAL 1 (Ejemplo: C.I:11.886.089)">
+        <input class="w3-input w3-section" name="credencial2" type="text" placeholder="CREDENCIAL 2">
+        <input class="w3-input w3-section" name="credencial3" type="text" placeholder="CREDENCIAL 3">
+        <button class="w3-button w3-section w3-margin w3-xlarge w3-right w3-text-blue">Almacenar</button>
+      </form>
+    </div>
+    <!--Third Tab 2nd half-->
+    <div class="w3-half w3-padding-large">
+      <form id="" class="w3-container " onsubmit="almacenarFirma(event)">
+        <h2 class="w3-text-theme">Firma</h2>
+        <input class='w3-input' name="firma" type="file" disabled />
+        <button class="w3-button w3-text-blue" disabled>Almacenar</button>
+      </form>
+    </div>
+  </div>

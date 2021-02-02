@@ -1,0 +1,73 @@
+extends layout
+block append head
+  link(rel='stylesheet' href='/stylesheets/mystyles.css')
+block content
+  // Nav bar
+  div.w3-bar.w3-large.w3-theme.w3-margin-right
+    a(href="/" class="w3-bar-item w3-button material-icons w3-mobile"
+    style="font-size: 27px") home
+    span(style='display: inline-block; padding: 8px 0') Historia Clínica
+    a(href="javascript: void(0)" class='w3-bar-item w3-mobile material-icons w3-button w3-right'
+    style="font-size: 27px;") settings
+    a(href="javascript: void(0)" class='w3-bar-item w3-mobile material-icons w3-button w3-right'
+    style="font-size: 27px;" onclick='print()') print
+    a(href="/doctor" class='w3-bar-item w3-mobile material-icons w3-button w3-right'
+    style="font-size: 27px") search
+  // SECTION patient data
+  div.w3-row-padding.w3-margin.w3-card-4
+    // Half
+    div.w3-half
+      ul 
+        li ID #{id}
+        li Nombres #{nombre}
+        li Apellidos #{apellido}
+        li Edad #{edad}
+        li Teléfono #{tel}
+        li Email #{email}
+    // Half
+    div.w3-half.w3-padding-large     
+      h3 Antecedentes
+      p #{antecedentes}
+  // SECTION patient notes
+  div#divNotas
+    - for (let x = 0; x < notas.length; x++)
+      div.w3-row-padding(style='display: none')
+        button.w3-button.w3-circle.w3-right.w3-green(
+        onclick='document.getElementById("modalInput").style.display = "block"') + 
+        h3 Fecha: #{ notas[x].stamp }   
+        // Half
+        div.w3-half.w3-padding-large
+          h3 Enfermedad Actual
+          p #{ notas[x].enfactual }
+          h3 Examen Físico
+          p #{ notas[x].exfisico }
+          h3 Exámenes Complementarios
+          p #{ notas[x].excomple }
+        // Half  
+        div.w3-half.w3-padding-large
+          h3 Diagnósticos
+          p #{ notas[x].diagnosticos }
+          h3 Tratamiento
+          p #{ notas[x].tratamiento }
+  
+
+     
+  // Pagination of notes
+  
+  div#paginador.w3-bar.w3-center(
+  style="position: fixed; bottom: 20px" onclick='cambiarPagina(event)')
+    - for (let x = 0; x < notas.length ; x++)
+      a.w3-button(href='#') #{x+1}
+    //- { Logic for pagination }
+
+   
+  script.
+    window.onload = function(e) {
+      let notas = document.querySelectorAll('#divNotas > div');
+      notas[notas.length - 1].style.display = 'block';
+      let paginas = document.querySelectorAll('#paginador > a');
+      paginas[notas.length - 1].classList.add('w3-green');
+    };
+
+
+  include modalform.pug

@@ -2,9 +2,10 @@ extend layout
 block content
   //Navigation bar
   div(class="w3-bar w3-theme w3-large")
-    a(href="/" class="w3-bar-item w3-button material-icons") home
-    a(href="" class="w3-bar-item w3-button") link1
-    a(href="" class="w3-bar-item w3-button") link2
+    a(href="/" class="w3-bar-item w3-button material-icons"
+    style="font-size: 27px") home
+    a(href="#" class="w3-bar-item w3-button") 
+    a(href="#" class="w3-bar-item w3-button") 
   //Registration Form
   form(name='userRegister' class='w3-container w3-section'
   style="width: 50vw; margin: auto" method='POST' 
@@ -20,9 +21,6 @@ block content
       label: b Email
       input(name="email" class='w3-input w3-border' type='email' 
       required)
-    p
-      label: b Username
-      input(name="username" class='w3-input w3-border' type='text' required)    
     p  
       label: b Password
       input(name="password" class='w3-input w3-border' type='password'

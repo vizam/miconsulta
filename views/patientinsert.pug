@@ -1,0 +1,51 @@
+extends layout
+block content
+  //Navigation bar
+  div.w3-bar.w3-theme.w3-large
+    a(href="#" title="Settings"
+    class="w3-bar-item w3-button w3-right material-icons") settings
+    a(href="#" title="Print Report"
+    class="w3-bar-item w3-button w3-right material-icons") print
+    a(href="/doctor" title="Search Patient"
+    class="w3-bar-item w3-button w3-right material-icons") search
+    a(href="/" title="Home Page"
+    class="w3-bar-item w3-button material-icons") home
+    
+  //Content
+  form(id='patientData' method='POST' action='/doctor/newrecord')
+  div.w3-row-padding.w3-margin.w3-card-4
+    h1.w3-text-blue New Patient Record
+    div.w3-half
+      label.w3-text-blue Id
+      input(name='id' form='patientData' class='w3-input' type='number'
+      readonly value=`${id}`)
+      label.w3-text-blue Nombre
+      input(name='nombre' form='patientData' class="w3-input" type="text"
+      autocomplete='off' required autofocus)
+      label.w3-text-blue Apellido
+      input(name='apellido' form='patientData' class="w3-input" type="text"
+      autocomplete='off' required)
+      label.w3-text-blue Fecha de Nacimiento
+      input(name='fdn' form='patientData' class="w3-input" type="date" required)
+      label.w3-text-blue Teléfono
+      input(name='tel' form='patientData' class="w3-input" type="tel"
+      pattern="[0-9]{3}-[0-9]{7}" autocomplete='off' required
+      placeholder="Example: 123-1234567")
+      label.w3-text-blue Email
+      input(name='email' form='patientData' class="w3-input" type="email"
+      autocomplete='off' required)
+    div.w3-half.w3-padding-large
+      label.w3-text-blue Antecedentes
+      ul.w3-small
+        li Patológicos: HTA, Diabetes, Ca próstata familiar, otras
+        li Quirúrgicos
+        li Ginecológocos
+        li Urológicos: litiasis, cateterismo, hematuria, otros
+        li Medicaciones y Alergias
+        li Hábitos y Ocupación
+      textarea(name='antecedentes' form='patientData' class="w3-input w3-border"
+      rows='8' style="resize: none; overflow: auto")
+      //Buttons
+      input(class='w3-button w3-blue w3-section w3-right' form='patientData'
+      type='submit' value='Submit') 
+      
