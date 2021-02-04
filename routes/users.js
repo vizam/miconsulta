@@ -4,7 +4,11 @@ var router = express.Router();
 
 
 router.get('/', function (req, res, next) {
-   res.render('login');
+   if (!req.cookies.doctor) {
+      res.render('login');
+   } else {
+      res.redirect('records');
+   }
 });
 
 router.post('/', function (req, res, next) {
@@ -14,12 +18,12 @@ router.post('/', function (req, res, next) {
    var password = req.body.password;
    users.findOne({ email: email }, (err, doc) => {
       if (!doc) {
-         res.render('login', {msg: 'No existes becerro....'});
+         res.render('login', {type: 'Warning', msg: 'No user associated to that email'});
       } else if (password != doc.password) {
-         res.render('login', {msg: 'No es tu clave... pilas !...'});
+         res.render('login', {type: 'Warning', msg: 'Password provided is wrong'});
       } else {
          res.cookie('doctor', doc.email);
-         res.redirect('/doctor');
+         res.redirect('/records');
       }
    });
 });
@@ -39,15 +43,14 @@ router.post('/storeuser', function (req, res, next) {
    };
    users.findOne({ email: user.email }, (err, doc) => {
       if (doc) {
-         res.send('Este usuario ya existe !' + doc);
+         res.render('register', {type: 'Warning', msg: 'Email already registered'});
       } else {
-         console.log('introduciendo nuevo usuario');
          users.insert(user, (err, newDoc) => {
             if (err) {
-               res.send('Error al insertar nuevo usuario');
+               res.render('register', {type: 'Warning', msg: 'Error inserting new user'});
             } else {
                res.cookie('doctor', newDoc.email);
-               res.redirect('/doctor');
+               res.redirect('/records');
             }
          });
       }

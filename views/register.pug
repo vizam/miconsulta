@@ -1,33 +1,36 @@
 extend layout
+block head
+  link(rel='stylesheet' href='/stylesheets/mystyles.css')
+  script(src='/javascripts/gui.js')
+  script(src='/javascripts/validations.js')
 block content
   //Navigation bar
-  div(class="w3-bar w3-theme w3-large")
-    a(href="/" class="w3-bar-item w3-button material-icons"
-    style="font-size: 27px") home
+  div.w3-bar.w3-theme.w3-large
+    a.w3-bar-item.w3-button.material-icons(href="/" style="font-size: 27px") home
+    span.w3-bar-item Register
     a(href="#" class="w3-bar-item w3-button") 
     a(href="#" class="w3-bar-item w3-button") 
-  //Registration Form
-  form(name='userRegister' class='w3-container w3-section'
-  style="width: 50vw; margin: auto" method='POST' 
-  action='/users/storeuser' onkeyup='checkPassword(event)') 
-    h1(class='w3-text-blue') User Registration
-    p
+  //Content
+  div.w3-content(style='max-width: 480px')
+    form.w3-padding.w3-section.w3-card-4(
+    method='POST' action='/users/storeuser' onkeyup='checkPassword(event)')
+      span.material-icons.w3-block.w3-center.w3-jumbo.w3-text-theme account_box
       label: b Name  
-      input(name="name" class='w3-input w3-border' type='text' required autofocus)
-    p
+      input.w3-input.w3-border.w3-margin-bottom(name="name" type='text' required autofocus)
       label: b Last Name
-      input(name="lastname" class='w3-input w3-border' type='text' required)
-    p
+      input.w3-input.w3-border.w3-margin-bottom(name="lastname" type='text' required)
       label: b Email
-      input(name="email" class='w3-input w3-border' type='email' 
-      required)
-    p  
+      input.w3-input.w3-border.w3-margin-bottom(name="email" type='email' required)
       label: b Password
-      input(name="password" class='w3-input w3-border' type='password'
-      onkeyup='' required)
-    p
+      input.w3-input.w3-border.w3-margin-bottom(name="password" type='password' required)
       label: b Confirm Password
-      input(name="confirmpassword" class='w3-input w3-border' type='password'
-      onkeyup='' required)
-    input(class='w3-button w3-blue' type='submit'
-    value='Submit')
+      input.w3-input.w3-border.w3-margin-bottom(name="confirmpassword" type='password' required)
+      button.w3-button.w3-block.w3-section.w3-padding.w3-theme-action(type="submit") Login
+    //Holders for backend result custom details
+    span#type(style='display: none') #{type}
+    span#msg(style='display: none ') #{msg}
+  include panelinfo.pug
+  script.
+    let type = document.querySelector('#type').innerHTML;
+    let msg = document.querySelector('#msg').innerHTML;
+    window.onload = panelInformativo(type, msg);

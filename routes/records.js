@@ -7,10 +7,15 @@ router.get('/', (req, res, next) => {
   if (!req.cookies.doctor) {
     res.redirect('/users')
   }
-  res.render('patientquery');
+  if (!req.query.id) {
+    res.render('queryrecord');
+  } else {
+    next();
+  }
+
 });
 
-router.get('/record', (req, res, next) => {
+router.get('/', (req, res, next) => {
   if (!req.cookies.doctor) {
     res.redirect('/users')
   }
@@ -18,14 +23,14 @@ router.get('/record', (req, res, next) => {
   let patients = new Datastore({ filename: `${req.cookies.doctor}.db`, autoload: true });
   patients.findOne({ id: req.query.id }, (err, doc) => {
     if (!doc) {
-      res.render('patientinsert', { id: req.query.id });
+      res.render('newrecord', { id: req.query.id });
     } else {
-      res.render('patientrecord', doc);
+      res.render('showrecord', doc);
     }
   });
 });
 
-router.post('/newrecord', (req, res, next) => {
+router.post('/storerecord', (req, res, next) => {
   if (!req.cookies.doctor) {
     res.redirect('/users')
   }
@@ -45,12 +50,12 @@ router.post('/newrecord', (req, res, next) => {
     if (error) {
       console.log('Error al insertar nuevo paciente');
     } else {
-      res.render('patientrecord', newRecord);
+      res.render('showrecord', newRecord);
     }
   });
 });
 
-router.post('/newnote', (req, res, next) => {
+router.post('/storenote', (req, res, next) => {
   if (!req.cookies.doctor) {
     res.redirect('/users')
   }

@@ -1,0 +1,87 @@
+extends layout
+block head
+  link(rel='stylesheet' href='/stylesheets/mystyles.css')
+  script(src='/javascripts/gui.js')
+block content
+  // Nav bar
+  div.w3-bar.w3-large.w3-theme.w3-margin-right.noprint
+    a.w3-bar-item.w3-button.material-icons(href="/"
+    style="font-size: 27px") home
+    span(style='display: inline-block; padding: 8px 0') Historia Clínica
+    a.w3-bar-item.w3-mobile.material-icons.w3-button.w3-right(href="/ajustes"
+    style="font-size: 27px;") settings
+    a.w3-bar-item.w3-mobile.material-icons.w3-button.w3-right(href="javascript: void(0)"
+    style="font-size: 27px;" onclick='print()') print
+    a.w3-bar-item.w3-mobile.material-icons.w3-button.w3-right(href="/records"
+    style="font-size: 27px") search
+  // Start of Print Area
+  hr.w3-text-blue.print(style='border: 4px solid; ')
+  h2.w3-right-align.w3-text-blue.print Informe Medico
+  - 
+    let hoy = new Date();
+    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+      'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  h3.w3-right-align.print #{ `${hoy.getDate()}-${meses[hoy.getMonth()]}-${hoy.getFullYear()}` }
+  hr.w3-text-blue.print(style="border: 4px solid; width: 10%")
+  // SECTION patient data
+  div.w3-row-padding.w3-margin
+    // Half
+    div.w3-half
+      h4 Datos de Identificación
+      ul.w3-ul 
+        li
+          span.material-icons(style='vertical-align: middle') fingerprint
+          span.w3-margin(style='vertical-align: middle') #{id}
+        li
+          span.material-icons(style='vertical-align: middle') face
+          span.w3-margin(style='vertical-align: middle') #{apellido}, #{nombre}
+        li
+          span.material-icons(style='vertical-align: middle') cake
+          span.w3-margin(style='vertical-align: middle') #{edad} años
+        li
+          span.material-icons(style='vertical-align: middle') phone
+          span.w3-margin(style='vertical-align: middle') #{tel}
+    // Half
+    div.w3-half
+      h4 Antecedentes
+      p #{antecedentes}
+  hr.w3-text-theme.noprint(style='border: 2px solid')
+  // SECTION patient notes
+  div#divNotas
+    - for (let x = 0; x < notas.length; x++)
+      div.w3-row-padding.w3-margin(style='display:none')
+        button.w3-button.w3-circle.w3-right.w3-theme-action.w3-hover-theme(
+        onclick='document.getElementById("modalInput").style.display = "block"'
+        title='Add New Note') + 
+        - let fecha = new Date(notas[x].stamp);
+        h4.w3-center.w3-animate-left(style='position: static'): i #{ `${fecha.getDate()}-${meses[fecha.getMonth()]}-${fecha.getFullYear()}` }   
+        // Half
+        div.w3-half
+          h4 Enfermedad Actual
+          p(style="text-indent: 10pt") #{ notas[x].enfactual }
+          h4 Examen Físico
+          p #{ notas[x].exfisico }
+          h4 Exámenes Complementarios
+          p #{ notas[x].excomple }
+        // Half  
+        div.w3-half
+          h4 Diagnósticos
+          p #{ notas[x].diagnosticos }
+          h4 Tratamiento
+          p #{ notas[x].tratamiento }
+  include pieinforme.pug
+  // Pagination of notes
+  div#paginador.w3-bar.w3-center.noprint(
+  style="position: fixed; bottom: 20px"
+  onclick='cambiarPagina(event)')
+    - for (let x = 0; x < notas.length ; x++)
+      a.w3-button(href='javascript: void(0)') #{x+1}
+
+  script.
+    window.onload = paginarNotas;
+    window.beforeprint = poblarInforme;
+    document.onkeydown = recordKeyBindings;
+
+    
+
+  include modalform.pug

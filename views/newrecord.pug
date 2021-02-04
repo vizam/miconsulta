@@ -6,13 +6,13 @@ block content
     class="w3-bar-item w3-button w3-right material-icons") settings
     a(href="#" title="Print Report"
     class="w3-bar-item w3-button w3-right material-icons") print
-    a(href="/doctor" title="Search Patient"
+    a(href="/records" title="Search Patient"
     class="w3-bar-item w3-button w3-right material-icons") search
     a(href="/" title="Home Page"
     class="w3-bar-item w3-button material-icons") home
     
   //Content
-  form(id='patientData' method='POST' action='/doctor/newrecord')
+  form(id='patientData' method='POST' action='/records/storerecord')
   div.w3-row-padding.w3-margin.w3-card-4
     h1.w3-text-blue New Patient Record
     div.w3-half
@@ -44,8 +44,9 @@ block content
         li Medicaciones y Alergias
         li Hábitos y Ocupación
       textarea(name='antecedentes' form='patientData' class="w3-input w3-border"
-      rows='8' style="resize: none; overflow: auto")
+      rows='8' style="resize: none;")
       //Buttons
-      input(class='w3-button w3-blue w3-section w3-right' form='patientData'
+      input.w3-button.w3-blue.w3-section.w3-right(form='patientData'
       type='submit' value='Submit') 
+      
       

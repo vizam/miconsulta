@@ -9,13 +9,13 @@ function checkPassword(event) {
   let password = form.querySelector('[name=password]');
   let confirmPassword = form.querySelector('[name=confirmpassword]');
   if (password.value != confirmPassword.value) {
-    password.style.backgroundColor = "darksalmon";
-    confirmPassword.style.backgroundColor = 'darksalmon';
+    password.style.backgroundColor = "rgb(255, 99, 71, 0.5)";
+    confirmPassword.style.backgroundColor = 'rgb(255, 99, 71, 0.5)';
     form.querySelector('[type=submit]').disabled = true;
     return;
   } else {
-    password.style.backgroundColor = "initial";
-    confirmPassword.style.backgroundColor = 'initial';
+    password.style.backgroundColor = "revert";
+    confirmPassword.style.backgroundColor = 'revert';
     form.querySelector('[type=submit]').disabled = false;
   }
 }

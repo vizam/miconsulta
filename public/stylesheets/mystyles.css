@@ -3,10 +3,6 @@
     .noprint {
         display: none;
     }
-    .print {
-        display: block;
-    }
-    
 }
 h1, h2, h3 {
     page-break-after: avoid;
@@ -14,6 +10,8 @@ h1, h2, h3 {
 }
 p {
     page-break-before: avoid;
+    white-space: pre-wrap;
+    margin-left: 10pt;
 }
 table, img, ul, ol {
     page-break-inside: avoid;
@@ -39,8 +37,9 @@ input::-webkit-outer-spin-button,
       -webkit-appearance: none;
       margin: 0;
     }
-
+input {
+    background-color: ;
+}
 textarea {
     resize: none;
-    overflow: auto;
 }

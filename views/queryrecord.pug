@@ -1,0 +1,22 @@
+extends layout
+block head
+  link(rel='stylesheet' href='/stylesheets/mystyles.css')
+  script(src='/javascripts/gui.js')
+block content
+  //Navigation bar
+  div.w3-bar.w3-theme.w3-large
+    a.w3-bar-item.w3-button.material-icons(href="/"
+    style="font-size: 27px") home
+  //Find Patient Form 
+  div.w3-content(style='max-width: 480px')
+    form.w3-padding.w3-card-4.w3-section.w3-animate-zoom(
+    onsubmit='/records' method="GET")
+      span.w3-block.material-icons.w3-margin-top.w3-text-theme(
+      style='font-size: 10vw; text-align: center') person_search
+      label.w3-xlarge Paciente
+      input.w3-input.w3-section.w3-border(name='id' type="number"
+      autocomplete='off' placeholder="Enter ID and press [Enter]" autofocus)
+    
+  
+  
+  

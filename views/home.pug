@@ -2,15 +2,15 @@ extends layout
 block content
   // Navigation bar
   div.w3-bar.w3-theme.w3-large
-    a(href="/users" class="w3-bar-item w3-button w3-right") Login
-    a(href="/users/register" class="w3-bar-item w3-button w3-right") Register
-    a(href="/" class="w3-bar-item w3-button material-icons w3-text-green"
-    style='font-size: 27px') home
-    a(href="javascript: void(0)" class="w3-bar-item w3-button") About
-    a(href="javascript: void(0)" class="w3-bar-item w3-button") Contact Us
+    a.w3-bar-item.w3-button.w3-right(href="/users") Login
+    a.w3-bar-item.w3-button.w3-right(href="/users/register") Register
+    a.w3-bar-item.w3-button.material-icons(
+    href="/" style='font-size: 27px') home
+    a.w3-bar-item.w3-button(href="javascript: void(0)") About
+    a.w3-bar-item.w3-button(href="javascript: void(0)") Contact Us
   // Header
   header(class="w3-container w3-center w3-padding-48")
-    h1(class="w3-jumbo w3-text-blue") Pillow
-    h6 A simple medical record
+    h1(class='w3-jumbo w3-hover-theme:hover') Pillow
+    h6 A simple medical record&nbsp;
       span(class="w3-tag w3-theme") as hand-written
   
