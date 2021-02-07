@@ -1,0 +1,39 @@
+extends layout
+block head
+  link(rel='stylesheet' href='/stylesheets/mystyles.css')
+  script(src='/javascripts/gui.js')
+block content
+  //Navigation bar
+  div(style='position: sticky; top: 0px')
+    div.w3-bar.w3-theme.w3-large.noprint(style='')
+      a.w3-bar-item.w3-button(href="/")
+        span.fas.fa-home
+      span.w3-bar-item.w3-wide Historia Clínica
+      a.w3-bar-item.w3-button.w3-right(href="#")
+        span.fas.fa-sign-out-alt
+      a.w3-bar-item.w3-button.w3-right(href="/ajustes")
+        span.fas.fa-user-cog
+      a.w3-bar-item.w3-button.w3-right(href="/records")
+        span.fas.fa-search
+      a.w3-bar-item.w3-button.w3-right(href="javascript: void(0)")
+        span.fas.fa-print(onclick='print()')
+  
+  //Sidebar
+  div(class="w3-sidebar w3-bar-block w3-collapse" style="z-index: ;width:270px;  position: " id="mySidebar")
+    h1 hola
+
+  div(class="w3-main w3-container" style="margin-left:270px")
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola
+    h1 hola

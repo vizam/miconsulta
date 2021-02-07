@@ -80,7 +80,7 @@ router.post('/storenote', (req, res, next) => {
     if (err) {
       console.log('error al meter registro');
     } else {
-      res.redirect(`record/?id=${req.body.id}`);
+      res.redirect(`/records?id=${req.body.id}`);
     }
   })
 

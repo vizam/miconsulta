@@ -4,7 +4,6 @@
 function paginarNotas() {
   let notas = document.querySelectorAll('#divNotas > div');
   notas[notas.length - 1].style.display = 'block';
-  notas[notas.length - 1].classList.add('print');
   let paginas = document.querySelectorAll('#paginador > a');
   paginas[notas.length - 1].classList.add('w3-theme');
 }
@@ -12,17 +11,13 @@ function paginarNotas() {
  * @param {object} event object
  */
 function cambiarPagina(event) {
-
   let pagina = event.target.innerHTML - 1;
   let notas = document.querySelectorAll('#divNotas > div');
   let paginador = document.querySelectorAll('#paginador > a');
-
   for (let x of notas) {
     x.style.display = 'none';
-    x.classList.remove('print');
   }
   notas[pagina].style.display = 'block';
-  notas[pagina].classList.add('print');
   for (let x of paginador) {
     x.classList.remove('w3-theme');
   }
@@ -106,12 +101,13 @@ function retirarPanel(panel) {
 /**
  * 
  */
-function recordKeyBindings(event) {
+function appKeys(event) {
+  
   let paginador = document.querySelectorAll('#paginador > a');
   let notas = document.querySelectorAll('#divNotas > div');
   let pagina;
   for (let x of paginador) {
-    if (x.classList.contains('w3-theme')) {
+    if (x.classList.contains('w3-theme-action')) {
       pagina = x.innerHTML;
     }
   }
@@ -121,8 +117,8 @@ function recordKeyBindings(event) {
         x.style.display = 'none';
       }
       notas[pagina - 2].style.display = 'block';
-      paginador[pagina - 1].classList.toggle('w3-theme');
-      paginador[pagina - 2].classList.toggle('w3-theme');
+      paginador[pagina - 1].classList.toggle('w3-theme-action');
+      paginador[pagina - 2].classList.toggle('w3-theme-action');
     } else {
       return;
     }
@@ -133,8 +129,8 @@ function recordKeyBindings(event) {
         x.style.display = 'none';
       }
       notas[pagina].style.display = 'block';
-      paginador[pagina].classList.toggle('w3-theme');
-      paginador[pagina - 1].classList.toggle('w3-theme');
+      paginador[pagina].classList.toggle('w3-theme-action');
+      paginador[pagina - 1].classList.toggle('w3-theme-action');
     } else {
       return;
     }

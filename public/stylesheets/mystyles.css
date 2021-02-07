@@ -3,6 +3,11 @@
     .noprint {
         display: none;
     }
+    span.w3-tag {
+        
+        color: black;
+        background-color: white;
+    }
 }
 h1, h2, h3 {
     page-break-after: avoid;
@@ -38,7 +43,7 @@ input::-webkit-outer-spin-button,
       margin: 0;
     }
 input {
-    background-color: ;
+    background-color:  ;
 }
 textarea {
     resize: none;

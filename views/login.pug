@@ -4,19 +4,20 @@ block head
 block content
   //Navigation bar
   div.w3-bar.w3-theme.w3-large
-    a.w3-bar-item.w3-button.material-icons(href="/", style='font-size: 27px') home
-    span.w3-bar-item Login
+    a.w3-bar-item.w3-button(href="/")
+      span.fas.fa-home
+      span.w3-margin Home
   //Content
   div.w3-content(style='max-width: 480px')
-    form.w3-padding.w3-section.w3-card-4(method='POST' action='/users')
-      span.material-icons.w3-block.w3-center.w3-jumbo.w3-text-theme account_box
+    form.w3-padding.w3-section.w3-card-4.w3-theme-l3(method='POST' action='/users')
+      i.fas.fa-fingerprint.w3-block.w3-center.w3-jumbo.w3-text-blue
       label: b Email:
-      input.w3-input.we-border.w3-margin-bottom(name="email" type="email"
+      input.w3-input.we-border.w3-margin-bottom.w3-round.w3-theme-l4(name="email" type="email"
       placeholder="Enter username"  required autofocus)
       label: b Password:
-      input.w3-input.w3-border.w3-margin-bottom(name="password" type="password"
+      input.w3-input.w3-border.w3-margin-bottom.w3-round.w3-theme-l4(name="password" type="password"
       placeholder="Enter password" required)
-      button.w3-button.w3-block.w3-section.w3-padding.w3-theme-action(type="submit") Login
+      button.w3-button.w3-right.w3-section.w3-round.w3-blue(type="submit") Login
       input.w3-check.w3-section(type="checkbox" checked="checked")
       label  Remember me
       br

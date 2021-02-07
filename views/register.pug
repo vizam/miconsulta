@@ -6,15 +6,14 @@ block head
 block content
   //Navigation bar
   div.w3-bar.w3-theme.w3-large
-    a.w3-bar-item.w3-button.material-icons(href="/" style="font-size: 27px") home
-    span.w3-bar-item Register
-    a(href="#" class="w3-bar-item w3-button") 
-    a(href="#" class="w3-bar-item w3-button") 
+    a.w3-bar-item.w3-button(href="/")
+      span.fas.fa-home
+      span.w3-margin Home
   //Content
   div.w3-content(style='max-width: 480px')
-    form.w3-padding.w3-section.w3-card-4(
-    method='POST' action='/users/storeuser' onkeyup='checkPassword(event)')
-      span.material-icons.w3-block.w3-center.w3-jumbo.w3-text-theme account_box
+    form.w3-padding.w3-section.w3-card-4.w3-theme-l3(
+    method='POST' action='/users/storeuser')
+      i.fas.fa-user-edit.w3-block.w3-center.w3-jumbo.w3-text-blue
       label: b Name  
       input.w3-input.w3-border.w3-margin-bottom(name="name" type='text' required autofocus)
       label: b Last Name
@@ -22,10 +21,11 @@ block content
       label: b Email
       input.w3-input.w3-border.w3-margin-bottom(name="email" type='email' required)
       label: b Password
-      input.w3-input.w3-border.w3-margin-bottom(name="password" type='password' required)
+      input.w3-input.w3-border.w3-margin-bottom(name="password" type='password'
+      onkeyup='checkPassword()' required)
       label: b Confirm Password
-      input.w3-input.w3-border.w3-margin-bottom(name="confirmpassword" type='password' required)
-      button.w3-button.w3-block.w3-section.w3-padding.w3-theme-action(type="submit") Login
+      input.w3-input.w3-border.w3-margin-bottom(name="confirmpassword" type='password' onkeyup='checkPassword()' required)
+      button.w3-button.w3-section.w3-round.w3-blue(type="submit" style='') Register
     //Holders for backend result custom details
     span#type(style='display: none') #{type}
     span#msg(style='display: none ') #{msg}

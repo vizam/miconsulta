@@ -4,18 +4,20 @@
  * @param {object} event object
  * 
  */
-function checkPassword(event) {
-  let form = event.target.form; 
+function checkPassword() {
+  let form = event.target.form;
   let password = form.querySelector('[name=password]');
+  console.log(password);
   let confirmPassword = form.querySelector('[name=confirmpassword]');
+  console.log(confirmPassword);
   if (password.value != confirmPassword.value) {
     password.style.backgroundColor = "rgb(255, 99, 71, 0.5)";
-    confirmPassword.style.backgroundColor = 'rgb(255, 99, 71, 0.5)';
+    confirmPassword.style.backgroundColor = "rgb(255, 99, 71, 0.5)";
     form.querySelector('[type=submit]').disabled = true;
     return;
   } else {
     password.style.backgroundColor = "revert";
-    confirmPassword.style.backgroundColor = 'revert';
+    confirmPassword.style.backgroundColor = "revert";
     form.querySelector('[type=submit]').disabled = false;
   }
 }

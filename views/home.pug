@@ -2,15 +2,17 @@ extends layout
 block content
   // Navigation bar
   div.w3-bar.w3-theme.w3-large
-    a.w3-bar-item.w3-button.w3-right(href="/users") Login
-    a.w3-bar-item.w3-button.w3-right(href="/users/register") Register
-    a.w3-bar-item.w3-button.material-icons(
-    href="/" style='font-size: 27px') home
-    a.w3-bar-item.w3-button(href="javascript: void(0)") About
-    a.w3-bar-item.w3-button(href="javascript: void(0)") Contact Us
+    a.w3-bar-item.w3-button.w3-right(href="/users")
+      span.fas.fa-sign-in-alt
+      span.w3-margin Login
+    span.w3-bar-item.w3-theme-action(href="/")
+      span.fas.fa-home
+      
+    a.w3-bar-item.w3-button(href="javascript: void(0)"): span.w3-margin About
+    a.w3-bar-item.w3-button(href="javascript: void(0)"): span.w3-margin Contact
   // Header
-  header(class="w3-container w3-center w3-padding-48")
-    h1(class='w3-jumbo w3-hover-theme:hover') Pillow
-    h6 A simple medical record&nbsp;
-      span(class="w3-tag w3-theme") as hand-written
+  header.w3-center
+    h1.w3-jumbo Pillow
+    p A simple medical record&nbsp;
+      i.w3-tag.w3-theme.w3-xlarge(style='font-family: "Brush Script MT", cursive') ..as hand-written
   

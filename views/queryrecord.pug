@@ -2,19 +2,19 @@ extends layout
 block head
   link(rel='stylesheet' href='/stylesheets/mystyles.css')
   script(src='/javascripts/gui.js')
-block content
   //Navigation bar
   div.w3-bar.w3-theme.w3-large
-    a.w3-bar-item.w3-button.material-icons(href="/"
-    style="font-size: 27px") home
+    a.w3-bar-item.w3-button(href="/")
+      span.fas.fa-home
+    a.w3-bar-item.w3-button.w3-right(href="#")
+      span.fas.fa-sign-out-alt
   //Find Patient Form 
   div.w3-content(style='max-width: 480px')
-    form.w3-padding.w3-card-4.w3-section.w3-animate-zoom(
+    form.w3-padding.w3-card-4.w3-section.w3-animate-zoom.w3-theme-l3(
     onsubmit='/records' method="GET")
-      span.w3-block.material-icons.w3-margin-top.w3-text-theme(
-      style='font-size: 10vw; text-align: center') person_search
+      span.fas.fa-search.w3-block.w3-center.w3-jumbo.w3-text-blue
       label.w3-xlarge Paciente
-      input.w3-input.w3-section.w3-border(name='id' type="number"
+      input.w3-input.w3-theme-l4.w3-section(name='id' type="number"
       autocomplete='off' placeholder="Enter ID and press [Enter]" autofocus)
     
   
