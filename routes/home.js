@@ -4,7 +4,7 @@ var router = express.Router();
 
 
 router.get('/', function (req, res, next) {
-   res.render('home', {tema: req.cookies.tema});
+   res.render('home');
 });
 
 module.exports = router;

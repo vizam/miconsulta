@@ -3,9 +3,11 @@
  */
 function paginarNotas() {
   let notas = document.querySelectorAll('#divNotas > div');
-  notas[notas.length - 1].style.display = 'block';
-  let paginas = document.querySelectorAll('#paginador > a');
-  paginas[notas.length - 1].classList.add('w3-theme');
+  if (notas.length) {
+    notas[notas.length - 1].style.display = 'block';
+    let paginas = document.querySelectorAll('#paginador > a');
+    paginas[notas.length - 1].classList.add('w3-theme');
+  }
 }
 /**
  * @param {object} event object
@@ -29,7 +31,7 @@ function cambiarPagina(event) {
 function getAction(event) {
   let form = document.forms[0];
   let id = document.querySelector('form > input').value;
-  form.action = `/records`;
+  form = `/records`;
 }
 /**
  * @param {object} e: event from onsubmit
@@ -67,20 +69,38 @@ function poblarInforme() {
   document.querySelector("#medicoCredenciales").innerHTML = credenciales;
 }
 /**
- * @param {string} type kind of panel, defined in backend
+ * @param {string} type kind of message, defined in backend
  * @param {string} msg message detail, defined in backend
  */
-function panelInformativo(type, msg) {
+function panelInformativo() {
+  let type = document.querySelector('#type').innerHTML;
+  let msg = document.querySelector('#msg').innerHTML;
   if (type) {
-    let color = {
-      Success: 'rgb(60, 179, 113)',
-      Info: 'rgp(0, 157, 255, 0.5)',
-      Warning: 'rgb(255, 99, 71, 0.5)'
+    let typeString = {
+      warning: 'Warning',
+      info: 'Info',
+      success: 'Success'
+    };
+    let typeColor = {
+      success: 'rgb(60, 179, 113)',
+      info: 'rgb(0, 157, 255)',
+      warning: 'rgb(255, 99, 71)'
+    };
+    let message = {
+      nouser: 'Email is not registered !',
+      wrongpass: 'Wrong Password !',
+      registeredmail: 'That email is already registered !... Use a new one.',
+      error: 'Opps... error !... Try again.',
+      newrecord: 'Record not found... inserting new?',
+      emptynotes: `To Insert a New Note, press<span class="fas fa-pen
+      w3-margin-left w3-margin-right w3-text-white"></span> at the top of this page`,
+      storednote: 'New Note stored successfully...',
+      storedrecord: 'New Record stored successfully...'
     };
     let panel = document.querySelector('#info');
-    document.querySelector('#info > h3').innerHTML = type;
-    document.querySelector('#info > p').innerHTML = msg;
-    panel.style.backgroundColor = color[type];
+    panel.style.backgroundColor = typeColor[type];
+    document.querySelector('#info > h3').innerHTML = typeString[type];
+    document.querySelector('#info > p').innerHTML = message[msg] ?? '';
     panel.style.display = 'block';
     retirarPanel(panel);
   }
@@ -101,36 +121,35 @@ function retirarPanel(panel) {
 /**
  * 
  */
-function appKeys(event) {
-  
+function paginadorTeclas(event) {
   let paginador = document.querySelectorAll('#paginador > a');
   let notas = document.querySelectorAll('#divNotas > div');
   let pagina;
   for (let x of paginador) {
-    if (x.classList.contains('w3-theme-action')) {
+    if (x.classList.contains('w3-theme')) {
       pagina = x.innerHTML;
     }
   }
-  if (event.key == "ArrowLeft") {
+  if (event.key == "ArrowLeft" && event.shiftKey == true) {
     if (pagina > 1) {
       for (let x of notas) {
         x.style.display = 'none';
       }
       notas[pagina - 2].style.display = 'block';
-      paginador[pagina - 1].classList.toggle('w3-theme-action');
-      paginador[pagina - 2].classList.toggle('w3-theme-action');
+      paginador[pagina - 1].classList.toggle('w3-theme');
+      paginador[pagina - 2].classList.toggle('w3-theme');
     } else {
       return;
     }
   }
-  if (event.key == "ArrowRight") {
+  if (event.key == "ArrowRight" && event.shiftKey == true) {
     if (pagina < paginador.length) {
       for (let x of notas) {
         x.style.display = 'none';
       }
       notas[pagina].style.display = 'block';
-      paginador[pagina].classList.toggle('w3-theme-action');
-      paginador[pagina - 1].classList.toggle('w3-theme-action');
+      paginador[pagina].classList.toggle('w3-theme');
+      paginador[pagina - 1].classList.toggle('w3-theme');
     } else {
       return;
     }

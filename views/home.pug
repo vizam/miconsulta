@@ -1,18 +1,18 @@
 extends layout
 block content
   // Navigation bar
-  div.w3-bar.w3-theme.w3-large
-    a.w3-bar-item.w3-button.w3-right(href="/users")
+  div.w3-bar.w3-theme.w3-large.w3-mobile
+    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/users")
       span.fas.fa-sign-in-alt
       span.w3-margin Login
-    span.w3-bar-item.w3-theme-action(href="/")
+    span.w3-bar-item(href="/")
       span.fas.fa-home
       
-    a.w3-bar-item.w3-button(href="javascript: void(0)"): span.w3-margin About
-    a.w3-bar-item.w3-button(href="javascript: void(0)"): span.w3-margin Contact
+    a.w3-bar-item.w3-button.w3-hover-white(href="javascript: void(0)"): span.w3-margin About
+    a.w3-bar-item.w3-button.w3-hover-white(href="javascript: void(0)"): span.w3-margin Contact
   // Header
   header.w3-center
     h1.w3-jumbo Pillow
     p A simple medical record&nbsp;
-      i.w3-tag.w3-theme.w3-xlarge(style='font-family: "Brush Script MT", cursive') ..as hand-written
+      i.w3-tag.w3-theme.w3-xlarge.w3-cursive ...as hand-written
   

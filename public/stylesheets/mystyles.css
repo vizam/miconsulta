@@ -1,12 +1,16 @@
 @media print {
-    
     .noprint {
         display: none;
     }
-    span.w3-tag {
-        
-        color: black;
-        background-color: white;
+}
+@page {
+    margin: 1cm;
+    size: auto;
+}
+
+@media only screen {
+    .print {
+        display: none;
     }
 }
 h1, h2, h3 {
@@ -16,21 +20,12 @@ h1, h2, h3 {
 p {
     page-break-before: avoid;
     white-space: pre-wrap;
-    margin-left: 10pt;
+    margin-left: ;
 }
 table, img, ul, ol {
     page-break-inside: avoid;
 }
 
-@page {
-    margin: 2cm;
-}
-
-@media only screen {
-    .print {
-        display: none;
-    }
-}
 
 div#informe p[id] {
     white-space: pre-wrap;
