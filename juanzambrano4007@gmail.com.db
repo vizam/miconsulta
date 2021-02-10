@@ -1,0 +1,4 @@
+{"id":"2","nombre":"cheo","apellido":"lopez","fdn":"2000-02-11","tel":"478-6987412","email":"","antecedentes":"aa","notas":[],"_id":"IqZEPnKn4iFF5uWE"}
+{"id":"4","nombre":"juan","apellido":"cuarto","fdn":"2000-02-12","tel":"369-9874125","email":"","antecedentes":"adsf","notas":[{"stamp":1612978941302,"enfactual":"Primera nota","exfisico":"j","excomple":"jk ","diagnosticos":"k","tratamiento":"k"},{"stamp":1612978970915,"enfactual":"segunda nota","exfisico":"kl","excomple":"l ","diagnosticos":"l","tratamiento":"l"}],"_id":"R2KV3YjnGJxDESyg"}
+{"id":"1","nombre":"chucho","apellido":"lopez","fdn":"1990-02-11","tel":"141-3698741","email":"","antecedentes":"Niega","notas":[],"_id":"Ue7g64ia3g7QcrkD"}
+{"id":"3","nombre":"juan","apellido":"tercero","fdn":"2000-02-12","tel":"147-6987412","email":"","antecedentes":"dsfdsfd","notas":[],"_id":"peclXDgIkdt8XSYF"}

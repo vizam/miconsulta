@@ -42,7 +42,9 @@ function almacenarDatosProfesionales(e) {
   for (let x of elementos) {
     localStorage.setItem(x.name, x.value);
   }
-  panelInformativo('Success', 'Data stored succesfully');
+  document.querySelector('#type').innerHTML = 'success';
+  document.querySelector('#msg').innerHTML = 'success';
+  panelInformativo();
 }
 /**
  * from localStorate, populate patient report foot section
@@ -79,25 +81,29 @@ function panelInformativo() {
     let typeString = {
       warning: 'Alerta !',
       info: 'Información:',
-      success: 'Bien hecho !'
+      success: 'Bien hecho !',
+      welcome: 'Bienvenid@ !'
     };
     let typeColor = {
-      success: 'ForestGreen',
+      warning: 'Tomato',
       info: 'RoyalBlue',
-      warning: 'Tomato'
+      success: 'ForestGreen',
+      welcome: 'ForestGreen'
     };
     let message = {
       success: 'Operación realizada con éxito !',
-      nouser: 'Email no registrado !',
+      welcome: 'Vamos... sin miedo al éxito !',
+      noemail: 'Email no registrado !',
       wrongpass: 'Clave equivocada !... consulte al administrador',
-      registeredmail: 'Este email ya existe en la base de datos ! ... Use otro',
+      bademail: 'Este email ya existe en la base de datos ! ... Use otro',
       error: 'Ha ocurrido un error !... intente de nuevo',
       newrecord: 'No existe el registro... Quiere crear uno ?',
       emptynotes: `Para crear una nueva nota, presione <span class="fas fa-pen
       w3-margin-left w3-margin-right w3-text-white"></span> en la parte superior de la página`,
       storednote: 'Nueva Nota almacenada con éxito...',
       storedrecord: 'Nuevo Registro almacenado con éxito...',
-      badcode: 'Código equivocado u obsoleto !... Contacte al adminstrador  '
+      badcode: 'Código equivocado u obsoleto !... Contacte al adminstrador  ',
+      invalidrecord: 'Ese registro ya existe !... Operación inválida.'
     };
     let panel = document.querySelector('#info');
     panel.style.backgroundColor = typeColor[type];

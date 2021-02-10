@@ -1,26 +1,24 @@
 var express = require('express');
 var router = express.Router();
+var Datastore = require('nedb');
 
-
-
-router.get('/', (req, res, next) => {
+router.all('*', (req, res, next) => {
   if (!req.cookies.user) {
-    res.render('login');
-    return;
+    res.redirect('/users/login');
+  } else {
+    next();
   }
-  if (!req.query.id) {
-    res.render('queryrecord');
-    return;
-  }
-  next();
 });
 
 router.get('/', (req, res, next) => {
-  if (!req.cookies.user) {
-    res.render('login');
-    return;
+  if (!req.query.id) {
+    res.render('queryrecord');
+  } else {
+    next();
   }
-  let Datastore = require('nedb');
+});
+
+router.get('/', (req, res, next) => {
   let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
   patients.findOne({ id: req.query.id }, (err, doc) => {
     if (!doc) {
@@ -29,27 +27,40 @@ router.get('/', (req, res, next) => {
         messageType: 'info',
         message: 'newrecord'
       });
-      return;
-    }
-    if (req.query.messagetype) {
-      res.locals.messageType = req.query.messagetype;
-      res.locals.message = req.query.message;
-      res.render('record', doc);
     } else {
-      let hasNotes = doc.notas.length ? true : false;
-      res.locals.messageType = !hasNotes ? 'info' : '';
-      res.locals.message = !hasNotes ? 'emptynotes' : '';
       res.render('record', doc);
     }
   });
 });
 
+router.get('/:msgtype/:msgdetails', (req, res, next) => {
+  res.render('queryrecord', {
+    messageType: req.params.msgtype,
+    message: req.params.msgdetails
+  });
+});
+
+router.get('/:id/:msgtype/:msgdetails', (req, res, next) => {
+  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
+  patients.findOne({ id: req.params.id }, (err, doc) => {
+    res.locals.messageType = req.params.msgtype;
+    res.locals.message = req.params.msgdetails;
+    res.render('record', doc);
+  });
+});
+
 router.post('/storerecord', (req, res, next) => {
-  if (!req.cookies.user) {
-    res.render('login')
-    return;
-  }
-  let Datastore = require('nedb');
+  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
+  patients.findOne({ id: req.body.id }, (err, doc) => {
+    if (doc) {
+      res.redirect('/records/warning/error');
+    } else {
+      next();
+    }
+  });
+});
+
+router.post('/storerecord', (req, res, next) => {
   let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
   let record = {
     id: req.body.id,
@@ -63,21 +74,15 @@ router.post('/storerecord', (req, res, next) => {
   };
   patients.insert(record, (error, newRecord) => {
     if (error) {
-      console.log('Error al insertar nuevo paciente');
+      res.redirect('/records/warning/error');
     } else {
-      res.locals.messageType = 'success';
-      res.locals.message = 'storedrecord';
-      res.render('record', newRecord);
+      res.redirect(`/records/${newRecord.id}/success/success`);
     }
   });
 });
 
 router.post('/storenote', (req, res, next) => {
-  if (!req.cookies.user) {
-    res.render('login')
-  }
-  let Datastore = require('nedb');
-  let pacientes = new Datastore(
+  let patients = new Datastore(
     {
       filename: `${req.cookies.user}.db`,
       autoload: true
@@ -93,14 +98,15 @@ router.post('/storenote', (req, res, next) => {
     diagnosticos: req.body.diagnosticos,
     tratamiento: req.body.tratamiento
   };
-  pacientes.update({ id: req.body.id }, { $push: { notas: nota } }, {}, (err) => {
+  patients.update({ id: req.body.id }, { $push: { notas: nota } }, {}, (err) => {
     if (err) {
-      res.redirect(`/records?id=${req.body.id}&messagetype=warning&message=error`);
+      res.redirect(`/records/${req.body.id}/warning/error`);
     } else {
-      res.redirect(`/records?id=${req.body.id}&messagetype=success&message=storednote`);
+      res.redirect(`/records/${req.body.id}/success/storednote`);
     }
   });
 });
+
 
 
 module.exports = router;

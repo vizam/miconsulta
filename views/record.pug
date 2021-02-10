@@ -51,10 +51,15 @@ block content
         span.fas.fa-mobile-alt
         a.w3-margin(href=`tel:${tel}`) &nbsp;#{tel} 
     div#divNotas
+      // Conditional Section
       - if (notas.length == 0)
-        h1.w3-center
-          span.w3-margin.fas.fa-info-circle.w3-text-blue
-          span No hay notas almacenadas
+        div.w3-tooltip
+            h1.w3-show-inline-block.w3-margin.fas.fa-info-circle.w3-text-blue
+            h1.w3-show-inline-block.w3-margin No hay Notas almacenadas
+            h2.w3-text.w3-block - Presione el lápiz (arriba) para crearla
+        //span No hay notas almacenadas
+          
+      // ... Content
       - for (let x = 0; x < notas.length; x++)
         - let fecha = new Date(notas[x].stamp);
         div(style='display: none')

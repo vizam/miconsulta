@@ -1,7 +1,7 @@
 extends layout
 block head
-  link(rel='stylesheet' href='stylesheets/mystyles.css')
-  script(src='javascripts/gui.js')
+  link(rel='stylesheet' href='/stylesheets/mystyles.css')
+  script(src='/javascripts/gui.js')
   //Navigation bar
   div.w3-bar.w3-theme.w3-large
     a.w3-bar-item.w3-button.w3-hover-white(href="/")
@@ -17,7 +17,12 @@ block head
         p
           label.w3-xlarge Paciente
           input.w3-input(name='id' type="number"
-          autocomplete='off' placeholder="Enter ID and press [Enter]" autofocus)
+          autocomplete='off' placeholder="Ingrese el ID y presione [Enter]" autofocus)
+  
+  include panelinfo.pug
+
+  script.
+    window.onload = panelInformativo;
     
   
   

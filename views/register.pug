@@ -14,10 +14,12 @@ block content
     div.w3-card-4.w3-section.w3-animate-bottom
       h1.w3-theme.w3-padding Registro de Usuario
       form.w3-container(
-      method='POST' action='/users/storeuser')
+      method='POST' action='/users/register')
         p
-          label: b Email
-          input.w3-input(name="email" type='email'
+          label: span.w3-tooltip: b Email 
+            span.far.fa-question-circle.w3-large.w3-margin-left.w3-text-blue
+            span.w3-text.w3-text-blue Minúsculas y mayúsculas no son iguales !
+          input.w3-input(name="email" type='email' placeholder='cuidado con minúsculas y mayúsculas !'
           onkeyup='checkEmail()' required autofocus)
         p
           label: b Confirm Email

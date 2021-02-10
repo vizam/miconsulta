@@ -7,7 +7,7 @@ block content
     a.w3-bar-item.w3-button.w3-hover-white(href="/")
       span.fas.fa-home
     span.w3-bar-item.w3-wide Nuevo Registro
-    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="#")
+    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/users/logout")
       span.fas.fa-sign-out-alt
     a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/ajustes")
       span.fas.fa-user-cog
@@ -22,6 +22,7 @@ block content
           label: b Id
           input.w3-input(name='id' type='number' readonly value=`${id}`)
         p
+          //label: b Nombre(s)
           label: b Nombre(s)
           input.w3-input(name='nombre' type="text" autocomplete='off' required autofocus)
         p
