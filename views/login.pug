@@ -11,7 +11,7 @@ block content
   div.w3-auto.w3-padding
     div.w3-card-4.w3-section.w3-animate-bottom
       h1.w3-theme.w3-padding Iniciar Sesión
-      form.w3-container(method='POST' action='/users')
+      form.w3-container(method='POST' action='/users/login')
         p
           label: b Email
           input.w3-input(name="email" type="email"
@@ -29,6 +29,4 @@ block content
           a(href="/users/register") Register
   include panelinfo.pug
   script.
-    //let type = document.querySelector('#type').innerHTML;
-    //let message = document.querySelector('#msg').innerHTML;
     window.onload = panelInformativo;
