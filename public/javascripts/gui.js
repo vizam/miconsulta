@@ -77,25 +77,27 @@ function panelInformativo() {
   let msg = document.querySelector('#msg').innerHTML;
   if (type) {
     let typeString = {
-      warning: 'Warning',
-      info: 'Info',
-      success: 'Success'
+      warning: 'Alerta !',
+      info: 'Información:',
+      success: 'Bien hecho !'
     };
     let typeColor = {
-      success: 'rgb(60, 179, 113)',
-      info: 'rgb(0, 157, 255)',
-      warning: 'rgb(255, 99, 71)'
+      success: 'ForestGreen',
+      info: 'RoyalBlue',
+      warning: 'Tomato'
     };
     let message = {
-      nouser: 'Email is not registered !',
-      wrongpass: 'Wrong Password !',
-      registeredmail: 'That email is already registered !... Use a new one.',
-      error: 'Opps... error !... Try again.',
-      newrecord: 'Record not found... inserting new?',
-      emptynotes: `To Insert a New Note, press<span class="fas fa-pen
-      w3-margin-left w3-margin-right w3-text-white"></span> at the top of this page`,
-      storednote: 'New Note stored successfully...',
-      storedrecord: 'New Record stored successfully...'
+      success: 'Operación realizada con éxito !',
+      nouser: 'Email no registrado !',
+      wrongpass: 'Clave equivocada !... consulte al administrador',
+      registeredmail: 'Este email ya existe en la base de datos ! ... Use otro',
+      error: 'Ha ocurrido un error !... intente de nuevo',
+      newrecord: 'No existe el registro... Quiere crear uno ?',
+      emptynotes: `Para crear una nueva nota, presione <span class="fas fa-pen
+      w3-margin-left w3-margin-right w3-text-white"></span> en la parte superior de la página`,
+      storednote: 'Nueva Nota almacenada con éxito...',
+      storedrecord: 'Nuevo Registro almacenado con éxito...',
+      badcode: 'Código equivocado u obsoleto !... Contacte al adminstrador  '
     };
     let panel = document.querySelector('#info');
     panel.style.backgroundColor = typeColor[type];

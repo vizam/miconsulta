@@ -15,37 +15,35 @@ block content
       span.fas.fa-search
   //Content
   div.w3-auto.w3-padding
-    form.w3-padding.w3-section.w3-card-4.w3-theme-l3(
-    method='POST' action='/records/storerecord')
-      i.fas.fa-user-plus.w3-block.w3-center.w3-jumbo.w3-text-blue
-      label: b Id
-      input.w3-input.w3-margin-bottom(name='id' type='number'
-      readonly value=`${id}`)
-      label: b Nombre
-      input.w3-input.w3-margin-bottom(name='nombre' type="text"
-      autocomplete='off' required autofocus)
-      label: b Apellido
-      input.w3-input.w3-margin-bottom(name='apellido' type="text"
-      autocomplete='off' required)
-      label: b Fecha de Nacimiento
-      input.w3-input.w3-margin-bottom(name='fdn' type="date" required)
-      label: b Teléfono
-      input.w3-input.w3-margin-bottom(name='tel' type="tel"
-      pattern="[0-9]{3}-[0-9]{7}" autocomplete='off' required
-      placeholder="Example: 123-1234567")
-      label: b Email
-      input.w3-input.w3-margin-bottom(name='email' type="email"
-      autocomplete='off' required)
-      label: b Antecedentes
-      ul.w3-small
-        li Patológicos: HTA, Diabetes, Ca próstata familiar, otras
-        li Quirúrgicos
-        li Ginecológocos
-        li Urológicos: litiasis, cateterismo, hematuria, otros
-        li Medicaciones y Alergias
-        li Hábitos y Ocupación
-      textarea.w3-input(name='antecedentes' rows='8' style="resize: none")
-      button.w3-button.w3-section.w3-round.w3-blue(type="submit") Guardar
+    div.w3-card-4.w3-section
+      h1.w3-theme.w3-padding Nuevo Registro
+      form.w3-container(method='POST' action='/records/storerecord')
+        p
+          label: b Id
+          input.w3-input(name='id' type='number' readonly value=`${id}`)
+        p
+          label: b Nombre(s)
+          input.w3-input(name='nombre' type="text" autocomplete='off' required autofocus)
+        p
+          label: b Apellido(s)
+          input.w3-input(name='apellido' type="text" autocomplete='off' required)
+        p
+          label: b Fecha de Nacimiento
+          input.w3-input(name='fdn' type="date" required)
+        p
+          label: b Teléfono
+          input.w3-input(name='tel' type="tel" pattern="[0-9]{3}-[0-9]{7}" autocomplete='off' placeholder="Example: 123-1234567" required)
+        p
+          label: b Email
+          input.w3-input(name='email' type="email" autocomplete='off')
+        label: b Antecedentes
+        ul.w3-small
+          li Patológicos
+          li Quirúrgicos
+          li Ginecológicos / Urológicos / Otros
+          li Alergias / Medicaciones / Hábitos / Ocupación
+        textarea.w3-input.w3-border(name='antecedentes' rows='6' style="resize: none")
+        button.w3-button.w3-section.w3-round.w3-blue(type="submit") Guardar
   include panelinfo.pug
   script.
     window.onload = panelInformativo;

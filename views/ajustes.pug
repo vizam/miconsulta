@@ -4,16 +4,19 @@ block head
 block content
   // Navigation bar
   div.w3-bar.w3-theme.w3-large
-    a(href="/" class="w3-bar-item w3-button material-icons"
-    style='font-size: 27px') home
-    span(style='display: inline-block; padding: 8px 0') Ajustes
-    a(href="/records" class='w3-bar-item w3-mobile material-icons w3-button w3-right'
-    style="font-size: 27px") search
-
-  div.w3-row-padding.w3-card-4.w3-margin
-    div.w3-half.w3-padding-large
+    a.w3-bar-item.w3-button.w3-hover-white(href="/")
+      span.fas.fa-home
+    span.w3-bar-item.w3-wide Ajustes
+    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/users/logout")
+      span.fas.fa-sign-out-alt
+    a.w3-bar-item.w3-button.w3-right.w3-hover-white(
+    href="/records")
+      span.fas.fa-search
+  // Content
+  div.w3-auto
+    div.w3-section.w3-card-4
+      h1.w3-theme.w3-padding Datos Profesionales
       form#datosProfesionales.w3-container(onsubmit="almacenarDatosProfesionales(event)")
-        h2.w3-text-blue Datos del Médico
         input.w3-input.w3-section(name="grado" type="text"
         placeholder="GRADO ACADEMICO (Dr./Mg. S./etc")
         input.w3-input.w3-section(name="nombres" type="text" placeholder="Nombres")
@@ -27,16 +30,16 @@ block content
         placeholder="Ejemplo: COMEZU.11293")
         input.w3-button.w3-blue.w3-section.w3-right(
         type='submit' value='Almacenar') 
-    div.w3-half.w3-padding-large
+    div.w3-section.w3-card-4
+      h1.w3-theme.w3-padding Firma Electrónica
       form.w3-container(onsubmit="almacenarFirma(event)")
-        h2.w3-text-blue Firma
         input.w3-input(name="firma" type="file" disabled)
         input.w3-button.w3-blue.w3-section.w3-right(
         type='submit' value='Almacenar' disabled)
-  script window.onload = poblarAjustes();
+  
+  include panelinfo.pug
 
-  //Informative Panels
-  div#panelExito.w3-panel.w3-green.w3-border.w3-round.w3-animate-bottom(style="display: none; opacity: 1; position: fixed; width: 80%; bottom: 0; left: 10%; transition: opacity 2s")
-    h3 Success !
-    p
+  script window.onload = poblarAjustes;
+
+  
   

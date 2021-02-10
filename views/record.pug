@@ -8,7 +8,7 @@ block content
     a.w3-bar-item.w3-button.w3-hover-white(href="/")
       span.fas.fa-home
     span.w3-bar-item.w3-wide Historia Clínica
-    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="#")
+    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/users/logout")
       span.fas.fa-sign-out-alt
     a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/ajustes")
       span.fas.fa-user-cog
@@ -49,11 +49,11 @@ block content
           span &nbsp;años
       li
         span.fas.fa-mobile-alt
-        span.w3-margin #{tel} 
+        a.w3-margin(href=`tel:${tel}`) &nbsp;#{tel} 
     div#divNotas
       - if (notas.length == 0)
         h1.w3-center
-          span.w3-margin.fas.fa-info-circle.w3-text-theme
+          span.w3-margin.fas.fa-info-circle.w3-text-blue
           span No hay notas almacenadas
       - for (let x = 0; x < notas.length; x++)
         - let fecha = new Date(notas[x].stamp);
@@ -76,8 +76,8 @@ block content
           p #{ notas[x].diagnosticos }
           h4 Tratamiento
           p #{ notas[x].tratamiento }
-    br
-    br
+    
+    
   // Pagination of notes
   div#paginador.w3-bar.w3-center.noprint(onclick='cambiarPagina(event)' style="position: fixed; bottom: 20px;")
     span.fas.fa-angle-double-left.w3-margin-right(title=`Shift + Left`)
@@ -90,7 +90,7 @@ block content
   include pieinforme.pug
 
   script.
-    document.querySelector('body').classList.add('w3-theme-l3');
+    document.querySelector('body').classList.add('w3-theme-l4');
     window.onload = function () {
       paginarNotas();
       panelInformativo();

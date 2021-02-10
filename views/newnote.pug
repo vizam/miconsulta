@@ -1,22 +1,22 @@
 div#modalInput.w3-modal
-  div.w3-modal-content.w3-theme-l3.w3-animate-zoom
-    span.w3-button.w3-right(
+  div.w3-modal-content.w3-animate-zoom
+    span.w3-button.w3-right.w3-hover-white.w3-theme(
     onclick="document.getElementById('modalInput').style.display='none'") &times;
-    span.far.fa-comment-dots.w3-block.w3-center.w3-jumbo.w3-text-blue
+    h1.w3-padding.w3-theme Ingresar Nota
     form#noteForm(method='POST' action='/records/storenote')
     div.w3-row-padding.w3-container
       div.w3-half.w3-section
         input.w3-hide(name='id' form='noteForm' value=`${id}`)
         label: b Enfermedad Actual
-        textarea.w3-input.w3-theme-l4(name='enfactual' form='noteForm' rows='6' autofocus)
+        textarea.w3-input.w3-border(name='enfactual' form='noteForm' rows='6' autofocus)
         label: b Examen Físico
-        textarea.w3-input.w3-theme-l4(name='exfisico' form='noteForm' rows='6')
+        textarea.w3-input.w3-border(name='exfisico' form='noteForm' rows='6')
         label: b Exámenes Complementarios
-        textarea.w3-input.w3-theme-l4(name='excomple' rows='6' form='noteForm' ) 
+        textarea.w3-input.w3-border(name='excomple' rows='6' form='noteForm' ) 
       div.w3-half.w3-section
         label: b Diagnósticos
-        textarea.w3-input.w3-theme-l4(name='diagnosticos' form='noteForm' rows='6')
+        textarea.w3-input.w3-border(name='diagnosticos' form='noteForm' rows='6')
         label: b Tratamiento Sugerido
-        textarea.w3-input.w3-theme-l4(name='tratamiento' rows='6' form='noteForm')
+        textarea.w3-input.w3-border(name='tratamiento' rows='6' form='noteForm')
         button.w3-right.w3-button.w3-blue.w3-section(type='submit' form='noteForm') Save
         

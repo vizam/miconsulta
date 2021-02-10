@@ -33,11 +33,15 @@ router.get('/register', function (req, res, next) {
 });
 
 router.post('/storeuser', function (req, res, next) {
+   console.log(req.body.email);
+   console.log(req.body.code);
+   if (req.body.code != 'zv4p') {
+      res.render('register', {messageType: 'warning', message: 'badcode'});
+      return;
+   }  
    var Datastore = require('nedb');
    var users = new Datastore({ filename: 'users.db', autoload: true });
    var user = {
-      name: req.body.name,
-      lastname: req.body.lastname,
       email: req.body.email,
       password: req.body.password
    };
@@ -50,12 +54,16 @@ router.post('/storeuser', function (req, res, next) {
                res.render('register', {messageType: 'warning', message: 'error'});
             } else {
                res.cookie('user', newDoc.email);
-               res.redirect('/records');
+               res.render('login', { messageType: 'success', message: 'success'});
             }
          });
       }
    });
 });
 
+router.get('/logout', (req, res, next) => {
+   res.clearCookie('user');
+   res.render('login');
+})
 
 module.exports = router;

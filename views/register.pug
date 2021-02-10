@@ -5,34 +5,37 @@ block head
   script(src='/javascripts/validations.js')
 block content
   //Navigation bar
-  div.w3-bar.w3-theme.w3-large
+  div.w3-bar.w3-theme.w3-large(style='position: sticky; top: 0')
     a.w3-bar-item.w3-button.w3-hover-white(href="/")
       span.fas.fa-home
       span.w3-margin Home
   //Content
-  div.w3-auto.w3-padding(style='max-width: 480px')
-    form.w3-padding.w3-section.w3-card-4.w3-theme-l3(
-    method='POST' action='/users/storeuser')
-      i.fas.fa-user-edit.w3-block.w3-center.w3-jumbo.w3-text-blue
-      label: b Name  
-      input.w3-input.w3-round.w3-margin-bottom(name="name" type='text' required autofocus)
-      label: b Last Name
-      input.w3-input.w3-round.w3-margin-bottom(name="lastname" type='text' required)
-      label: b Email
-      input.w3-input.w3-round.w3-margin-bottom(name="email" type='email'
-      onkeyup='checkEmail()' required)
-      label: b Confirm Email
-      input.w3-input.w3-round.w3-margin-bottom(name="confirmemail" type='email'
-      onkeyup='checkEmail()' required)
-      label: b Password
-      input.w3-input.w3-round.w3-margin-bottom(name="password" type='password'
-      onkeyup='checkPassword()' required)
-      label: b Confirm Password
-      input.w3-input.w3-round.w3-margin-bottom(name="confirmpassword" type='password' onkeyup='checkPassword()' required)
-      label.fas.fa-key.w3-xlarge(style='color: green')
-      input.w3-round.w3-margin-left.w3-pale-green.w3-xlarge(name="codigo" required type='text' maxlength='4' size='4' placeholder='code')
-      br
-      button.w3-button.w3-section.w3-round.w3-blue(type="submit" style='') Register
+  div.w3-auto.w3-padding
+    div.w3-card-4.w3-section.w3-animate-bottom
+      h1.w3-theme.w3-padding Registro de Usuario
+      form.w3-container(
+      method='POST' action='/users/storeuser')
+        p
+          label: b Email
+          input.w3-input(name="email" type='email'
+          onkeyup='checkEmail()' required autofocus)
+        p
+          label: b Confirm Email
+          input.w3-input(name="confirmemail" type='email'
+          onkeyup='checkEmail()' required)
+        p
+          label: b Password
+          input.w3-input(name="password" type='password'
+          onkeyup='checkPassword()' required)
+        p
+          label: b Confirm Password
+          input.w3-input(name="confirmpassword" type='password' onkeyup='checkPassword()' required)
+        p
+          label.fas.fa-key.w3-xlarge(style='color: green')
+          input.w3-margin-left.w3-xlarge(name="code" type='text' required)
+        p
+          button.w3-button.w3-section.w3-round.w3-blue(type="submit") Register
+  
   include panelinfo.pug
   script.
     window.onload = panelInformativo;

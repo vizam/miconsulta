@@ -7,16 +7,17 @@ block head
     a.w3-bar-item.w3-button.w3-hover-white(href="/")
       span.fas.fa-home
     span.w3-bar-item.w3-wide Base de Datos
-    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="#")
+    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/users/logout")
       span.fas.fa-sign-out-alt
-  //Find Patient Form 
-  div.w3-content(style='max-width: 480px')
-    form.w3-padding.w3-card-4.w3-section.w3-animate-zoom.w3-theme-l3(
-    action='/records' method="GET")
-      span.fas.fa-search.w3-block.w3-center.w3-jumbo.w3-text-blue
-      label.w3-xlarge Paciente
-      input.w3-input.w3-theme-l4.w3-section(name='id' type="number"
-      autocomplete='off' placeholder="Enter ID and press [Enter]" autofocus)
+  //Content 
+  div.w3-auto.w3-padding
+    div.w3-card-4.w3-section.w3-animate-bottom
+      h1.w3-theme.w3-padding Buscar Registro
+      form.w3-container(action='/records' method="GET")
+        p
+          label.w3-xlarge Paciente
+          input.w3-input(name='id' type="number"
+          autocomplete='off' placeholder="Enter ID and press [Enter]" autofocus)
     
   
   
