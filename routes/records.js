@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
+  let patients = new Datastore({ filename: `.data/${req.cookies.user}.db`, autoload: true });
   patients.findOne({ id: req.query.id }, (err, doc) => {
     if (!doc) {
       res.render('newrecord', {
@@ -41,7 +41,7 @@ router.get('/:msgtype/:msgdetails', (req, res, next) => {
 });
 
 router.get('/:id/:msgtype/:msgdetails', (req, res, next) => {
-  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
+  let patients = new Datastore({ filename: `.data/${req.cookies.user}.db`, autoload: true });
   patients.findOne({ id: req.params.id }, (err, doc) => {
     res.locals.messageType = req.params.msgtype;
     res.locals.message = req.params.msgdetails;
@@ -50,7 +50,7 @@ router.get('/:id/:msgtype/:msgdetails', (req, res, next) => {
 });
 
 router.post('/storerecord', (req, res, next) => {
-  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
+  let patients = new Datastore({ filename: `.data/${req.cookies.user}.db`, autoload: true });
   patients.findOne({ id: req.body.id }, (err, doc) => {
     if (doc) {
       res.redirect('/records/warning/error');
@@ -61,7 +61,7 @@ router.post('/storerecord', (req, res, next) => {
 });
 
 router.post('/storerecord', (req, res, next) => {
-  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
+  let patients = new Datastore({ filename: `.data/${req.cookies.user}.db`, autoload: true });
   let record = {
     id: req.body.id,
     nombre: req.body.nombre,
@@ -84,7 +84,7 @@ router.post('/storerecord', (req, res, next) => {
 router.post('/storenote', (req, res, next) => {
   let patients = new Datastore(
     {
-      filename: `${req.cookies.user}.db`,
+      filename: `.data/${req.cookies.user}.db`,
       autoload: true
     }
   );
@@ -95,7 +95,7 @@ router.post('/storenote', (req, res, next) => {
     exfisico: req.body.exfisico,
     excomple: req.body.excomple,
     enfactual: req.body.enfactual,
-    diagnosticos: req.body.diagnosticos,
+    diagnostico: req.body.diagnostico,
     tratamiento: req.body.tratamiento
   };
   patients.update({ id: req.body.id }, { $push: { notas: nota } }, {}, (err) => {

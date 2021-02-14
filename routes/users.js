@@ -33,21 +33,25 @@ router.get("/logout", (req, res, next) => {
   res.render("login");
 });
 
-router.post("/login", function (req, res, next) {
-  var users = new Datastore({ filename: "users.db", autoload: true });
-  var email = req.body.email;
-  var password = req.body.password;
-  users.findOne({ email: email }, (err, doc) => {
-    if (!doc) {
-      res.redirect("/users/warning/noemail");
-    } else if (password != doc.password) {
-      res.redirect("/users/warning/wrongpass");
-    } else {
-      res.cookie("user", doc.email);
-      res.redirect("/records/welcome/welcome");
-    }
-  });
-});
+router.post("/login",
+  function (req, res, next) {
+    var users = new Datastore({ filename: ".data/users.db", autoload: true });
+    users.findOne({ email: req.body.email }, function (err, doc) {
+      if (err) {
+        console.log("error de database");
+      } else if (!doc) {
+        res.render("login", { messageType: "warning", message: "noemail" });
+      } else if ( req.body.password != doc.password) {
+        res.render("login", { messageType: "warning", message: "wrongpass" });
+      } else {
+        next();
+      }
+    });
+},function (req, res, next) {
+    res.cookie("user", req.body.email);
+    res.redirect("/records");
+}
+);
 
 router.post("/register", function (req, res, next) {
   if (req.body.code != "zv4p") {
@@ -58,7 +62,7 @@ router.post("/register", function (req, res, next) {
 });
 
 router.post("/register", (req, res, next) => {
-  var users = new Datastore({ filename: "users.db", autoload: true });
+  var users = new Datastore({ filename: ".data/users.db", autoload: true });
   var newUser = {
     email: req.body.email,
     password: req.body.password,
@@ -73,7 +77,7 @@ router.post("/register", (req, res, next) => {
 });
 
 router.post("/register", (req, res, next) => {
-  var users = new Datastore({ filename: "users.db", autoload: true });
+  var users = new Datastore({ filename: ".data/users.db", autoload: true });
   var user = {
     email: req.body.email,
     password: req.body.password,

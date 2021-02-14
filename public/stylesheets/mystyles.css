@@ -4,7 +4,7 @@
     }
 }
 @page {
-    margin: 1cm;
+    margin: 2cm;
     size: auto;
 }
 
@@ -20,7 +20,7 @@ h1, h2, h3 {
 p {
     page-break-before: avoid;
     white-space: pre-wrap;
-    margin-left: ;
+    
 }
 table, img, ul, ol {
     page-break-inside: avoid;
@@ -37,9 +37,11 @@ input::-webkit-outer-spin-button,
       -webkit-appearance: none;
       margin: 0;
     }
-input {
-    background-color:  ;
-}
+
 textarea {
     resize: none;
+}
+
+.capital {
+    text-transform: capitalize;
 }

@@ -28,15 +28,24 @@ function cambiarPagina(event) {
 /**
  * 
  */
-function getAction(event) {
-  let form = document.forms[0];
-  let id = document.querySelector('form > input').value;
-  form = `/records`;
+function setUrl(e) {
+  let anchor = e.target.parentNode;
+  let notas = document.querySelectorAll('#divNotas > div');
+  let patient = document.querySelector('#patientId').innerHTML;
+  let paginaActiva;
+  for (let x = 0; x < notas.length; x++) {
+    if (notas[x].style.display == 'block') {
+      paginaActiva = x;
+    }
+  }
+  anchor.href = paginaActiva >= 0 ? `/reportes/${patient}/${paginaActiva}` : 'javascript: void(0)';
+  anchor.target = paginaActiva >= 0 ? '_blank' : '_self';
 }
+  
 /**
  * @param {object} e: event from onsubmit
  */
-function almacenarDatosProfesionales(e) {
+/* function almacenarDatosProfesionales(e) {
   e.preventDefault();
   let elementos = e.target.elements;
   for (let x of elementos) {
@@ -44,29 +53,29 @@ function almacenarDatosProfesionales(e) {
   }
   document.querySelector('#type').innerHTML = 'success';
   document.querySelector('#msg').innerHTML = 'success';
-  panelInformativo();
-}
+  panelInformativo(); */
+//}
 /**
  * from localStorate, populate patient report foot section
  */
-function poblarAjustes() {
+/* function poblarAjustes() {
   let elementos = document.querySelectorAll('#datosProfesionales input[name]');
   for (let x of elementos) {
     x.value = localStorage.getItem(x.name) ?? "";
   }
-}
+} */
 /**
  * 
  */
 function poblarInforme() {
   let grado = localStorage.getItem("grado") ?? "";
-  let nombres = localStorage.getItem("nombres") ?? "";
-  let apellidos = localStorage.getItem("apellidos") ?? "";
+  let nombre = localStorage.getItem("nombre") ?? "";
+  let apellido = localStorage.getItem("apellido") ?? "";
   let credencial1 = localStorage.getItem("credencial1") ?? '';
   let credencial2 = localStorage.getItem("credencial2") ?? '';
   let credencial3 = localStorage.getItem("credencial3") ?? '';
   let credenciales = `${credencial1} ${credencial2} ${credencial3}`;
-  document.querySelector("#medicoNombre").innerHTML = `${grado} ${nombres} ${apellidos}`;
+  document.querySelector("#medicoNombre").innerHTML = `${grado} ${nombre} ${apellido}`;
   document.querySelector("#medicoEspecialidad").innerHTML = localStorage.getItem("especialidad") ?? "";
   document.querySelector("#medicoCredenciales").innerHTML = credenciales;
 }
@@ -103,7 +112,9 @@ function panelInformativo() {
       storednote: 'Nueva Nota almacenada con éxito...',
       storedrecord: 'Nuevo Registro almacenado con éxito...',
       badcode: 'Código equivocado u obsoleto !... Contacte al adminstrador  ',
-      invalidrecord: 'Ese registro ya existe !... Operación inválida.'
+      invalidrecord: 'Ese registro ya existe !... Operación inválida.',
+      invaliduser: 'Usuario inválido ...',
+      networkdown: 'El server no responde... intente mas tarde'
     };
     let panel = document.querySelector('#info');
     panel.style.backgroundColor = typeColor[type];

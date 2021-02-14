@@ -1,0 +1,59 @@
+extends layout
+block head
+  //script(src='/javascripts/gui.js')
+  //script(src='/javascripts/ajax.js')
+  link(rel='stylesheet' href='/stylesheets/mystyles.css')
+block content
+  //Some Code
+  -
+    var hoy = new Date();
+    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    let nacimiento = new Date(paciente.fdn);
+    let años = hoy.getFullYear() - nacimiento.getFullYear();
+    let ajuste = hoy.getMonth() >= nacimiento.getMonth() && hoy.getDate() >= nacimiento.getDate() ? 0 : -1;
+    let evaluacion = new Date(paciente.stamp);
+  // Content
+  div.w3-auto
+    hr(style='height: 10px; background-color: DodgerBlue' )
+    span.w3-block.w3-right-align Reporte: #{`${hoy.getDate()} de ${meses[hoy.getMonth()]} de ${hoy.getFullYear()} `}
+    span.w3-block.w3-right-align Consulta: #{`${evaluacion.getDate()} de ${meses[evaluacion.getMonth()]} de ${evaluacion.getFullYear()} `}
+    h1.w3-right-align Informe Médico
+    ul.w3-ul.w3-section.w3-card-2.w3-large
+      li
+        span.fas.fa-fingerprint
+        span#patientId.w3-margin #{paciente.id}
+      li.capital
+        span.far.fa-user
+        span.w3-margin #{paciente.nombre}&nbsp;#{paciente.apellido}
+      li
+        span.far.fa-clock
+        span.w3-margin #{años + ajuste}
+          span &nbsp;años
+      li
+        span.fas.fa-phone-alt
+        span.w3-margin #{paciente.tel} 
+    hr(style='width: 15%; height: 5px; background-color: DodgerBlue' )
+    h3 Motivo de consulta
+    p #{paciente.enfactual}
+    h3 Antecedentes
+    p #{paciente.antecedentes}
+    h3 Examen Físico
+    p #{paciente.exfisico}
+    h3 Exámenes Complementarios
+    p #{paciente.excomple}
+    h3 Diagnósticos
+    p #{paciente.diagnostico}
+    h3 Tratamiento
+    p #{paciente.tratamiento}
+    hr(style='width: 15%; height: 5px; background-color: DodgerBlue')
+    // Foot
+    table(style="width: 100%; border: 1px solid; border-collapse: collapse; line-height: normal")
+      tr
+        td(style="width: 33%; text-align: center") #{doctor.nombre},&nbsp;#{doctor.apellido}<br>
+          |#{doctor.especialidad}<br>
+          |#{doctor.credencial1}<br>
+          |#{doctor.credencial2}<br>
+          |#{doctor.credencial3}<br>
+        td(style="width: 33%; border-left: 1px solid") 
+        td(style="width: 33%; border-left: 1px solid") 
+    hr
