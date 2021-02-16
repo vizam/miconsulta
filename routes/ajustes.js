@@ -15,7 +15,7 @@ router.get("/", function (req, res, next) {
     filename: `.data/users.db`,
     autoload: true,
   });
-  users.findOne({ email: req.cookies.user }, function (err, doc) {
+  users.findOne({ user: req.cookies.user }, function (err, doc) {
     if (err) {
       console.log("se produjo un error de database");
     } else {

@@ -1,6 +1,6 @@
 extends layout
 block head
-  script(src='javascripts/gui.js')
+  script(src='/javascripts/gui.js')
 block content
   //Navigation bar
   div.w3-bar.w3-theme.w3-large.noprint(style='position: sticky; top: 0')
@@ -36,7 +36,7 @@ block content
           input.w3-input(name='tel' type="tel" pattern="[0-9]{3}-[0-9]{7}" autocomplete='off' placeholder="Example: 123-1234567" required)
         p
           label: b Email
-          input.w3-input(name='email' type="email" autocomplete='off')
+          input.w3-input(name='user' type="email" autocomplete='off')
         label: b Antecedentes
         ul.w3-small
           li Patológicos

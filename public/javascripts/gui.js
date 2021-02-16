@@ -38,8 +38,13 @@ function setUrl(e) {
       paginaActiva = x;
     }
   }
-  anchor.href = paginaActiva >= 0 ? `/reportes/${patient}/${paginaActiva}` : 'javascript: void(0)';
-  anchor.target = paginaActiva >= 0 ? '_blank' : '_self';
+  if (anchor.id == 'printer') {
+    anchor.href = paginaActiva >= 0 ? `/reportes/${patient}/${paginaActiva}/printer` : 'javascript: void(0)';
+    anchor.target = paginaActiva >= 0 ? '_blank' : '_self';
+  } else {
+    anchor.href = paginaActiva >= 0 ? `/reportes/${patient}/${paginaActiva}/mailer` : 'javascript: void(0)';
+    anchor.target = paginaActiva >= 0 ? '_blank' : '_self';
+  }
 }
   
 /**
@@ -80,26 +85,27 @@ function poblarInforme() {
   document.querySelector("#medicoCredenciales").innerHTML = credenciales;
 }
 /**
- * @param {string} type kind of message, defined in backend
- * @param {string} msg message detail, defined in backend
+ * @param {string} message kind of message, defined in backend
+ * @param {string} details message detail, defined in backend
  */
 function panelInformativo() {
-  let type = document.querySelector('#type').innerHTML;
-  let msg = document.querySelector('#msg').innerHTML;
-  if (type) {
-    let typeString = {
+  let message = document.querySelector('#message').innerHTML;
+  let details = document.querySelector('#details').innerHTML;
+  
+  if (message) {
+    let messageString = {
       warning: 'Alerta !',
       info: 'Información:',
       success: 'Bien hecho !',
       welcome: 'Bienvenid@ !'
     };
-    let typeColor = {
+    let panelColor = {
       warning: 'Tomato',
       info: 'RoyalBlue',
       success: 'ForestGreen',
       welcome: 'ForestGreen'
     };
-    let message = {
+    let detailsString = {
       success: 'Operación realizada con éxito !',
       welcome: 'Vamos... sin miedo al éxito !',
       noemail: 'Email no registrado !',
@@ -117,9 +123,9 @@ function panelInformativo() {
       networkdown: 'El server no responde... intente mas tarde'
     };
     let panel = document.querySelector('#info');
-    panel.style.backgroundColor = typeColor[type];
-    document.querySelector('#info > h3').innerHTML = typeString[type];
-    document.querySelector('#info > p').innerHTML = message[msg] ?? '';
+    panel.style.backgroundColor = panelColor[message];
+    document.querySelector('#info > h3').innerHTML = messageString[message];
+    document.querySelector('#info > p').innerHTML = detailsString[details] ?? '';
     panel.style.display = 'block';
     retirarPanel(panel);
   }

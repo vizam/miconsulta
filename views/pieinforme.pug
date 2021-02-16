@@ -1,9 +1,11 @@
-table.w3-center.print(style="width: 100%; border: 1px solid; border-collapse: collapse; line-height: normal")
+// Foot
+table.print(style="width: 100%; border: 1px solid; border-collapse: collapse; line-height: normal")
   tr
-    td#medicoNombre(style="width: 33%; font-weight: bold;") (Configure sus Datos)
-    td#medicoFirma(style="width: 33%; border-left: 1px solid;" rowspan="3") (Firma)
-    td#medicoSello(style="width:33%; border-left: 1px solid;" rowspan="3") (Sello)
-  tr
-    td#medicoEspecialidad
-  tr
-    td#medicoCredenciales
+    td(style="width: 33%; text-align: center; font-size: small") #{doctor.nombre}&nbsp;#{doctor.apellido}<br>
+      |#{doctor.especialidad}<br>
+      |#{doctor.credencial1} #{doctor.credencial2} #{doctor.credencial3}
+      //|#{doctor.credencial2}<br>
+      //|#{doctor.credencial3}<br>
+    td(style="width: 33%; border-left: 1px solid") 
+    td(style="width: 33%; border-left: 1px solid") 
+hr.print

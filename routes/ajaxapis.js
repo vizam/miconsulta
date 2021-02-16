@@ -15,7 +15,7 @@ router.post("/dataprofesional", function (req, res, next) {
     filename: `.data/users.db`,
     autoload: true,
   });
-  users.findOne({ email: req.cookies.user }, function (err, doc) {
+  users.findOne({ user: req.cookies.user }, function (err, doc) {
     if (err) {
       console.log('error de database');
     } else {
@@ -29,14 +29,14 @@ router.post("/dataprofesional", function (req, res, next) {
         credencial3: req.body.credencial3,
       };
       users.update(
-        { email: req.cookies.user },
+        { user: req.cookies.user },
         { $set: {...data } },
         {},
         function (err) {
           if (err) {
             console.log('error de database');
           } else {
-            res.send({ messageType: "success", message: "success" });
+            res.send({ message: "success", details: "success" });
           }
         }
       );

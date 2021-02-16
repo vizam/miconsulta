@@ -4,22 +4,29 @@ block head
   script(src='/javascripts/gui.js')
 block content
   //Navigation bar
-  div.w3-bar.w3-theme.w3-large(style='position: sticky; top: 0')
+  div.w3-bar.w3-theme.w3-large.noprint(style='position: sticky; top: 0')
     a.w3-bar-item.w3-button.w3-hover-white(href="/")
       span.fas.fa-home
     span.w3-bar-item.w3-wide Historia Clínica
-    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/users/logout")
+    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/users/logout" title='Salir')
       span.fas.fa-sign-out-alt
-    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/ajustes")
+    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/ajustes" title='Ajustes')
       span.fas.fa-user-cog
+    a.w3-bar-item.w3-button.w3-right.w3-hover-white(href="/records" title='Buscar registro')
+      span.fas.fa-search
   // Some code
-  - 
-    let hoy = new Date();
-    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
-      'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  -
+    var hoy = new Date();
+    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     let nacimiento = new Date(fdn);
     let años = hoy.getFullYear() - nacimiento.getFullYear();
     let ajuste = hoy.getMonth() >= nacimiento.getMonth() && hoy.getDate() >= nacimiento.getDate() ? 0 : -1;
+    //let evaluacion = new Date(stamp);
+  // Printer Only
+  header.print
+    hr.print(style='height: 10px; background-color: DodgerBlue; margin-top: 0; margin-bottom: 0' )
+    span.w3-block.w3-right-align #{`${hoy.getDate()} de ${meses[hoy.getMonth()]} de ${hoy.getFullYear()} `}
+    h1.w3-right-align Informe Médico
   // Content
   div.w3-auto.w3-padding
     ul.w3-ul.w3-section.w3-card-4.w3-large
@@ -38,10 +45,10 @@ block content
     div#divNotas
       // Conditional Section
       - if (notas.length == 0)
-        header.w3-tooltip
+        section.w3-tooltip
             h1.w3-show-inline-block.w3-margin.fas.fa-info-circle.w3-text-blue
-            h1.w3-show-inline-block.w3-margin No hay Notas almacenadas
-            h2.w3-text.w3-block - Presione el lápiz (arriba) para crearla
+            h1.w3-show-inline-block.w3-margin Desea crear una nota evolutiva ?
+            h2.w3-text.w3-block - Presione el lápiz para crearla
       // ... Content
       - for (let x = 0; x < notas.length; x++)
         - let fecha = new Date(notas[x].stamp);
@@ -49,6 +56,11 @@ block content
           h4.w3-theme.noprint
             span.far.fa-calendar.w3-margin-left.w3-animate-right
             span.w3-margin-left.w3-animate-opacity #{`${fecha.getDate()}-${meses[fecha.getMonth()]}-${fecha.getFullYear()}`}
+          //Printer only
+          h4.print
+            span.far.fa-calendar.w3-margin-left
+            span.w3-margin-left #{`${fecha.getDate()}-${meses[fecha.getMonth()]}-${fecha.getFullYear()}`}
+          // ... Content
           h4 Enfermedad Actual
           p(style="text-indent: 10pt") #{ notas[x].enfactual }
           h4 Antecedentes
@@ -67,27 +79,31 @@ block content
     - for (let x = 0; x < notas.length ; x++)
       a.w3-button.w3-hover-white(href='javascript: void(0)') #{x+1}
     span.fas.fa-angle-double-right.w3-margin-left(title=`Shift + Right`)
-  // Includes
-  include panelinfo.pug
-  include newnote.pug
   // Floating Buttons
-  a.w3-circle.w3-button.w3-blue.w3-large(style='position: fixed; top: 30%; right: 5%' href='/records')
-    span.fas.fa-search
-  button.w3-circle.w3-button.w3-blue.w3-large(style='position: fixed; top: 40%; right: 5%' onclick='document.getElementById("modalInput").style.display = "block"')
+  button.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 40%; right: 5%' onclick='document.getElementById("modalInput").style.display = "block"')
     span.fas.fa-pencil-alt
-  a.w3-circle.w3-button.w3-blue.w3-large(style='position: fixed; top: 50%; right: 5%' onclick='setUrl(event)')
+    span.w3-text
+  a#printer.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 50%; right: 5%' onclick='setUrl(event)')
     span.fas.fa-print
-  button.w3-circle.w3-button.w3-blue.w3-large(style='position: fixed; top: 60%; right: 5%')
+  a#mailer.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 60%; right: 5%' onclick='setUrl(event)')
     span.far.fa-envelope
-  //
+  // Includes
+  include newnote.pug
+  include panelinfo.pug
+  include pieinforme.pug
 
   script.
-    document.querySelector('body').classList.add('w3-theme-l4');
-    window.onload = function () {
+    window.onload = function() {
+      document.querySelector('body').classList.toggle('w3-theme-l4');
       paginarNotas();
       panelInformativo();
     }
-    //window.onbeforeprint = poblarInforme;
+    window.onbeforeprint = function() {
+      document.querySelector('body').classList.toggle('w3-theme-l4');
+    }
+    window.onafterprint = function() {
+      document.querySelector('body').classList.toggle('w3-theme-l4');
+    }
     document.onkeydown = paginadorTeclas;
 
 

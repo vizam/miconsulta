@@ -15,14 +15,14 @@ function almacenarDatosProfesionales(event) {
     .then(function (response) {
       return response.json();
     })
-    .then(function (respuesta) {
-      document.getElementById('type').innerHTML = respuesta.messageType;
-      document.getElementById('msg').innerHTML = respuesta.message;
+    .then(function (response) {
+      document.getElementById('message').innerHTML = response.message;
+      document.getElementById('details').innerHTML = response.details;
       panelInformativo();
     })
     .catch(function (error) {
-      document.getElementById('type').innerHTML = 'warning';
-      document.getElementById('msg').innerHTML = 'networkdown';
+      document.getElementById('message').innerHTML = 'warning';
+      document.getElementById('details').innerHTML = 'networkdown';
       panelInformativo();
       /* setTimeout(function() {
         window.location.replace('/users');  
