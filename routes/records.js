@@ -1,112 +1,140 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var Datastore = require('nedb');
+var Datastore = require("nedb");
 
-router.all('*', (req, res, next) => {
+router.all("*", (req, res, next) => {
   if (!req.cookies.user) {
-    res.redirect('/users/login');
+    res.redirect("/users");
   } else {
     next();
   }
 });
 
-router.get('/', (req, res, next) => {
-  if (!req.query.id) {
-    res.render('queryrecord');
-  } else {
-    next();
-  }
-});
-
-router.get('/', (req, res, next) => {
-  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
-  patients.findOne({ id: req.query.id }, (err, doc) => {
-    if (!doc) {
-      res.render('newrecord', {
-        id: req.query.id,
-        messageType: 'info',
-        message: 'newrecord'
+router.get(
+  "/",
+  function (req, res, next) {
+    if (!req.query.id) {
+      res.render("queryrecord", {
+        message: req.query.message,
+        details: req.query.details,
       });
-    } else {
-      res.render('record', doc);
-    }
-  });
-});
-
-router.get('/:msgtype/:msgdetails', (req, res, next) => {
-  res.render('queryrecord', {
-    messageType: req.params.msgtype,
-    message: req.params.msgdetails
-  });
-});
-
-router.get('/:id/:msgtype/:msgdetails', (req, res, next) => {
-  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
-  patients.findOne({ id: req.params.id }, (err, doc) => {
-    res.locals.messageType = req.params.msgtype;
-    res.locals.message = req.params.msgdetails;
-    res.render('record', doc);
-  });
-});
-
-router.post('/storerecord', (req, res, next) => {
-  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
-  patients.findOne({ id: req.body.id }, (err, doc) => {
-    if (doc) {
-      res.redirect('/records/warning/error');
     } else {
       next();
     }
+  },
+  function (req, res, next) {
+    let patients = new Datastore({
+      filename: `.data/${req.cookies.user}.db`,
+      autoload: true,
+    });
+    patients.findOne({ id: req.query.id }, function (err, doc) {
+      if (err) {
+        console.log("error de database");
+      } else if (!doc) {
+        res.redirect(
+          `/records/newrecord?id=${req.query.id}&message=info&details=newrecord`
+        );
+      } else {
+        res.locals.paciente = doc;
+        res.locals.message = req.query.message;
+        res.locals.details = req.query.details;
+        next();
+      }
+    });
+  },
+  function (req, res, next) {
+    let usuarios = new Datastore({
+      filename: ".data/users.db",
+      autoload: true,
+    });
+    usuarios.findOne({ user: req.cookies.user }, function (err, doc) {
+      if (err) {
+        console.log("se produjo un error de database");
+      } else {
+        res.locals.doctor = doc;
+        res.render('record', {...res.locals.paciente});
+      }
+    });
+  }
+);
+
+router.get("/newrecord", function (req, res, next) {
+  res.render("newrecord", {
+    id: req.query.id,
+    message: req.query.message,
+    details: req.query.details,
   });
 });
 
-router.post('/storerecord', (req, res, next) => {
-  let patients = new Datastore({ filename: `${req.cookies.user}.db`, autoload: true });
-  let record = {
-    id: req.body.id,
-    nombre: req.body.nombre,
-    apellido: req.body.apellido,
-    fdn: req.body.fdn,
-    tel: req.body.tel,
-    email: req.body.email,
-    antecedentes: req.body.antecedentes,
-    notas: []
-  };
-  patients.insert(record, (error, newRecord) => {
-    if (error) {
-      res.redirect('/records/warning/error');
-    } else {
-      res.redirect(`/records/${newRecord.id}/success/success`);
-    }
-  });
-});
+router.post(
+  "/storerecord",
+  function (req, res, next) {
+    let patients = new Datastore({
+      filename: `.data/${req.cookies.user}.db`,
+      autoload: true,
+    });
+    patients.findOne({ id: req.body.id }, function (err, doc) {
+      if (err) {
+        console.log("Database error !");
+      } else if (doc) {
+        res.redirect("/records?message=warning&details=invalidrecord");
+      } else {
+        next();
+      }
+    });
+  },
+  function (req, res, next) {
+    let patients = new Datastore({
+      filename: `.data/${req.cookies.user}.db`,
+      autoload: true,
+    });
+    let record = {
+      id: req.body.id,
+      nombre: req.body.nombre,
+      apellido: req.body.apellido,
+      fdn: req.body.fdn,
+      tel: req.body.tel,
+      email: req.body.email,
+      antecedentes: req.body.antecedentes,
+      notas: [],
+    };
+    patients.insert(record, function (error, newRecord) {
+      if (error) {
+        console.log("Dabatase error");
+      } else {
+        res.redirect(`/records?id=${newRecord.id}`);
+      }
+    });
+  }
+);
 
-router.post('/storenote', (req, res, next) => {
-  let patients = new Datastore(
-    {
-      filename: `${req.cookies.user}.db`,
-      autoload: true
-    }
-  );
-  let nota =
-  {
+router.post("/storenote", function (req, res, next) {
+  let patients = new Datastore({
+    filename: `.data/${req.cookies.user}.db`,
+    autoload: true,
+  });
+  let nota = {
     stamp: Date.now(),
     enfactual: req.body.enfactual,
     exfisico: req.body.exfisico,
     excomple: req.body.excomple,
-    enfactual: req.body.enfactual,
-    diagnosticos: req.body.diagnosticos,
-    tratamiento: req.body.tratamiento
+    diagnostico: req.body.diagnostico,
+    tratamiento: req.body.tratamiento,
   };
-  patients.update({ id: req.body.id }, { $push: { notas: nota } }, {}, (err) => {
-    if (err) {
-      res.redirect(`/records/${req.body.id}/warning/error`);
-    } else {
-      res.redirect(`/records/${req.body.id}/success/storednote`);
+  patients.update(
+    { id: req.body.id },
+    { $push: { notas: nota } },
+    {},
+    function (err) {
+      if (err) {
+        console.log("Database Error");
+      } else {
+        res.redirect(
+          `/records?id=${req.body.id}&message=success&details=success`
+        );
+      }
     }
-  });
+  );
 });
-
-
 
 module.exports = router;

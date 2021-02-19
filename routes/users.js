@@ -2,90 +2,89 @@ var express = require("express");
 var router = express.Router();
 var Datastore = require("nedb");
 
-router.get("/", (req, res, next) => {
+router.get("/", function (req, res, next) {
   if (!req.cookies.user) {
-    res.render("login");
+    res.render("login", {
+      message: req.query.message,
+      details: req.query.details,
+    });
   } else {
-    res.redirect("/records");
+    res.redirect("/records?message=welcome&details=welcome");
   }
 });
 
-router.get("/:msgtype/:msgdetails", (req, res, next) => {
-  res.render("login", {
-    messageType: req.params.msgtype,
-    message: req.params.msgdetails,
-  });
-});
-
-router.get("/register", function (req, res, next) {
-  res.render("register");
-});
-
-router.get("/register/:msgtype/:msgdetails", function (req, res, next) {
-  res.render("register", {
-    messageType: req.params.msgtype,
-    message: req.params.msgdetails,
-  });
-});
+router.post(
+  "/login",
+  function (req, res, next) {
+    var users = new Datastore({ filename: ".data/users.db", autoload: true });
+    users.findOne({ user: req.body.user }, function (err, doc) {
+      if (err) {
+        console.log("error de database");
+      } else if (!doc) {
+        res.redirect("/users?message=warning&details=noemail");
+      } else if (req.body.password != doc.password) {
+        res.redirect("/users?message=warning&details=wrongpass");
+      } else {
+        next();
+      }
+    });
+  },
+  function (req, res, next) {
+    res.cookie("user", req.body.user, { httpOnly: true });
+    res.redirect("/records?message=welcome&details=welcome");
+  }
+);
 
 router.get("/logout", (req, res, next) => {
   res.clearCookie("user");
-  res.render("login");
+  res.render("home");
 });
 
-router.post("/login", function (req, res, next) {
-  var users = new Datastore({ filename: "users.db", autoload: true });
-  var email = req.body.email;
-  var password = req.body.password;
-  users.findOne({ email: email }, (err, doc) => {
-    if (!doc) {
-      res.redirect("/users/warning/noemail");
-    } else if (password != doc.password) {
-      res.redirect("/users/warning/wrongpass");
-    } else {
-      res.cookie("user", doc.email);
-      res.redirect("/records/welcome/welcome");
-    }
+router.get("/register", function (req, res, next) {
+  res.render("register", {
+    message: req.query.message,
+    details: req.query.details,
   });
 });
 
-router.post("/register", function (req, res, next) {
-  if (req.body.code != "zv4p") {
-    res.redirect("/users/register/warning/badcode");
-  } else {
-    next();
-  }
-});
-
-router.post("/register", (req, res, next) => {
-  var users = new Datastore({ filename: "users.db", autoload: true });
-  var newUser = {
-    email: req.body.email,
-    password: req.body.password,
-  };
-  users.findOne({ email: newUser.email }, (err, doc) => {
-    if (doc) {
-      res.redirect("/users/register/warning/bademail");
+router.post(
+  "/storeuser",
+  function (req, res, next) {
+    if (req.body.code != "zv4p") {
+      res.redirect("/users/register?message=warning&details=badcode");
     } else {
       next();
     }
-  });
-});
-
-router.post("/register", (req, res, next) => {
-  var users = new Datastore({ filename: "users.db", autoload: true });
-  var user = {
-    email: req.body.email,
-    password: req.body.password,
-  };
-  users.insert(user, (err, newDoc) => {
-    if (err) {
-      res.redirect("/users/register/warning/error");
-    } else {
-      res.cookie("user", newDoc.email);
-      res.redirect("/records/success/success");
-    }
-  });
-});
+  },
+  function (req, res, next) {
+    var users = new Datastore({ filename: ".data/users.db", autoload: true });
+    var newUser = {
+      user: req.body.email,
+      password: req.body.password,
+    };
+    users.findOne({ user: newUser.email }, (err, doc) => {
+      if (doc) {
+        res.redirect("/users/register?message=warning&details=bademail");
+      } else {
+        next();
+      }
+    });
+  },
+  function (req, res, next) {
+    var users = new Datastore({ filename: ".data/users.db", autoload: true });
+    var newUser = {
+      user: req.body.email,
+      password: req.body.password,
+    };
+    users.insert(newUser, (err, newDoc) => {
+      if (err) {
+        console.log("error de database");
+      } else {
+        res.cookie("user", newDoc.user, { httpOnly: true });
+        res.redirect("/records");
+      }
+    });
+  }
+);
 
 module.exports = router;

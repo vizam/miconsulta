@@ -1,9 +1,12 @@
-table.w3-center.print(style="width: 100%; border: 1px solid; border-collapse: collapse; line-height: normal")
+// Foot
+hr.print(style='height: 5px; background-color: DodgerBlue; margin-bottom: 0; margin-top: 0')
+table.w3-table.w3-tiny.print
   tr
-    td#medicoNombre(style="width: 33%; font-weight: bold;") (Configure sus Datos)
-    td#medicoFirma(style="width: 33%; border-left: 1px solid;" rowspan="3") (Firma)
-    td#medicoSello(style="width:33%; border-left: 1px solid;" rowspan="3") (Sello)
+    th Médico Tratante
+    th Firma
   tr
-    td#medicoEspecialidad
-  tr
-    td#medicoCredenciales
+    td #{doctor.grado || 'DATOS NO CONFIGURADOS !'}&nbsp;#{doctor.nombre}&nbsp;#{doctor.apellido}<br>
+      |#{doctor.especialidad}<br>
+      |#{doctor.credencial1} #{doctor.credencial2} #{doctor.credencial3}
+    td: img#firma(src='' width='120px' height='60px')
+hr.print

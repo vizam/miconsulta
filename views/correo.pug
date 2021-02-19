@@ -1,0 +1,40 @@
+doctype html
+html(lang='en')
+  head(charset='UTF-8')
+    title Mi Consulta
+    meta(name='viewport' content='width=device-width,initial-scale=1')
+  //Some Code
+  -
+    var hoy = new Date();
+    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    let nacimiento = new Date(paciente.fdn);
+    let años = hoy.getFullYear() - nacimiento.getFullYear();
+    let ajuste = hoy.getMonth() >= nacimiento.getMonth() && hoy.getDate() >= nacimiento.getDate() ? 0 : -1;
+    let evaluacion = new Date(paciente.stamp);
+  // Content
+  body
+    hr(style='height: 10px; background-color: DodgerBlue' )
+    span Informe: #{`${hoy.getDate()} de ${meses[hoy.getMonth()]} de ${hoy.getFullYear()} `} <br>
+    span Consulta: #{`${evaluacion.getDate()} de ${meses[evaluacion.getMonth()]} de ${evaluacion.getFullYear()} `}<br>
+    h1 Informe Médico
+    ul(style='text-transform: capitalize')
+      li Id:&nbsp; #{paciente.id}
+      li Nombre:&nbsp; #{paciente.nombre}&nbsp;#{paciente.apellido}
+      li Edad:&nbsp; #{años + ajuste}años
+    hr(style='width: 15%; height: 5px; background-color: DodgerBlue; margin-left: 0' )
+    h3 Motivo de consulta
+    p(style='white-space: pre-wrap') #{paciente.enfactual}
+    h3 Antecedentes
+    p(style='white-space: pre-wrap') #{paciente.antecedentes}
+    h3 Examen Físico
+    p(style='white-space: pre-wrap') #{paciente.exfisico}
+    h3 Exámenes Complementarios
+    p(style='white-space: pre-wrap') #{paciente.excomple}
+    h3 Diagnósticos
+    p(style='white-space: pre-wrap') #{paciente.diagnostico}
+    h3 Tratamiento
+    p(style='white-space: pre-wrap') #{paciente.tratamiento}
+    hr(style='width: 15%; height: 5px; background-color: DodgerBlue; margin-left: 0' )
+    // Foot (hotmail configured... hopefully)
+
+  
