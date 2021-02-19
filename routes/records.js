@@ -1,4 +1,3 @@
-const { response } = require("express");
 var express = require("express");
 var router = express.Router();
 var Datastore = require("nedb");
@@ -37,8 +36,9 @@ router.get(
         );
       } else {
         res.locals.paciente = doc;
+        res.locals.message = req.query.message;
+        res.locals.details = req.query.details;
         next();
-        //res.render("record", doc);
       }
     });
   },
@@ -118,7 +118,6 @@ router.post("/storenote", function (req, res, next) {
     enfactual: req.body.enfactual,
     exfisico: req.body.exfisico,
     excomple: req.body.excomple,
-    enfactual: req.body.enfactual,
     diagnostico: req.body.diagnostico,
     tratamiento: req.body.tratamiento,
   };

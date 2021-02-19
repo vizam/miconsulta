@@ -45,7 +45,7 @@ block content
     div#divNotas
       // Conditional Section
       - if (notas.length == 0)
-        section.w3-tooltip
+        section.w3-tooltip.noprint
             h1.w3-show-inline-block.w3-margin.fas.fa-info-circle.w3-text-blue
             h1.w3-show-inline-block.w3-margin Desea crear una nota evolutiva ?
             h2.w3-text.w3-block - Presione el lápiz para crearla
@@ -73,6 +73,8 @@ block content
           p #{ notas[x].diagnostico }
           h4 Tratamiento
           p #{ notas[x].tratamiento }
+    //Pie
+    include pieinforme.pug
   // Pagination of notes
   div#paginador.w3-bar.w3-center.noprint(onclick='cambiarPagina(event)' style="position: fixed; bottom: 20px;")
     span.fas.fa-angle-double-left.w3-margin-right(title=`Shift + Left`)
@@ -80,23 +82,27 @@ block content
       a.w3-button.w3-hover-white(href='javascript: void(0)') #{x+1}
     span.fas.fa-angle-double-right.w3-margin-left(title=`Shift + Right`)
   // Floating Buttons
-  button.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 40%; right: 5%' onclick='document.getElementById("modalInput").style.display = "block"')
+  a.w3-circle.w3-button.w3-blue.w3-large.noprint(href='/records' style='position: fixed; top: 30%; right: 5%' title='Buscar registro')
+    span.fas.fa-search
+  button.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 40%; right: 5%' onclick='document.getElementById("modalInput").style.display = "block"' title='Crear nota')
     span.fas.fa-pencil-alt
     span.w3-text
-  a#printer.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 50%; right: 5%' onclick='setUrl(event)')
+  a.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 50%; right: 5%' onclick='window.print()' title='Imprimir')
     span.fas.fa-print
-  a#mailer.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 60%; right: 5%' onclick='setUrl(event)')
+  a.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 60%; right: 5%' href='javascript: void(0)' onclick='document.getElementById("modalMailer").style.display = "block"' title='Enviar Correo')
     span.far.fa-envelope
   // Includes
   include newnote.pug
+  include mailer.pug
   include panelinfo.pug
-  include pieinforme.pug
 
   script.
     window.onload = function() {
       document.querySelector('body').classList.toggle('w3-theme-l4');
       paginarNotas();
       panelInformativo();
+      cargarFirma();
+      
     }
     window.onbeforeprint = function() {
       document.querySelector('body').classList.toggle('w3-theme-l4');

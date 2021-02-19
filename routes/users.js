@@ -2,30 +2,15 @@ var express = require("express");
 var router = express.Router();
 var Datastore = require("nedb");
 
-
-
-router.get("/", (req, res, next) => {
+router.get("/", function (req, res, next) {
   if (!req.cookies.user) {
     res.render("login", {
       message: req.query.message,
-      details: req.query.details
+      details: req.query.details,
     });
   } else {
     res.redirect("/records?message=welcome&details=welcome");
   }
-});
-
-router.get("/register", function (req, res, next) {
-  res.render("register", {
-    message: req.query.message,
-    details: req.query.details
-  });
-});
-
-
-router.get("/logout", (req, res, next) => {
-  res.clearCookie("user");
-  res.render("home");
 });
 
 router.post(
@@ -45,12 +30,25 @@ router.post(
     });
   },
   function (req, res, next) {
-    res.cookie("user", req.body.user, {httpOnly: true});
+    res.cookie("user", req.body.user, { httpOnly: true });
     res.redirect("/records?message=welcome&details=welcome");
   }
 );
 
-router.post("/register",
+router.get("/logout", (req, res, next) => {
+  res.clearCookie("user");
+  res.render("home");
+});
+
+router.get("/register", function (req, res, next) {
+  res.render("register", {
+    message: req.query.message,
+    details: req.query.details,
+  });
+});
+
+router.post(
+  "/storeuser",
   function (req, res, next) {
     if (req.body.code != "zv4p") {
       res.redirect("/users/register?message=warning&details=badcode");
@@ -82,12 +80,11 @@ router.post("/register",
       if (err) {
         console.log("error de database");
       } else {
-        res.cookie("user", newDoc.user, {httpOnly: true});
+        res.cookie("user", newDoc.user, { httpOnly: true });
         res.redirect("/records");
       }
     });
   }
 );
-
 
 module.exports = router;

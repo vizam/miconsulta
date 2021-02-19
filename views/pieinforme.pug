@@ -1,11 +1,12 @@
 // Foot
-table.print(style="width: 100%; border: 1px solid; border-collapse: collapse; line-height: normal")
+hr.print(style='height: 5px; background-color: DodgerBlue; margin-bottom: 0; margin-top: 0')
+table.w3-table.w3-tiny.print
   tr
-    td(style="width: 33%; text-align: center; font-size: small") #{doctor.nombre}&nbsp;#{doctor.apellido}<br>
+    th Médico Tratante
+    th Firma
+  tr
+    td #{doctor.grado || 'DATOS NO CONFIGURADOS !'}&nbsp;#{doctor.nombre}&nbsp;#{doctor.apellido}<br>
       |#{doctor.especialidad}<br>
       |#{doctor.credencial1} #{doctor.credencial2} #{doctor.credencial3}
-      //|#{doctor.credencial2}<br>
-      //|#{doctor.credencial3}<br>
-    td(style="width: 33%; border-left: 1px solid") 
-    td(style="width: 33%; border-left: 1px solid") 
+    td: img#firma(src='' width='120px' height='60px')
 hr.print

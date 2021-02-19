@@ -15,23 +15,38 @@ block content
       span.fas.fa-search
   // Content
   div.w3-auto
-    div.w3-section.w3-card-4
-      h1.w3-theme.w3-padding Datos Profesionales 
-      form#formaProfesional.w3-container(method='POST' action='/ajaxapis/dataprofesional' onsubmit='almacenarDatosProfesionales(event)')
-        input.w3-input.w3-section(name="grado" type="text" value=`${grado ? grado : ''}`
-        placeholder="GRADO ACADEMICO (Dr./Mg. S./etc") 
-        input.w3-input.w3-section(name="nombre" type="text" value=`${nombre ? nombre : ''}` placeholder="Nombre")
-        input.w3-input.w3-section(name="apellido" type="text" value=`${apellido ? apellido : ''}` placeholder="Apellido")
-        input.w3-input.w3-section(name="especialidad" type="text" value=`${especialidad ? especialidad : ''}` placeholder="Especialidad")
-        input.w3-input.w3-section(name="credencial1" type="text" value=`${credencial1 ? credencial1 : ''}` placeholder="Ejemplo: CI:11.886.089)")
-        input.w3-input.w3-section(name="credencial2" type="text" value=`${credencial2 ? credencial2 : ''}` placeholder="Ejemplo: MPPS.59808")
-        input.w3-input.w3-section(name="credencial3" type="text" value=`${credencial3 ? credencial3 : ''}` placeholder="Ejemplo: COMEZU.11293")
-        button.w3-button.w3-blue.w3-section(
-        type='submit') Almacenar
-        button.w3-button.w3-section.w3-margin(type='reset') Reset
-    div.w3-section.w3-card-4
-      h1.w3-theme.w3-padding Firma Electrónica
-      form.w3-container
-        input.w3-input(name="firma" type="file" disabled)
-        button.w3-button.w3-blue.w3-section.w3-right(type='submit' disabled) Almacenar
+    div.w3-row-padding.w3-section
+      div.w3-half
+        div.w3-card-4
+          div.w3-container.w3-theme
+            h1 Datos Profesionales 
+          form#formaProfesional.w3-container(method='POST' action='/ajustes/dataprofesional' onsubmit='almacenarDatosProfesionales(event)')
+            input.w3-input.w3-section(name="grado" type="text" value=`${grado ? grado : ''}`
+            placeholder="GRADO ACADEMICO (Dr./Mg. S./etc")
+            input.w3-input.w3-section(name="nombre" type="text" value=`${nombre ? nombre : ''}` placeholder="Nombre")
+            input.w3-input.w3-section(name="apellido" type="text" value=`${apellido ? apellido : ''}` placeholder="Apellido")
+            input.w3-input.w3-section(name="especialidad" type="text" value=`${especialidad ? especialidad : ''}` placeholder="Especialidad")
+            input.w3-input.w3-section(name="credencial1" type="text" value=`${credencial1 ? credencial1 : ''}` placeholder="Ejemplo: CI:11.886.089)")
+            input.w3-input.w3-section(name="credencial2" type="text" value=`${credencial2 ? credencial2 : ''}` placeholder="Ejemplo: MPPS.59808")
+            input.w3-input.w3-section(name="credencial3" type="text" value=`${credencial3 ? credencial3 : ''}` placeholder="Ejemplo: COMEZU.11293")
+            button.w3-button.w3-blue.w3-section(
+            type='submit') Almacenar
+            button.w3-button.w3-section.w3-margin(type='reset') Reset
+      div.w3-half
+        div.w3-card-4
+          div.w3-container.w3-theme
+            h1 Firma Electrónica
+          form.w3-container
+            input#archivo.w3-input(name="firma" type="file" onchange='showPreview(event)')
+            button.w3-button.w3-blue.w3-section.w3-right(onclick='storePreview(event)') Almacenar
+            img#firma(src='' accept='image/png, image/jpeg' width='120px' height='60px' style='outline: 1px solid; margin: 10px 10px')
+            h4 Cargue su firma escaneada para que aparezca al pie de los informes
+            ul.w3-ul
+              li Tipo de archivo: jpeg / png
+              li Tamaño máximo: 25 Kbs
+              li Debe guardar una imagen en cada equipo que use
   include panelinfo.pug
+  
+  script.
+    cargarFirma();
+

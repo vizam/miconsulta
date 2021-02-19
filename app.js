@@ -8,7 +8,6 @@ var usersRouter = require('./routes/users');
 var homeRouter = require('./routes/home');
 var recordsRouter = require('./routes/records');
 var ajustesRouter = require('./routes/ajustes');
-var ajaxapisRouter = require('./routes/ajaxapis')
 var reportesRouter = require('./routes/reportes');
 
 var app = express();
@@ -27,7 +26,6 @@ app.use('/', homeRouter);
 app.use('/users', usersRouter);
 app.use('/records', recordsRouter);
 app.use('/ajustes', ajustesRouter);
-app.use('/ajaxapis', ajaxapisRouter);
 app.use('/reportes', reportesRouter);
 
 // catch 404 and forward to error handler

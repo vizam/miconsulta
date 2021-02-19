@@ -1,0 +1,22 @@
+div#modalMailer.w3-modal
+  div.w3-modal-content.w3-animate-zoom
+    span.w3-button.w3-right.w3-hover-white.w3-theme(
+    onclick="document.getElementById('modalMailer').style.display='none'") &times;
+    h1.w3-padding.w3-theme Enviar Correo Electrónico
+    div.w3-container
+      form#mailerForm.w3-container(method='POST' action='' onsubmit='enviarCorreo(event)')
+        p
+          label: b Destinatario:
+          input.w3-input(type='email' name='destinatario' value=`${email}` required) 
+        p
+          label: b Usuario de Microsoft Hotmail / Outlook
+          input.w3-input(type='email' name='usuario' required) 
+        p
+          label: b Password
+          input.w3-input(type='password' name='password' required)
+        p
+          button.w3-button.w3-blue(type='submit') Enviar
+        h4 MICROSOFT Hotmail / Outlook es la única opción válida por ahora
+            ul.w3-ul
+              li Este correo aún no anexa los datos del doctor, ni la firma
+              li Como opción puede imprimir el informe como PDF, y enviarlo con su cliente de correo preferido
