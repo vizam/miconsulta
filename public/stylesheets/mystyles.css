@@ -20,6 +20,7 @@ h1, h2, h3 {
 p {
     page-break-before: avoid;
     white-space: pre-wrap;
+    text-align: justify;
     
 }
 table, img, ul, ol {
