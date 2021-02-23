@@ -40,8 +40,11 @@ block content
         span.far.fa-clock
         span.w3-margin #{años + ajuste}&nbsp;años
       li
+        span.far.fa-envelope
+        span.w3-margin #{email} 
+      li
         span.fas.fa-mobile-alt
-        a.w3-margin(href=`tel:${tel}`) &nbsp;#{tel} 
+        a.w3-margin(href=`tel:${tel}`) &nbsp;#{tel}
     div#divNotas
       // Conditional Section
       - if (notas.length == 0)
