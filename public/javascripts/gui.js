@@ -29,7 +29,7 @@ function cambiarPagina(event) {
  * Set the url params to render a mail with patient id and current note
  */
 
-  /* if (anchor.id == "printer") {
+/* if (anchor.id == "printer") {
     anchor.href =
       paginaActiva >= 0
         ? `/reportes/${patient}/${paginaActiva}/printer`
@@ -42,7 +42,6 @@ function cambiarPagina(event) {
         : "javascript: void(0)";
     anchor.target = paginaActiva >= 0 ? "_blank" : "_self";
   } */
-
 
 /**
  * @param {object} e: event from onsubmit
@@ -123,7 +122,7 @@ function panelInformativo() {
       networkdown: "El server no responde... intente mas tarde",
       invalidfile: "El archivo no es válido",
       nodatos: "No hay suficientes datos para completar esta accion",
-      mailed: "Correo electrónico enviado con éxito... al parecer =p"
+      mailed: "Correo electrónico enviado con éxito... al parecer =p",
     };
     let panel = document.querySelector("#info");
     panel.style.backgroundColor = panelColor[message];
@@ -165,8 +164,7 @@ function storePreview(ev) {
   let archivo = document.querySelector("#archivo").files[0];
   if (
     archivo.size > 256000 ||
-    archivo.type != "image/jpeg" ||
-    archivo.type != "image/png"
+    (archivo.type != "image/jpeg" && archivo.type != "image/png")
   ) {
     document.querySelector("#message").innerHTML = "warning";
     document.querySelector("#details").innerHTML = "invalidfile";
@@ -179,6 +177,7 @@ function storePreview(ev) {
     localStorage.setItem("firma", data);
     document.querySelector("#message").innerHTML = "success";
     document.querySelector("#details").innerHTML = "success";
+    panelInformativo();
   };
   reader.readAsDataURL(archivo);
 }
@@ -197,31 +196,28 @@ function cargarFirma() {
  */
 
 function enviarCorreo(e) {
-  console.log('aqui estoy');
   e.preventDefault();
   let forma = e.target;
   let notas = document.querySelectorAll("#divNotas > div");
   let pacienteID = document.querySelector("#patientId").innerHTML;
   let paginaActiva;
-  let firma = document.querySelector('#firma').src;
+  let firma = document.querySelector("#firma").src;
   for (let x = 0; x < notas.length; x++) {
     if (notas[x].style.display == "block") {
       paginaActiva = x;
-      console.log('pagina es ' + x);
     }
   }
   if (paginaActiva >= 0) {
     forma.action = `/reportes/${pacienteID}/${paginaActiva}`;
-    document.querySelector('#mailerFirma').value = firma;
+    document.querySelector("#mailerFirma").value = firma;
     forma.submit();
   } else {
-    document.querySelector('#message').innerHTML = 'info';
-    document.querySelector('#details').innerHTML = 'nodatos';
-    document.querySelector('#modalMailer').style.display = 'none';
+    document.querySelector("#message").innerHTML = "info";
+    document.querySelector("#details").innerHTML = "nodatos";
+    document.querySelector("#modalMailer").style.display = "none";
     panelInformativo();
   }
 }
-
 
 function paginadorTeclas(event) {
   let paginador = document.querySelectorAll("#paginador > a");
