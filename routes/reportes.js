@@ -47,7 +47,7 @@ router.post(
         console.log("se produjo un error de database");
       } else {
         res.locals.doctor = doc;
-        res.locals.firma = req.body.firma;
+        res.locals.firma = req.body.firma || '';
         //res.render('correo');
         next();
       }

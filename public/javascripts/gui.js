@@ -186,9 +186,8 @@ function storePreview(ev) {
  * @param {*} event
  */
 function cargarFirma() {
-  let domString = localStorage.getItem("firma");
-  let contenedor = document.querySelector("#firma");
-  contenedor.src = domString;
+  let domString = localStorage.getItem("firma") ?? 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D';
+  document.querySelector("#firma").src = domString;
 }
 /**
  *
