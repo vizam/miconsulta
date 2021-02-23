@@ -31,26 +31,3 @@ function almacenarDatosProfesionales(event) {
       }, 5000); */
     });
 }
-function enviarCorreo(e) {
-  console.log('aqui estoy');
-  e.preventDefault();
-  let forma = e.target;
-  let notas = document.querySelectorAll("#divNotas > div");
-  let pacienteID = document.querySelector("#patientId").innerHTML;
-  let paginaActiva;
-  for (let x = 0; x < notas.length; x++) {
-    if (notas[x].style.display == "block") {
-      paginaActiva = x;
-      console.log('pagina es ' + x);
-    }
-  }
-  if (paginaActiva >= 0) {
-    forma.action = `/reportes/${pacienteID}/${paginaActiva}`;
-    forma.submit();
-  } else {
-    document.querySelector('#message').innerHTML = 'info';
-    document.querySelector('#details').innerHTML = 'nodatos';
-    document.querySelector('#modalMailer').style.display = 'none';
-    panelInformativo();
-  }
-}

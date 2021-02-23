@@ -196,6 +196,33 @@ function cargarFirma() {
  * @param {*} event
  */
 
+function enviarCorreo(e) {
+  console.log('aqui estoy');
+  e.preventDefault();
+  let forma = e.target;
+  let notas = document.querySelectorAll("#divNotas > div");
+  let pacienteID = document.querySelector("#patientId").innerHTML;
+  let paginaActiva;
+  let firma = document.querySelector('#firma').src;
+  for (let x = 0; x < notas.length; x++) {
+    if (notas[x].style.display == "block") {
+      paginaActiva = x;
+      console.log('pagina es ' + x);
+    }
+  }
+  if (paginaActiva >= 0) {
+    forma.action = `/reportes/${pacienteID}/${paginaActiva}`;
+    document.querySelector('#mailerFirma').value = firma;
+    forma.submit();
+  } else {
+    document.querySelector('#message').innerHTML = 'info';
+    document.querySelector('#details').innerHTML = 'nodatos';
+    document.querySelector('#modalMailer').style.display = 'none';
+    panelInformativo();
+  }
+}
+
+
 function paginadorTeclas(event) {
   let paginador = document.querySelectorAll("#paginador > a");
   let notas = document.querySelectorAll("#divNotas > div");

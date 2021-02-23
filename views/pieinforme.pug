@@ -1,9 +1,8 @@
 // Foot
-hr.print(style='height: 5px; background-color: DodgerBlue; margin-bottom: 0; margin-top: 0')
 table.w3-table.w3-tiny.print
   tr
-    th Médico Tratante
-    th Firma
+    td(colspan='2')
+      hr(style='border-top: 3px solid DodgerBlue')
   tr
     td #{doctor.grado || 'DATOS NO CONFIGURADOS !'}&nbsp;#{doctor.nombre}&nbsp;#{doctor.apellido}<br>
       |#{doctor.especialidad}<br>

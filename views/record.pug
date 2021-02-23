@@ -24,11 +24,11 @@ block content
     //let evaluacion = new Date(stamp);
   // Printer Only
   header.print
-    hr.print(style='height: 10px; background-color: DodgerBlue; margin-top: 0; margin-bottom: 0' )
+    hr(style='border-top: 6px solid DodgerBlue; margin-top: 0')
     span.w3-block.w3-right-align #{`${hoy.getDate()} de ${meses[hoy.getMonth()]} de ${hoy.getFullYear()} `}
     h1.w3-right-align Informe Médico
   // Content
-  div.w3-auto.w3-padding
+  div.w3-content.w3-padding(style='max-width: 680px')
     ul.w3-ul.w3-section.w3-card-4.w3-large
       li
         span.fas.fa-fingerprint
