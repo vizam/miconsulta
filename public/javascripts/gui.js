@@ -147,6 +147,33 @@ function retirarPanel(panel) {
   }, 7000);
 }
 /**
+ * Respalda la nota en progreso, localmente, cada 10 seg
+ * @param {object} e 
+ */
+function respaldarNota(e) {
+  nota.removeEventListener('keydown', respaldarNota);
+  let areas = document.querySelectorAll("#modalNote textarea");
+  setTimeout( function() {
+    for (let area of areas) {
+      localStorage.setItem(area.name, area.value);
+    } 
+    nota.addEventListener('keydown', respaldarNota);
+  }, 10000);
+}
+/**
+ * Si fuera necesario, recupera la nota que se guardo localmente
+ * @param {object} e 
+ */
+function recuperarNota(e) {
+  let campos = document.querySelectorAll("#modalNote textarea");
+  let confirmado = window.confirm("Esta acción borrará lo que ha escrito hasta ahora, y tratará de recuperar datos previos. Desea continuar ?");
+  if (confirmado) {
+    for (let campo of campos) {
+      campo.value = localStorage.getItem(campo.name);
+    }
+  }
+}
+/**
  *
  */
 function showPreview(e) {

@@ -21,6 +21,7 @@ block content
     let nacimiento = new Date(fdn);
     let años = hoy.getFullYear() - nacimiento.getFullYear();
     let ajuste = hoy.getMonth() >= nacimiento.getMonth() && hoy.getDate() >= nacimiento.getDate() ? 0 : -1;
+    let edad = años + ajuste;
     //let evaluacion = new Date(stamp);
   // Printer Only
   header.print
@@ -38,7 +39,7 @@ block content
         span.w3-margin #{nombre}&nbsp;#{apellido}
       li
         span.far.fa-clock
-        span.w3-margin #{años + ajuste}&nbsp;años
+        span.w3-margin #{edad}&nbsp;años
       li
         span.far.fa-envelope
         span.w3-margin #{email} 
@@ -87,7 +88,7 @@ block content
   // Floating Buttons
   a.w3-circle.w3-button.w3-blue.w3-large.noprint(href='/records' style='position: fixed; top: 30%; right: 5%' title='Buscar registro')
     span.fas.fa-search
-  button.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 40%; right: 5%' onclick='document.getElementById("modalInput").style.display = "block"' title='Crear nota')
+  button.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 40%; right: 5%' onclick='document.getElementById("modalNote").style.display = "block"' title='Crear nota')
     span.fas.fa-pencil-alt
     span.w3-text
   a.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 50%; right: 5%' onclick='window.print()' title='Imprimir')
