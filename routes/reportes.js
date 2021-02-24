@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var Datastore = require("nedb");
 var nodemailer = require("nodemailer");
-//var pdf = require("html-pdf");
 
 router.all("*", function (req, res, next) {
   if (!req.cookies.user) {
@@ -64,31 +63,6 @@ router.post(
       }
     });
   },
-  /*function (req, res, next) {
-    let options = {
-      format: 'Letter',
-      border: {
-        top: '2cm',
-        bottom: '2cm',
-        right: '2cm',
-        left: '2cm'
-      },
-      footer: {
-        height: '20mm',
-         contents: {
-          1: 'uno',
-          default: 'default',
-          last: 'Last Page'
-        } 
-      } 
-    }
-    pdf.create(res.locals.html, options).toBuffer(function (err, buffer) {
-      res.locals.pdf = buffer;
-      //res.send(buffer);
-      //res.render('correo');
-      next();
-    }); */
-  //},
   function (req, res, next) {
     var transporter = nodemailer.createTransport({
       service: "Hotmail",
@@ -101,11 +75,10 @@ router.post(
       from: req.body.usuario,
       to: req.body.destinatario,
       subject: "Informe de la consulta de urología",
-      text: 'Saludos, su informe es un archivo adjunto...',
+      html: `<h1>IMPORTANTE:</h1>
+            <p>Para óptimos resultados, <b>DESCARGUE</b> el archivo adjunto antes de abrirlo o imprimirlo</p>`,
       attachments: [
         {
-          //filename: "Resumen.pdf",
-          //content: res.locals.pdf,
           filename: "Resumen.html",
           content: res.locals.html
         },

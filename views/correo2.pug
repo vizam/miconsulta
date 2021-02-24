@@ -1,7 +1,8 @@
 doctype html
-html
-  head
-    meta(meta http-equiv="Content-Type" content="text/html;charset=utf-8")
+html(lang='es')
+  head(charset='UTF-8')
+    title Mi Consulta
+    meta(name='viewport' content='width=device-width,initial-scale=1')
     style.
       @media only screen {
         .button {
@@ -52,7 +53,8 @@ html
     let ajuste = hoy.getMonth() >= nacimiento.getMonth() && hoy.getDate() >= nacimiento.getDate() ? 0 : -1;
     let evaluacion = new Date(paciente.stamp);
   // Content
-  body(style='max-width: 680px; margin: auto; font-family: Verdana,sans-serif; font-size: 15px; line-height: 1.5')
+  body
+    button.button.noprint(style='width: 30%; margin-left: 35%; margin-top: 30px; font-size: x-large' onclick='window.print()') Imprimir
     hr(style='border-top: 6px solid DodgerBlue')
     span(style='float:right; clear: left') Informe: #{`${hoy.getDate()} de ${meses[hoy.getMonth()]} de ${hoy.getFullYear()} `} <br>
     span(style='float:right; clear: right') Consulta: #{`${evaluacion.getDate()} de ${meses[evaluacion.getMonth()]} de ${evaluacion.getFullYear()} `}<br>
@@ -62,18 +64,18 @@ html
       li Nombre:&nbsp; #{paciente.nombre}&nbsp;#{paciente.apellido}
       li Edad:&nbsp; #{años + ajuste}años
     hr(style='border-top: 6px dashed DodgerBlue; width: 30%; margin-left: 0' )
-    h3(style='page-break-after: avoid') Motivo de consulta
-    p(style='page-break-before: avoid; white-space: pre-wrap; text-align: justify') #{paciente.enfactual}
-    h3(style='page-break-after: avoid') Antecedentes
-    p(style='page-break-before: avoid; white-space: pre-wrap; text-align: justify') #{paciente.antecedentes}
-    h3(style='page-break-after: avoid') Examen Físico
-    p(style='page-break-before: avoid; white-space: pre-wrap; text-align: justify') #{paciente.exfisico}
-    h3(style='page-break-after: avoid') Exámenes Complementarios
-    p(style='page-break-before: avoid; white-space: pre-wrap; text-align: justify') #{paciente.excomple}
-    h3(style='page-break-after: avoid') Diagnósticos
-    p(style='page-break-before: avoid; white-space: pre-wrap; text-align: justify') #{paciente.diagnostico}
-    h3(style='page-break-after: avoid') Tratamiento
-    p(style='page-break-before: avoid; white-space: pre-wrap; text-align: justify') #{paciente.tratamiento}
+    h3 Motivo de consulta
+    p #{paciente.enfactual}
+    h3 Antecedentes
+    p #{paciente.antecedentes}
+    h3 Examen Físico
+    p #{paciente.exfisico}
+    h3 Exámenes Complementarios
+    p #{paciente.excomple}
+    h3 Diagnósticos
+    p #{paciente.diagnostico}
+    h3 Tratamiento
+    p #{paciente.tratamiento}
     
     
 

@@ -1,5 +1,5 @@
 // Foot
-table(width='100%' style='font-size: small; page-break-inside: avoid')
+table(width='100%' style='font-size: small')
   tr
     td(colspan='2')
       hr(style='border-top: 3px solid DodgerBlue')
@@ -7,4 +7,4 @@ table(width='100%' style='font-size: small; page-break-inside: avoid')
     td #{doctor.grado || 'DATOS NO CONFIGURADOS !'}&nbsp;#{doctor.nombre}&nbsp;#{doctor.apellido}<br>
       |#{doctor.especialidad}<br>
       |#{doctor.credencial1} #{doctor.credencial2} #{doctor.credencial3}
-    td: img#firma(src=`${firma}` width='120px' height='60px' alt="Sin Firma ? Descargue el archivo antes de abrirlo")
+    td: img#firma(src=`${firma}` width='120px' height='60px')
