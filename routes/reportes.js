@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Datastore = require("nedb");
 var nodemailer = require("nodemailer");
-var pdf = require("html-pdf");
+//var pdf = require("html-pdf");
 
 router.all("*", function (req, res, next) {
   if (!req.cookies.user) {
@@ -64,7 +64,7 @@ router.post(
       }
     });
   },
-  function (req, res, next) {
+  /*function (req, res, next) {
     let options = {
       format: 'Letter',
       border: {
@@ -75,11 +75,11 @@ router.post(
       },
       footer: {
         height: '20mm',
-         /*contents: {
+         contents: {
           1: 'uno',
           default: 'default',
           last: 'Last Page'
-        }*/ 
+        } 
       } 
     }
     pdf.create(res.locals.html, options).toBuffer(function (err, buffer) {
@@ -87,8 +87,8 @@ router.post(
       //res.send(buffer);
       //res.render('correo');
       next();
-    });
-  },
+    }); */
+  //},
   function (req, res, next) {
     var transporter = nodemailer.createTransport({
       service: "Hotmail",
@@ -104,8 +104,10 @@ router.post(
       text: 'Saludos, su informe es un archivo adjunto...',
       attachments: [
         {
-          filename: "Resumen.pdf",
-          content: res.locals.pdf,
+          //filename: "Resumen.pdf",
+          //content: res.locals.pdf,
+          filename: "Resumen.html",
+          content: res.locals.html
         },
       ],
     };
