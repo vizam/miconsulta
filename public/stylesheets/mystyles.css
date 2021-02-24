@@ -1,47 +1,52 @@
 @media print {
-    .noprint {
-        display: none;
-    }
-    h1, h2, h3 {
-        page-break-after: avoid;
-    }
-    p {
-        page-break-before: avoid;
-        white-space: pre-wrap;
-        text-align: justify;
-    }
-    table, img, ul, ol {
-        page-break-inside: avoid;
-    }
-    
+  .noprint {
+    display: none;
+  }
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+  p {
+    page-break-before: avoid;
+    white-space: pre-wrap;
+    text-align: justify;
+  }
+  table,
+  img,
+  ul,
+  ol {
+    page-break-inside: avoid;
+  }
 }
 @page {
-    margin: 2cm;
-    size: auto;
+  margin: 2cm;
+  size: auto;
 }
 
 @media only screen {
-    .print {
-        display: none;
-    }
+  .print {
+    display: none;
+  }
 }
-
-
+p {
+  white-space: pre-wrap;
+  text-align: justify;
+}
 div#informe p[id] {
-    white-space: pre-wrap;
-     
+  white-space: pre-wrap;
 }
 
 input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 textarea {
-    resize: none;
+  resize: none;
 }
 
 .capital {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
