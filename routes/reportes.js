@@ -48,8 +48,8 @@ router.post(
       } else {
         res.locals.doctor = doc;
         res.locals.firma = req.body.firma || '';
-        res.render('correo');
-        //next();
+        //res.render('correo');
+        next();
       }
     });
   },
@@ -64,7 +64,7 @@ router.post(
       }
     });
   },
-  /* function (req, res, next) {
+  /*function (req, res, next) {
     let options = {
       format: 'Letter',
       border: {
