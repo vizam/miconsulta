@@ -2,6 +2,18 @@
     .noprint {
         display: none;
     }
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    p {
+        page-break-before: avoid;
+        white-space: pre-wrap;
+        text-align: justify;
+    }
+    table, img, ul, ol {
+        page-break-inside: avoid;
+    }
+    
 }
 @page {
     margin: 2cm;
@@ -12,19 +24,6 @@
     .print {
         display: none;
     }
-}
-h1, h2, h3 {
-    page-break-after: avoid;
-    page-break-inside: avoid;
-}
-p {
-    page-break-before: avoid;
-    white-space: pre-wrap;
-    text-align: justify;
-    
-}
-table, img, ul, ol {
-    page-break-inside: avoid;
 }
 
 

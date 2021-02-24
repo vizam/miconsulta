@@ -1,15 +1,10 @@
-// Foot, some custom details to work with html-pdf package
-div#pageFooter-first
-  p https://www.urologiamaracaibo.com
-div#pageFooter
-  p https://www.urologiamaracaibo.com
-div#pageFooter-last
-  table(width='100%' style='font-size: small')
-    tr
-      td(colspan='2')
-        hr(style='border-top: 3px solid DodgerBlue')
-    tr
-      td #{doctor.grado || 'DATOS NO CONFIGURADOS !'}&nbsp;#{doctor.nombre}&nbsp;#{doctor.apellido}<br>
-        |#{doctor.especialidad}<br>
-        |#{doctor.credencial1} #{doctor.credencial2} #{doctor.credencial3}
-      td: img#firma(src=`${firma}` width='120px' height='60px')
+// Foot
+table(width='100%' style='font-size: small')
+  tr
+    td(colspan='2')
+      hr(style='border-top: 3px solid DodgerBlue')
+  tr
+    td #{doctor.grado || 'DATOS NO CONFIGURADOS !'}&nbsp;#{doctor.nombre}&nbsp;#{doctor.apellido}<br>
+      |#{doctor.especialidad}<br>
+      |#{doctor.credencial1} #{doctor.credencial2} #{doctor.credencial3}
+    td: img#firma(src=`${firma}` width='120px' height='60px')
