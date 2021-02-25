@@ -50,6 +50,7 @@ html
     let nacimiento = new Date(paciente.fdn);
     let años = hoy.getFullYear() - nacimiento.getFullYear();
     let ajuste = hoy.getMonth() >= nacimiento.getMonth() && hoy.getDate() >= nacimiento.getDate() ? 0 : -1;
+    let edad = años + ajuste;
     let evaluacion = new Date(paciente.stamp);
   // Content
   body(style='max-width: 680px; margin: auto; font-family: Verdana,sans-serif; font-size: 15px; line-height: 1.5')
@@ -60,7 +61,7 @@ html
     ul(style='text-transform: capitalize')
       li Id:&nbsp; #{paciente.id}
       li Nombre:&nbsp; #{paciente.nombre}&nbsp;#{paciente.apellido}
-      li Edad:&nbsp; #{años + ajuste}años
+      li Edad:&nbsp; #{edad} años
     hr(style='border-top: 6px dashed DodgerBlue; width: 30%; margin-left: 0' )
     h3(style='page-break-after: avoid') Motivo de consulta
     p(style='page-break-before: avoid; white-space: pre-wrap; text-align: justify') #{paciente.enfactual}

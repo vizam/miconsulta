@@ -1,12 +1,14 @@
-div#modalInput.w3-modal
+div#modalNote.w3-modal
   div.w3-modal-content.w3-animate-zoom
     span.w3-button.w3-right.w3-hover-white.w3-theme(
-    onclick="document.getElementById('modalInput').style.display='none'") &times;
+    onclick="document.getElementById('modalNote').style.display='none'") &times;
     h1.w3-padding.w3-theme Ingresar Nota
+    div.w3-container
+      span.capital #{nombre}&nbsp;#{apellido}, #{edad} años
     form#noteForm(method='POST' action='/records/storenote')
-    div.w3-row-padding.w3-container
+    div.w3-row-padding
       div.w3-half.w3-section
-        input.w3-hide(name='id' form='noteForm' value=`${id}`)
+        input(name='id' form='noteForm' value=`${id}` hidden)
         label: b Enfermedad Actual
         textarea.w3-input.w3-border(name='enfactual' form='noteForm' rows='6' autofocus)
         label: b Examen Físico
@@ -18,5 +20,11 @@ div#modalInput.w3-modal
         textarea.w3-input.w3-border(name='diagnostico' form='noteForm' rows='6')
         label: b Tratamiento Sugerido
         textarea.w3-input.w3-border(name='tratamiento' rows='6' form='noteForm')
-        button.w3-right.w3-button.w3-blue.w3-section(type='submit' form='noteForm') Save
-        
+        p: button.w3-button.w3-blue(type='submit' form='noteForm') Guardar
+        div.w3-tooltip
+          button.w3-button.w3-red(type='button' form='noteForm' onclick='recuperarNota(event)') Recuperar
+          span.w3-text &nbsp;Perdió los datos ?
+script.
+  let nota = document.querySelector('#modalNote');
+  nota.addEventListener('keydown', respaldarNota);
+
