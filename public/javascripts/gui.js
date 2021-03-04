@@ -26,64 +26,6 @@ function cambiarPagina(event) {
   paginador[pagina].classList.add("w3-theme");
 }
 /**
- * Set the url params to render a mail with patient id and current note
- */
-
-/* if (anchor.id == "printer") {
-    anchor.href =
-      paginaActiva >= 0
-        ? `/reportes/${patient}/${paginaActiva}/printer`
-        : "javascript: void(0)";
-    anchor.target = paginaActiva >= 0 ? "_blank" : "_self";
-  } else {
-    anchor.href = 
-      paginaActiva >= 0
-        ? `/reportes/${patient}/${paginaActiva}/mail`
-        : "javascript: void(0)";
-    anchor.target = paginaActiva >= 0 ? "_blank" : "_self";
-  } */
-
-/**
- * @param {object} e: event from onsubmit
- */
-/* function almacenarDatosProfesionales(e) {
-  e.preventDefault();
-  let elementos = e.target.elements;
-  for (let x of elementos) {
-    localStorage.setItem(x.name, x.value);
-  }
-  document.querySelector('#type').innerHTML = 'success';
-  document.querySelector('#msg').innerHTML = 'success';
-  panelInformativo(); */
-//}
-/**
- * from localStorate, populate patient report foot section
- */
-/* function poblarAjustes() {
-  let elementos = document.querySelectorAll('#datosProfesionales input[name]');
-  for (let x of elementos) {
-    x.value = localStorage.getItem(x.name) ?? "";
-  }
-} */
-/**
- *
- */
-/* function poblarDatosProfesionales() {
-  let grado = localStorage.getItem("grado") ?? "";
-  let nombre = localStorage.getItem("nombre") ?? "";
-  let apellido = localStorage.getItem("apellido") ?? "";
-  let credencial1 = localStorage.getItem("credencial1") ?? "";
-  let credencial2 = localStorage.getItem("credencial2") ?? "";
-  let credencial3 = localStorage.getItem("credencial3") ?? "";
-  let credenciales = `${credencial1} ${credencial2} ${credencial3}`;
-  document.querySelector(
-    "#datosProfesionales"
-  ).innerHTML = `${grado} ${nombre} ${apellido}<br> ${especialidad}`;
-  document.querySelector("#firma").innerHTML =
-    localStorage.getItem("especialidad") ?? "";
-  //document.querySelector("").innerHTML = credenciales;
-} */
-/**
  * @param {string} message kind of message, defined in backend
  * @param {string} details message detail, defined in backend
  */

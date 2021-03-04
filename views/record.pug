@@ -52,12 +52,15 @@ block content
         section.w3-tooltip.noprint
             h1.w3-show-inline-block.w3-margin.fas.fa-info-circle.w3-text-blue
             h1.w3-show-inline-block.w3-margin Desea crear una nota evolutiva ?
-            h2.w3-text.w3-block - Presione el lápiz para crearla
+            h2.w3-text.w3-block Haga click sobre  
+              span.fas.fa-plus
+              span  para crearla 
       // ... Content
       - for (let x = 0; x < notas.length; x++)
         - let fecha = new Date(notas[x].stamp);
         div(style='display: none')
           h4.w3-theme.noprint
+            span(style='float: right') 
             span.far.fa-calendar.w3-margin-left.w3-animate-right
             span.w3-margin-left.w3-animate-opacity #{`${fecha.getDate()}-${meses[fecha.getMonth()]}-${fecha.getFullYear()}`}
           //Printer only
@@ -83,13 +86,13 @@ block content
   div#paginador.w3-bar.w3-center.noprint(onclick='cambiarPagina(event)' style="position: fixed; bottom: 20px;")
     span.fas.fa-angle-double-left.w3-margin-right(title=`Shift + Left`)
     - for (let x = 0; x < notas.length ; x++)
-      a.w3-button.w3-hover-white(href='javascript: void(0)') #{x+1}
+      a.w3-button(href='javascript: void(0)') #{x+1}
     span.fas.fa-angle-double-right.w3-margin-left(title=`Shift + Right`)
   // Floating Buttons
   a.w3-circle.w3-button.w3-blue.w3-large.noprint(href='/records' style='position: fixed; top: 30%; right: 5%' title='Buscar registro')
     span.fas.fa-search
   button.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 40%; right: 5%' onclick='document.getElementById("modalNote").style.display = "block"' title='Crear nota')
-    span.fas.fa-pencil-alt
+    span.fas.fa-plus
     span.w3-text
   a.w3-circle.w3-button.w3-blue.w3-large.noprint(style='position: fixed; top: 50%; right: 5%' onclick='window.print()' title='Imprimir')
     span.fas.fa-print
