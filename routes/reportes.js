@@ -65,7 +65,9 @@ router.post(
   },
   function (req, res, next) {
     var transporter = nodemailer.createTransport({
-      service: "Hotmail",
+      //service: "Hotmail",
+      host: 'smtp-mail.outlook.com',
+      port: 587,
       auth: {
         user: req.body.usuario,
         pass: req.body.password,
